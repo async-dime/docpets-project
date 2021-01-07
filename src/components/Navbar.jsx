@@ -60,10 +60,10 @@ const NavBarLogin = () => {
           </Link>
           <div className="navbar-right">
             <Link to={`/`} className="navbar-text">
-              <h3>Home</h3>
+              <h3 className="navbar-h3">Home</h3>
             </Link>
             <Link to={`/`} className="navbar-text">
-              <h3>Chat</h3>
+              <h3 className="navbar-h3">Chat</h3>
             </Link>
             <form className="navbar-search" onSubmit={searchClinic}>
               <input
@@ -86,7 +86,7 @@ const NavBarLogin = () => {
             </form>
             <NavDropdown 
               title={pic}
-              className="navbar-text"
+              className="navbar-text nav-dropdown"
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item>Full Name</NavDropdown.Item>
