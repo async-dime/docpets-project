@@ -43,6 +43,86 @@ const SignUpUserForm = () => {
     };
   };
 
+  // axios.post(url, data)
+  //           .then((ress) => {
+  //               if (localStorage.getItem('role') === 'user') {
+  //                   localStorage.setItem('id', ress.data.id)
+  //                   localStorage.setItem('fullname', ress.data.fullname)
+  //                   localStorage.setItem('email', ress.data.email)
+  //                   localStorage.setItem('password', ress.data.password)
+  //                   localStorage.setItem('phoneNumber', ress.data.phoneNumber)
+  //                   localStorage.setItem('gender', ress.data.gender)
+  //                   localStorage.setItem('pictureurl', ress.data.pictureUrl)
+  //                   localStorage.setItem('role', ress.data.role)
+  //                   localStorage.setItem('clinicid', ress.data.clinicId)
+  //                   localStorage.setItem('token', ress.data.token)
+  //                   history.push('/')
+  //               } else if (localStorage.getItem('role') === 'admin') {
+  //                   localStorage.setItem('id', ress.data.userAdmins.id)
+  //                   localStorage.setItem('username', ress.data.user.username)
+  //                   localStorage.setItem('fullname', ress.data.user.fullname)
+  //                   localStorage.setItem('email', ress.data.user.email)
+  //                   localStorage.setItem('password', ress.data.user.password)
+  //                   localStorage.setItem('phoneNumber', ress.data.user.phoneNumber)
+  //                   localStorage.setItem('gender', ress.data.user.gender)
+  //                   localStorage.setItem('pictureurl', ress.data.user.pictureUrl)
+  //                   localStorage.setItem('role', ress.data.user.role)
+  //                   localStorage.setItem('clinicid', ress.data.user.clinicId)
+  //                   localStorage.setItem('token', ress.data.user.token)
+  //                   history.push('/forclinic/edit-profile')
+  //               } else {
+  //                   history.push('/forclinic/edit-profile')
+  //               }
+  //               firebase
+  //                   .auth()
+  //                   .createUserWithEmailAndPassword(email, password)
+  //                   .then(authRes => {
+  //                       const userObj = {
+  //                           email: authRes.user.email,
+  //                           fullname: fullName,
+  //                           friends: [],
+  //                           messages: [],
+  //                           role: localStorage.getItem('role')
+  //                       };
+
+  //                       firebase
+  //                           .firestore()
+  //                           .collection('users')
+  //                           .doc(email)
+  //                           .set(userObj)
+  //                           .then(() => {
+  //                           }, dbErr => {
+  //                               console.log('Failed to add user to the database: ', dbErr);
+  //                           });
+  //                   }, authErr => {
+  //                       console.log('Failed to create user: ', authErr);
+  //                   });
+  //           })
+  //           .catch(
+  //               () => {
+  //                   setIsLoading(false)
+  //                   setIsWrongRegister(true) }
+  //           )
+
+  //         axios.post(url, data)
+  //         .then((ress) => {
+  //             if (localStorage.getItem('role') === 'user') {
+  //                 localStorage.setItem('id', ress.data.id)
+  //                 localStorage.setItem('username', ress.data.username)
+  //                 localStorage.setItem('fullname', ress.data.fullname)
+  //                 localStorage.setItem('email', ress.data.email)
+  //                 localStorage.setItem('password', ress.data.password)
+  //                 localStorage.setItem('phoneNumber', ress.data.phoneNumber)
+  //                 localStorage.setItem('gender', ress.data.gender)
+  //                 localStorage.setItem('pictureurl', ress.data.pictureUrl)
+  //                 localStorage.setItem('role', ress.data.role)
+  //                 localStorage.setItem('clinicid', ress.data.clinicId)
+  //                 localStorage.setItem('token', ress.data.token)
+  //                 history.push('/')
+  //             }
+  // })
+
+
   return (
     <div className="signup-form-container">
       <div className="item-left">
