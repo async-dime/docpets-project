@@ -2,7 +2,7 @@ import React from "react";
 import NavBarLogin from "../components/NavbarLogin";
 
 
-function Home() {
+function Profile() {
   return (
     <div className="home">
       <NavBarLogin />
@@ -10,4 +10,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Profile;

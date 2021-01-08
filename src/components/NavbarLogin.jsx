@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/styles/Navbar.scss";
+import "./NavbarLogin.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import logo from "./assets/img/logo.png";
@@ -8,7 +8,6 @@ import React, { useState } from "react";
 import { Button, Modal, NavDropdown } from "react-bootstrap";
 // import MovieCard from "./movieCard";
 import { Link } from "react-router-dom";
-// import { FaWindows } from "react-icons/fa";
 
 const NavBarLogin = () => {
   //states- input query, movies
@@ -22,7 +21,7 @@ const NavBarLogin = () => {
 
   const searchClinic = async (e) => {
     e.preventDefault();
-    const url = `http://54.254.205.124:3000/movie/search/${query}?page=1&limit=20`;
+    const url = `13.250.101.249:3000/user/login`;
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -38,7 +37,7 @@ const NavBarLogin = () => {
     <FontAwesomeIcon
       icon={faUserCircle}
       size="2x"
-      style={{ color: "#FFE84D" }}
+      style={{ color: "#fde84d" }}
     />
   );
   const signOut = () => {
@@ -51,10 +50,10 @@ const NavBarLogin = () => {
       <div className="navbar-container w-100">
         <div className="navbar">
           <Link to={`/`}>
-            <img src={logo} alt="vet logo" className="navbar-logo"></img>
+            <img src={logo} alt="docpets logo" className="navbar-logo"></img>
             <img
               src={logofont}
-              alt="vet logo font"
+              alt="docpets logo font"
               className="navbar-logo-font"
             ></img>
           </Link>
@@ -69,7 +68,7 @@ const NavBarLogin = () => {
               <input
                 type="text"
                 name="query"
-                placeholder="search for clinic"
+                placeholder="  search clinic"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
