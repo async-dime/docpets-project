@@ -88,7 +88,7 @@ const NavBarLogin = () => {
               className="navbar-text nav-dropdown"
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item>Full Name</NavDropdown.Item>
+              <NavDropdown.Item>hi, Full Name</NavDropdown.Item>
               <NavDropdown.Item onClick={signOut}>
                 <Link to="/"> Sign out </Link>
               </NavDropdown.Item>
