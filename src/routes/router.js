@@ -6,9 +6,9 @@ import {
   Redirect,
 } from "react-router-dom";
 import Home from "../pages/Home";
-import SignUpPage from "../pages/SignUpPage";
+import RoleForm from "../components/RoleForm"
+import SignUpForm from "../components/SignUpForm";
 import Profile from "../pages/Profile";
-// import RoleForm from "../components/RoleForm"
 
 export const Routes = () => {
   return (
@@ -20,11 +20,11 @@ export const Routes = () => {
         <Route path="/user" exact>
           <Profile />
         </Route>
-        {/* <Route path="/signup" exact>
+        <Route path="/signup" exact>
           <RoleForm />
-        </Route> */}
-        <Route path="/signup/user" exact>
-          <SignUpPage />
+        </Route>
+        <Route path="/signup/form" exact>
+          <SignUpForm />
         </Route>
       </Switch>
     </Router>

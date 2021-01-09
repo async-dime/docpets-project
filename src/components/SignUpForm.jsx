@@ -5,7 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import banner from "./assets/img/dogbanner.png";
 import logo from "./assets/img/docpets.png";
-import "./SignUpUserForm.scss";
+import "./SignUpForm.scss";
 import userIcon from "./assets/img/user.svg";
 import lockIcon from "./assets/img/lock.svg";
 import mailIcon from "./assets/img/mail.svg";
@@ -13,7 +13,7 @@ import phoneIcon from "./assets/img/phone.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-const SignUpUserForm = () => {
+const SignUpForm = () => {
   let history = useHistory();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -52,6 +52,83 @@ const SignUpUserForm = () => {
       passwordConfirmation: passwordConfirm,
       role: localStorage.getItem("role"),
     };
+
+
+
+  //   if (localStorage.getItem('role') === 'admin') {
+  //     url = 'https://api.vetclinic.my.id/auth/admin/register'
+  // } else if (localStorage.getItem('role') === 'user') {
+  //     url = 'https://api.vetclinic.my.id/auth/register'
+  // }
+
+
+
+  // axios.post(url, data)
+  //     .then((ress) => {
+  //         if (localStorage.getItem('role') === 'user') {
+  //             localStorage.setItem('id', ress.data.id)
+  //             localStorage.setItem('username', ress.data.username)
+  //             localStorage.setItem('fullname', ress.data.fullname)
+  //             localStorage.setItem('email', ress.data.email)
+  //             localStorage.setItem('password', ress.data.password)
+  //             localStorage.setItem('phoneNumber', ress.data.phoneNumber)
+  //             localStorage.setItem('gender', ress.data.gender)
+  //             localStorage.setItem('pictureurl', ress.data.pictureUrl)
+  //             localStorage.setItem('role', ress.data.role)
+  //             localStorage.setItem('clinicid', ress.data.clinicId)
+  //             localStorage.setItem('token', ress.data.token)
+  //             history.push('/')
+  //         } else if (localStorage.getItem('role') === 'admin') {
+  //             localStorage.setItem('id', ress.data.userAdmins.id)
+  //             localStorage.setItem('username', ress.data.user.username)
+  //             localStorage.setItem('fullname', ress.data.user.fullname)
+  //             localStorage.setItem('email', ress.data.user.email)
+  //             localStorage.setItem('password', ress.data.user.password)
+  //             localStorage.setItem('phoneNumber', ress.data.user.phoneNumber)
+  //             localStorage.setItem('gender', ress.data.user.gender)
+  //             localStorage.setItem('pictureurl', ress.data.user.pictureUrl)
+  //             localStorage.setItem('role', ress.data.user.role)
+  //             localStorage.setItem('clinicid', ress.data.user.clinicId)
+  //             localStorage.setItem('token', ress.data.user.token)
+  //             history.push('/forclinic/edit-profile')
+  //         } else {
+  //             history.push('/forclinic/edit-profile')
+  //         }
+  //         firebase
+  //             .auth()
+  //             .createUserWithEmailAndPassword(email, password)
+  //             .then(authRes => {
+  //                 const userObj = {
+  //                     email: authRes.user.email,
+  //                     fullname: fullName,
+  //                     friends: [],
+  //                     messages: [],
+  //                     role: localStorage.getItem('role')
+  //                 };
+
+  //                 firebase
+  //                     .firestore()
+  //                     .collection('users')
+  //                     .doc(email)
+  //                     .set(userObj)
+  //                     .then(() => {
+  //                     }, dbErr => {
+  //                         console.log('Failed to add user to the database: ', dbErr);
+  //                     });
+  //             }, authErr => {
+  //                 console.log('Failed to create user: ', authErr);
+  //             });
+  //     })
+  //     .catch(
+  //         () => { 
+  //             setIsLoading(false)
+  //             setIsWrongRegister(true) }
+  //     )
+
+
+
+
+
   };
 
   return (
@@ -83,7 +160,7 @@ const SignUpUserForm = () => {
               </Link>
               <Link to="/signin">
                 <Button
-                  className="btn btn-warning border-0 pr-3 pl-3 ml-2"
+                  className="btn border-0 pr-3 pl-3 ml-2"
                   style={{ backgroundColor: "#fde84d", color: "#445E6B" }}
                 >
                   Sign In
@@ -226,4 +303,4 @@ const SignUpUserForm = () => {
   );
 };
 
-export default SignUpUserForm;
+export default SignUpForm;
