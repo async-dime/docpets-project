@@ -54,6 +54,7 @@ const SignUpUserForm = () => {
     };
   };
 
+
   return (
     <div className="signup-form-container">
       <div className="item-left">
