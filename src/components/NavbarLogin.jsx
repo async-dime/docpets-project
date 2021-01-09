@@ -6,13 +6,10 @@ import logo from "./assets/img/logo.png";
 import logofont from "./assets/img/logofont.png";
 import React, { useState } from "react";
 import { Button, Modal, NavDropdown } from "react-bootstrap";
-// import MovieCard from "./movieCard";
 import { Link } from "react-router-dom";
 
 const NavBarLogin = () => {
-  //states- input query, movies
   const [query, setQuery] = useState("");
-  //create the state for movies, and update that state appropriate
   const [clinic, setClinic] = useState([]);
 
   const [modalSearchClinic, setModalSearchClinic] = useState(false);

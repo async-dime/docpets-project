@@ -2,20 +2,28 @@ import React, { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import banner from "./assets/img/dogbanner.png";
 import logo from "./assets/img/docpets.png";
 import "./SignUpUserForm.scss";
-import eyeIcon from "./assets/img/eye.svg";
-import eyeHalfIcon from "./assets/img/eye-half.svg";
+import userIcon from "./assets/img/user.svg";
 import lockIcon from "./assets/img/lock.svg";
 import mailIcon from "./assets/img/mail.svg";
 import phoneIcon from "./assets/img/phone.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 const SignUpUserForm = () => {
   let history = useHistory();
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data, "THIS IS DATA");
+  };
+  const eye = <FontAwesomeIcon icon={faEye} />;
 
   const [fullName, setFullName] = useState();
   const [telephoneNum, setTelephoneNum] = useState();
@@ -29,6 +37,9 @@ const SignUpUserForm = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(showPassword ? false : true);
+  };
+  const togglePasswordConfirmVisibility = () => {
+    setShowPasswordConfirm(showPasswordConfirm ? false : true);
   };
   const handleRegister = (e) => {
     e.preventDefault();
@@ -75,7 +86,7 @@ const SignUpUserForm = () => {
                   className="btn btn-warning border-0 pr-3 pl-3 ml-2"
                   style={{ backgroundColor: "#fde84d", color: "#445E6B" }}
                 >
-                  Login
+                  Sign In
                 </Button>
               </Link>
             </div>
@@ -93,7 +104,7 @@ const SignUpUserForm = () => {
                 <InputGroup size="sm">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <img src={eyeIcon} style={{ width: "15px" }} alt="" />
+                      <img src={userIcon} style={{ width: "15px" }} alt="" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
@@ -102,6 +113,7 @@ const SignUpUserForm = () => {
                     name="fullname"
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Full Name"
+                    ref={register({ required: "This is required." })}
                   />
                 </InputGroup>
               </Form.Group>
@@ -118,6 +130,7 @@ const SignUpUserForm = () => {
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@gmail.com"
+                    ref={register({ required: "This is required." })}
                   />
                 </InputGroup>
               </Form.Group>
@@ -134,6 +147,7 @@ const SignUpUserForm = () => {
                     name="telephone"
                     onChange={(e) => setTelephoneNum(e.target.value)}
                     placeholder="Telephone Number"
+                    ref={register({ required: "This is required." })}
                   />
                 </InputGroup>
               </Form.Group>
@@ -146,33 +160,13 @@ const SignUpUserForm = () => {
                   </InputGroup.Prepend>
                   <Form.Control
                     className="signup-column-form"
-                    type={showPasswordConfirm ? "text" : "password"}
-                    name="telephone"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
+                    ref={register({ required: "This is required." })}
                   />
-                  <img
-                    onClick={togglePasswordVisibility}
-                    src={
-                      showPassword === false ? (
-                        <img
-                          src={eyeHalfIcon}
-                          style={{ width: "15px" }}
-                          alt=""
-                          className="reg-icon"
-                        />
-                      ) : (
-                        <img
-                          src={eyeIcon}
-                          style={{ width: "15px" }}
-                          alt=""
-                          className="reg-icon"
-                        />
-                      )
-                    }
-                    alt=""
-                    className="pw-icon"
-                  />
+                  <i onClick={togglePasswordVisibility}>{eye}</i>{" "}
                 </InputGroup>
               </Form.Group>
               <Form.Group>
@@ -185,37 +179,17 @@ const SignUpUserForm = () => {
                   <Form.Control
                     className="signup-column-form"
                     type={showPasswordConfirm ? "text" : "password"}
-                    name="telephone"
+                    name="passwordConfirmation"
                     onChange={(e) => setPasswordConfirm(e.target.value)}
                     placeholder="Password Confirmation"
+                    ref={register({ required: "This is required." })}
                   />
-                  <img
-                    onClick={togglePasswordVisibility}
-                    src={
-                      showPasswordConfirm === false ? (
-                        <img
-                          src={eyeHalfIcon}
-                          style={{ width: "15px" }}
-                          alt=""
-                          className="reg-icon"
-                        />
-                      ) : (
-                        <img
-                          src={eyeIcon}
-                          style={{ width: "15px" }}
-                          alt=""
-                          className="reg-icon"
-                        />
-                      )
-                    }
-                    alt=""
-                    className="pw-icon"
-                  />
+                  <i onClick={togglePasswordConfirmVisibility}>{eye}</i>{" "}
                 </InputGroup>
               </Form.Group>
               {isWrongRegister === true ? (
                 <h6 className="error-signup">
-                  The username is does exist, please use another one.
+                  Username exist already, please use another one.
                 </h6>
               ) : (
                 ""
@@ -229,7 +203,13 @@ const SignUpUserForm = () => {
                   </div>
                 </div>
               ) : (
-                <Button className="btn btn-block-signup">Sign Up</Button>
+                <Button
+                  type="submit"
+                  onClick={handleSubmit(onSubmit)}
+                  className="btn btn-block-signup"
+                >
+                  Sign Up
+                </Button>
               )}
               <h6 className="signup-text-down">
                 Already have an account? Please
