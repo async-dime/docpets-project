@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "../pages/Home";
 import RoleForm from "../components/RoleForm"
 import SignUpForm from "../components/SignUpForm";
@@ -14,9 +15,9 @@ export const Routes = () => {
   return (
     <Router>
       <Switch>
-        {/* <Route path="/" exact>
+        <Route path="/" exact>
           <Home />
-        </Route> */}
+        </Route>
         <Route path="/user" exact>
           <Profile />
         </Route>

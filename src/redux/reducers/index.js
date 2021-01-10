@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
-import auth from "./auth";
+import authUser from "./authUser";
+import authClinic from "./authClinic";
+
 import message from "./message";
 
 export default combineReducers({
-  auth,
+  authUser,
+  authClinic,
   message,
 });

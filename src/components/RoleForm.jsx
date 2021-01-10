@@ -61,7 +61,6 @@ const SignUpForm = () => {
             </div>
           </div>
         </header>
-
         <div className="form-containers">
           <div className="role-form">
             <h2 className="role-text">Pilih Role Kamu</h2>
@@ -101,7 +100,7 @@ const SignUpForm = () => {
                 <h2 className="role-text" id="text-patient">Patient</h2>
               </Col>
             </Row>
-              <Link to="signup/form">
+              <Link to="/signup/form">
                 <Button
                   type="submit"
                   className="btn btn-block-role"

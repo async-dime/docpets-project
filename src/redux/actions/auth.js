@@ -7,10 +7,10 @@ import {
   SET_MESSAGE,
 } from "./types";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 
-export const register = (username, email, password) => (dispatch) => {
-  return AuthService.register(username, email, password).then(
+export const register = (nama, email, password, passwordConfirmation, telepon, role) => (dispatch) => {
+  return AuthService.register(nama, email, password, passwordConfirmation, telepon, role).then(
     (response) => {
       dispatch({
         type: REGISTER_SUCCESS,
@@ -45,8 +45,8 @@ export const register = (username, email, password) => (dispatch) => {
   );
 };
 
-export const login = (username, password) => (dispatch) => {
-  return AuthService.login(username, password).then(
+export const login = (email, password) => (dispatch) => {
+  return AuthService.login(email, password).then(
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
-import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
+// import { register } from "../redux/actions/auth";
+
 import banner from "./assets/img/dogbanner.png";
 import logo from "./assets/img/docpets.png";
 import "./SignUpForm.scss";
@@ -16,16 +20,10 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 const SignUpForm = () => {
   let history = useHistory();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data, "THIS IS DATA");
-  };
+  const { register, handleSubmit, errors, reset } = useForm();
   const eye = <FontAwesomeIcon icon={faEye} />;
 
-  const [fullName, setFullName] = useState();
+  const [name, setName] = useState();
   const [telephoneNum, setTelephoneNum] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -34,6 +32,7 @@ const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [diffPassword, setDiffPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(showPassword ? false : true);
@@ -41,94 +40,79 @@ const SignUpForm = () => {
   const togglePasswordConfirmVisibility = () => {
     setShowPasswordConfirm(showPasswordConfirm ? false : true);
   };
-  const handleRegister = (e) => {
-    e.preventDefault();
-    let url = "13.250.101.249:3000/user/signup";
+  const onSubmit = (e) => {
+    // let url = "http://13.250.101.249:3000/user/signup";
+    let url = "";
     const data = {
-      fullname: fullName,
-      telephone: telephoneNum,
+      nama: name,
+      telepon: telephoneNum,
       email: email,
       password: password,
       passwordConfirmation: passwordConfirm,
       role: localStorage.getItem("role"),
     };
+    console.log(data, "THIS IS DATA PUSH");
 
+    if (localStorage.getItem("role") === "user" || "admin") {
+      url = "http://13.250.101.249:3000/user/signup";
+    } 
+    // else if (localStorage.getItem("role") === "superadmin") {
+    //   url = "http://13.250.101.249:3000/user/signup";
+    // }
 
+    if (data.password !== data.passwordConfirmation) {
+      setDiffPassword(true);
+    } else {
+      setDiffPassword(false);
+    }
 
-  //   if (localStorage.getItem('role') === 'admin') {
-  //     url = 'https://api.vetclinic.my.id/auth/admin/register'
-  // } else if (localStorage.getItem('role') === 'user') {
-  //     url = 'https://api.vetclinic.my.id/auth/register'
-  // }
+    axios
+      .post(url, data)
+      .then((response) => {
+        if (localStorage.getItem("role") === "user") {
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("username", response.data.username);
+          localStorage.setItem("fullname", response.data.nama);
+          localStorage.setItem("email", response.data.email);
+          localStorage.setItem("password", response.data.password);
+          localStorage.setItem("telepon", response.data.telepon);
+          localStorage.setItem("gender", response.data.gender);
+          localStorage.setItem("pictureurl", response.data.pictureUrl);
+          localStorage.setItem("role", response.data.role);
+          localStorage.setItem("clinicid", response.data.clinicId);
+          localStorage.setItem("token", response.data.token);
+          history.push("/");
+        } else if (localStorage.getItem("role") === "admin") {
+          localStorage.setItem("id", response.data.userAdmins.id);
+          localStorage.setItem("username", response.data.user.username);
+          localStorage.setItem("fullname", response.data.user.nama);
+          localStorage.setItem("email", response.data.user.email);
+          localStorage.setItem("password", response.data.user.password);
+          localStorage.setItem("telepon", response.data.user.telepon);
+          localStorage.setItem("gender", response.data.user.gender);
+          localStorage.setItem("pictureurl", response.data.user.pictureUrl);
+          localStorage.setItem("role", response.data.user.role);
+          localStorage.setItem("clinicid", response.data.user.clinicId);
+          localStorage.setItem("token", response.data.user.token);
+          history.push("/clinic/edit-profile");
+        }
+        console.info(response)
+        e.preventDefault();
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setIsWrongRegister(true);
+      });
 
+    // reset()
+  };
 
-
-  // axios.post(url, data)
-  //     .then((ress) => {
-  //         if (localStorage.getItem('role') === 'user') {
-  //             localStorage.setItem('id', ress.data.id)
-  //             localStorage.setItem('username', ress.data.username)
-  //             localStorage.setItem('fullname', ress.data.fullname)
-  //             localStorage.setItem('email', ress.data.email)
-  //             localStorage.setItem('password', ress.data.password)
-  //             localStorage.setItem('phoneNumber', ress.data.phoneNumber)
-  //             localStorage.setItem('gender', ress.data.gender)
-  //             localStorage.setItem('pictureurl', ress.data.pictureUrl)
-  //             localStorage.setItem('role', ress.data.role)
-  //             localStorage.setItem('clinicid', ress.data.clinicId)
-  //             localStorage.setItem('token', ress.data.token)
-  //             history.push('/')
-  //         } else if (localStorage.getItem('role') === 'admin') {
-  //             localStorage.setItem('id', ress.data.userAdmins.id)
-  //             localStorage.setItem('username', ress.data.user.username)
-  //             localStorage.setItem('fullname', ress.data.user.fullname)
-  //             localStorage.setItem('email', ress.data.user.email)
-  //             localStorage.setItem('password', ress.data.user.password)
-  //             localStorage.setItem('phoneNumber', ress.data.user.phoneNumber)
-  //             localStorage.setItem('gender', ress.data.user.gender)
-  //             localStorage.setItem('pictureurl', ress.data.user.pictureUrl)
-  //             localStorage.setItem('role', ress.data.user.role)
-  //             localStorage.setItem('clinicid', ress.data.user.clinicId)
-  //             localStorage.setItem('token', ress.data.user.token)
-  //             history.push('/forclinic/edit-profile')
-  //         } else {
-  //             history.push('/forclinic/edit-profile')
-  //         }
-  //         firebase
-  //             .auth()
-  //             .createUserWithEmailAndPassword(email, password)
-  //             .then(authRes => {
-  //                 const userObj = {
-  //                     email: authRes.user.email,
-  //                     fullname: fullName,
-  //                     friends: [],
-  //                     messages: [],
-  //                     role: localStorage.getItem('role')
-  //                 };
-
-  //                 firebase
-  //                     .firestore()
-  //                     .collection('users')
-  //                     .doc(email)
-  //                     .set(userObj)
-  //                     .then(() => {
-  //                     }, dbErr => {
-  //                         console.log('Failed to add user to the database: ', dbErr);
-  //                     });
-  //             }, authErr => {
-  //                 console.log('Failed to create user: ', authErr);
-  //             });
-  //     })
-  //     .catch(
-  //         () => { 
-  //             setIsLoading(false)
-  //             setIsWrongRegister(true) }
-  //     )
-
-
-
-
-
+  const alertText = {
+    color: "red",
+    textAlign: "center",
+  };
+  const inputIconSize = {
+    width: "15px",
   };
 
   return (
@@ -176,29 +160,46 @@ const SignUpForm = () => {
             <h6 className="signup-text">
               Daftarkan Dirimu Untuk Menggunakan Aplikasi Ini
             </h6>
-            <Form onSubmit={handleRegister}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group>
                 <InputGroup size="sm">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <img src={userIcon} style={{ width: "15px" }} alt="" />
+                      <img src={userIcon} style={inputIconSize} alt="" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
                     className="signup-column-form"
                     type="text"
-                    name="fullname"
-                    onChange={(e) => setFullName(e.target.value)}
+                    name="nama"
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Full Name"
-                    ref={register({ required: "This is required." })}
+                    ref={register({
+                      required: true,
+                      minLength: { value: 3, message: "min length" },
+                      maxLength: 255,
+                    })}
                   />
                 </InputGroup>
+                {errors.nama && errors.nama.type === "required" && (
+                  <p style={alertText}>Full Name required</p>
+                )}
+                {errors.nama && errors.nama.type === "minLength" && (
+                  <p style={alertText}>
+                    This field required min length of 3 characters
+                  </p>
+                )}
+                {errors.nama && errors.nama.type === "maxLength" && (
+                  <p style={alertText}>
+                    This field required max length of 255 characters
+                  </p>
+                )}
               </Form.Group>
               <Form.Group>
                 <InputGroup size="sm">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <img src={mailIcon} style={{ width: "15px" }} alt="" />
+                      <img src={mailIcon} style={inputIconSize} alt="" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
@@ -207,32 +208,46 @@ const SignUpForm = () => {
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@gmail.com"
-                    ref={register({ required: "This is required." })}
+                    ref={register({ required: true })}
                   />
                 </InputGroup>
+                {errors.email && errors.email.type === "required" && (
+                  <p style={alertText}>Email required</p>
+                )}
               </Form.Group>
               <Form.Group>
                 <InputGroup size="sm">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <img src={phoneIcon} style={{ width: "15px" }} alt="" />
+                      <img src={phoneIcon} style={inputIconSize} alt="" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
                     className="signup-column-form"
                     type="number"
-                    name="telephone"
+                    name="telepon"
                     onChange={(e) => setTelephoneNum(e.target.value)}
                     placeholder="Telephone Number"
-                    ref={register({ required: "This is required." })}
+                    ref={register({
+                      required: true,
+                      // type: Number,
+                    })}
                   />
                 </InputGroup>
+                {errors.telepon && errors.telepon.type === "required" && (
+                  <p style={alertText}>Telephone Number required</p>
+                )}
+                {/* {errors.nama && errors.nama.type === "type" && (
+                  <p style={alertText}>
+                    Telephone Number required a number format
+                  </p>
+                )} */}
               </Form.Group>
               <Form.Group>
                 <InputGroup size="sm">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <img src={lockIcon} style={{ width: "15px" }} alt="" />
+                      <img src={lockIcon} style={inputIconSize} alt="" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
@@ -241,16 +256,33 @@ const SignUpForm = () => {
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    ref={register({ required: "This is required." })}
+                    ref={register({
+                      required: true,
+                      minLength: 8,
+                      maxLength: 32,
+                    })}
                   />
                   <i onClick={togglePasswordVisibility}>{eye}</i>{" "}
                 </InputGroup>
+                {errors.password && errors.password.type === "required" && (
+                  <p style={alertText}>Password required</p>
+                )}
+                {errors.password && errors.password.type === "minLength" && (
+                  <p style={alertText}>
+                    Password required min length of 8 characters
+                  </p>
+                )}
+                {errors.password && errors.password.type === "maxLength" && (
+                  <p style={alertText}>
+                    Password required max length of 32 characters
+                  </p>
+                )}
               </Form.Group>
               <Form.Group>
                 <InputGroup size="sm">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <img src={lockIcon} style={{ width: "15px" }} alt="" />
+                      <img src={lockIcon} style={inputIconSize} alt="" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
@@ -259,20 +291,47 @@ const SignUpForm = () => {
                     name="passwordConfirmation"
                     onChange={(e) => setPasswordConfirm(e.target.value)}
                     placeholder="Password Confirmation"
-                    ref={register({ required: "This is required." })}
+                    ref={register({
+                      required: true,
+                      minLength: 8,
+                      maxLength: 32,
+                    })}
                   />
                   <i onClick={togglePasswordConfirmVisibility}>{eye}</i>{" "}
                 </InputGroup>
+                {errors.passwordConfirmation &&
+                  errors.passwordConfirmation.type === "required" && (
+                    <p style={alertText}>Password Confirmation required</p>
+                  )}
+                {errors.passwordConfirmation &&
+                  errors.passwordConfirmation.type === "minLength" && (
+                    <p style={alertText}>
+                      Password Confirmation required min length of 8 characters
+                    </p>
+                  )}
+                {errors.passwordConfirmation &&
+                  errors.passwordConfirmation.type === "maxLength" && (
+                    <p style={alertText}>
+                      Password Confirmation required max length of 32 characters
+                    </p>
+                  )}
               </Form.Group>
-              {isWrongRegister === true ? (
+              {/* {isWrongRegister === true ? (
                 <h6 className="error-signup">
-                  Username exist already, please use another one.
+                  Email registered already, please use another one.
+                </h6>
+              ) : (
+                ""
+              )} */}
+              {diffPassword === true ? (
+                <h6 className="error-signup">
+                  Password and Password Confirmation must be the same value.
                 </h6>
               ) : (
                 ""
               )}
               {isLoading === true ? (
-                <div style={{ marginTop: "-200px" }}>
+                <div>
                   <div class="spinner">
                     <div class="bounce1"></div>
                     <div class="bounce2"></div>
@@ -282,7 +341,7 @@ const SignUpForm = () => {
               ) : (
                 <Button
                   type="submit"
-                  onClick={handleSubmit(onSubmit)}
+                  onClick={onSubmit}
                   className="btn btn-block-signup"
                 >
                   Sign Up

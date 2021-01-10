@@ -17,7 +17,7 @@
   .item-right {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 8fr;
+    grid-template-rows: 1fr 5fr;
     gap: 0px 0px;
     grid-template-areas:
       "."
@@ -39,7 +39,6 @@
         :hover {
           color: #fde84d;
         }
-
       }
       .signup-text-down {
         text-align: center !important;
@@ -71,7 +70,6 @@
         color: red;
         position: relative;
         font-size: 15px;
-        bottom: 20px;
       }
       .signup-column-form {
         position: relative;
