@@ -20,7 +20,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 const SignUpForm = () => {
   let history = useHistory();
 
-  const { register, handleSubmit, errors, reset } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const eye = <FontAwesomeIcon icon={faEye} />;
 
   const [name, setName] = useState();
@@ -70,30 +70,28 @@ const SignUpForm = () => {
       .post(url, data)
       .then((response) => {
         if (localStorage.getItem("role") === "user") {
-          localStorage.setItem("id", response.data.id);
-          localStorage.setItem("username", response.data.username);
+          console.info(response, "<==USER RESPONSE");
           localStorage.setItem("fullname", response.data.nama);
           localStorage.setItem("email", response.data.email);
           localStorage.setItem("password", response.data.password);
+          localStorage.setItem("password", response.data.passwordConfirmation);
           localStorage.setItem("telepon", response.data.telepon);
-          localStorage.setItem("gender", response.data.gender);
-          localStorage.setItem("pictureurl", response.data.pictureUrl);
           localStorage.setItem("role", response.data.role);
-          localStorage.setItem("clinicid", response.data.clinicId);
           localStorage.setItem("token", response.data.token);
+
+          // localStorage.setItem("id", response.data.id);
+          // localStorage.setItem("gender", response.data.gender);
+          // localStorage.setItem("pictureurl", response.data.pictureUrl);
           history.push("/");
         } else if (localStorage.getItem("role") === "admin") {
-          localStorage.setItem("id", response.data.userAdmins.id);
-          localStorage.setItem("username", response.data.user.username);
-          localStorage.setItem("fullname", response.data.user.nama);
-          localStorage.setItem("email", response.data.user.email);
-          localStorage.setItem("password", response.data.user.password);
-          localStorage.setItem("telepon", response.data.user.telepon);
-          localStorage.setItem("gender", response.data.user.gender);
-          localStorage.setItem("pictureurl", response.data.user.pictureUrl);
-          localStorage.setItem("role", response.data.user.role);
-          localStorage.setItem("clinicid", response.data.user.clinicId);
-          localStorage.setItem("token", response.data.user.token);
+          console.info(response, "<==CLINIC RESPONSE");
+          localStorage.setItem("fullname", response.data.nama);
+          localStorage.setItem("email", response.data.email);
+          localStorage.setItem("password", response.data.password);
+          localStorage.setItem("password", response.data.passwordConfirmation);
+          localStorage.setItem("telepon", response.data.telepon);
+          localStorage.setItem("role", response.data.role);
+          localStorage.setItem("token", response.data.token);
           history.push("/clinic/edit-profile");
         }
         console.info(response)
@@ -103,8 +101,6 @@ const SignUpForm = () => {
         setIsLoading(false);
         setIsWrongRegister(true);
       });
-
-    // reset()
   };
 
   const alertText = {
@@ -230,18 +226,12 @@ const SignUpForm = () => {
                     placeholder="Telephone Number"
                     ref={register({
                       required: true,
-                      // type: Number,
                     })}
                   />
                 </InputGroup>
                 {errors.telepon && errors.telepon.type === "required" && (
                   <p style={alertText}>Telephone Number required</p>
                 )}
-                {/* {errors.nama && errors.nama.type === "type" && (
-                  <p style={alertText}>
-                    Telephone Number required a number format
-                  </p>
-                )} */}
               </Form.Group>
               <Form.Group>
                 <InputGroup size="sm">
@@ -316,13 +306,6 @@ const SignUpForm = () => {
                     </p>
                   )}
               </Form.Group>
-              {/* {isWrongRegister === true ? (
-                <h6 className="error-signup">
-                  Email registered already, please use another one.
-                </h6>
-              ) : (
-                ""
-              )} */}
               {diffPassword === true ? (
                 <h6 className="error-signup">
                   Password and Password Confirmation must be the same value.
