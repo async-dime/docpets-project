@@ -4,16 +4,17 @@ import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import {connect} from "react-redux"
 
 // import { register } from "../redux/actions/auth";
 
-import banner from "./assets/img/dogbanner.png";
-import logo from "./assets/img/docpets.png";
+import banner from "../components/assets/img/dogbanner.png";
+import logo from "../components/assets/img/docpets.png";
 import "./SignUpForm.scss";
-import userIcon from "./assets/img/user.svg";
-import lockIcon from "./assets/img/lock.svg";
-import mailIcon from "./assets/img/mail.svg";
-import phoneIcon from "./assets/img/phone.svg";
+import userIcon from "../components/assets/img/user.svg";
+import lockIcon from "../components/assets/img/lock.svg";
+import mailIcon from "../components/assets/img/mail.svg";
+import phoneIcon from "../components/assets/img/phone.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
@@ -54,7 +55,7 @@ const SignUpForm = () => {
     console.log(data, "THIS IS DATA PUSH");
 
     if (localStorage.getItem("role") === "user" || "admin") {
-      url = "http://13.250.101.249:3000/user/signup";
+      url = "https://Doctorpets.tk:3002/user/signup";
     } 
     // else if (localStorage.getItem("role") === "superadmin") {
     //   url = "http://13.250.101.249:3000/user/signup";
@@ -71,7 +72,8 @@ const SignUpForm = () => {
       .then((response) => {
         if (localStorage.getItem("role") === "user") {
           console.info(response, "<==USER RESPONSE");
-          localStorage.setItem("fullname", response.data.nama);
+          console.info(response.data.data.nama, "<== nama")
+          localStorage.setItem("fullname", response.data.data.nama);
           localStorage.setItem("email", response.data.email);
           localStorage.setItem("password", response.data.password);
           localStorage.setItem("password", response.data.passwordConfirmation);

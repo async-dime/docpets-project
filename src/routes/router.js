@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "../pages/Home";
-import RoleForm from "../components/RoleForm"
-import SignUpForm from "../components/SignUpForm";
+import RoleForm from "../pages/RoleForm"
+import SignUpForm from "../pages/SignUpForm";
 import Profile from "../pages/Profile";
 
 export const Routes = () => {

@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, Row, Col } from "react-bootstrap";
-import banner from "./assets/img/dogbanner.png";
-import logo from "./assets/img/docpets.png";
+import banner from "../components/assets/img/dogbanner.png";
+import logo from "../components/assets/img/docpets.png";
 import "./RoleForm.scss";
-import clinic1 from "./assets/img/clinic-selected.svg"
-import clinic2 from "./assets/img/clinic-unselect.svg"
-import user1 from "./assets/img/user-selected.svg"
-import user2 from "./assets/img/user-unselect.svg"
+import clinic1 from "../components/assets/img/clinic-selected.svg"
+import clinic2 from "../components/assets/img/clinic-unselect.svg"
+import user1 from "../components/assets/img/user-selected.svg"
+import user2 from "../components/assets/img/user-unselect.svg"
 
 const SignUpForm = () => {
   const [isUser, setIsUser] = useState("");
+  
   const handleChooseClinic = () => {
     setIsUser("admin");
     localStorage.setItem("role", "admin");
