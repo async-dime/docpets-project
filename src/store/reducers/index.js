@@ -1,11 +1,31 @@
 import { combineReducers } from "redux";
-import authUser from "./authUser";
-import authClinic from "./authClinic";
+import auth from './auth';
+import profile from './profile'
+import clinic from './clinic'
+import clinicSearch from './clinicSearch'
+import animal from './animal'
+import getAnimal from './get_animal'
+import getClinicDetail from './clinic_detail'
+import deleteAnimal from './delete_animal'
+import addBooking from './add_booking'
+import getBooking from './get_booking'
+import getHistoryBooking from './get_history_booking'
+import clinicSearchPet from './clinicSearchPet'
 
-import message from "./message";
+// import message from "./message";
 
 export default combineReducers({
-  authUser,
-  authClinic,
-  message,
+  auth,
+  profile,
+  clinic,
+  clinicSearch,
+  animal,
+  getAnimal,
+  deleteAnimal,
+  getClinicDetail,
+  addBooking,
+  getBooking,
+  getHistoryBooking,
+  clinicSearchPet,
+  // message,
 });

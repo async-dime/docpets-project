@@ -1,15 +1,18 @@
 // file index store untuk menginisialisasi middleware
 
 import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducers from "./reducers";
-import thunk from "redux-thunk";
+import sagas from "./sagas";
+// import thunk from "redux-thunk";
 
-const middleware = [thunk];
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducers, // file index.js dari folder reducer
-  composeWithDevTools(applyMiddleware(...middleware)) // mengkoneksikan middleware dengan extensi browser
+  composeWithDevTools(applyMiddleware(sagaMiddleware)) // mengkoneksikan middleware dengan extensi browser
 );
+sagaMiddleware.run(sagas);
 
 export default store;

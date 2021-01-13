@@ -14,7 +14,7 @@ const SignUpForm = () => {
   
   const handleChooseClinic = () => {
     setIsUser("admin");
-    localStorage.setItem("role", "admin");
+    localStorage.setItem("role", "klinik");
   };
 
   const handleChooseUser = () => {

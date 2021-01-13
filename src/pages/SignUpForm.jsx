@@ -3,11 +3,8 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import {connect} from "react-redux"
-
-// import { register } from "../redux/actions/auth";
-
+import { registerAction } from "../store/actions/auth";
+import { connect } from "react-redux";
 import banner from "../components/assets/img/dogbanner.png";
 import logo from "../components/assets/img/docpets.png";
 import "./SignUpForm.scss";
@@ -18,22 +15,21 @@ import phoneIcon from "../components/assets/img/phone.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-const SignUpForm = () => {
-  let history = useHistory();
-
+const SignUpForm = (props) => {
   const { register, handleSubmit, errors } = useForm();
-  const eye = <FontAwesomeIcon icon={faEye} />;
-
-  const [name, setName] = useState();
-  const [telephoneNum, setTelephoneNum] = useState();
+  const [nama, setNama] = useState();
+  const [telepon, setTelepon] = useState();
+  const [gender, setGender] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [passwordConfirm, setPasswordConfirm] = useState();
+  const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [isWrongRegister, setIsWrongRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [diffPassword, setDiffPassword] = useState(false);
+  const [message, setMessage] = useState("");
+  const eye = <FontAwesomeIcon icon={faEye} />;
 
   const togglePasswordVisibility = () => {
     setShowPassword(showPassword ? false : true);
@@ -42,67 +38,89 @@ const SignUpForm = () => {
     setShowPasswordConfirm(showPasswordConfirm ? false : true);
   };
   const onSubmit = (e) => {
-    // let url = "http://13.250.101.249:3000/user/signup";
-    let url = "";
-    const data = {
-      nama: name,
-      telepon: telephoneNum,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirm,
-      role: localStorage.getItem("role"),
-    };
-    console.log(data, "THIS IS DATA PUSH");
+    if (!nama) {
+      alert("Name is Required");
+    } else if (!email) {
+      alert("Email is Required");
+    } else if (!telepon) {
+      alert("Phone Number is Required");
+    } else if (!password) {
+      alert("Password is Required");
+    } else if (!passwordConfirmation) {
+      alert("Password Confirmation is Required");
+    } else if (password != passwordConfirmation) {
+      alert("Password and Password Confirmation Need To Be The Same value");
+    } else {
+      setMessage(null);
+      props.processRegister({
+        nama,
+        email,
+        gender,
+        telepon,
+        password,
+        passwordConfirmation,
+        role: localStorage.getItem("role"),
+      });
+    }
 
-    if (localStorage.getItem("role") === "user" || "admin") {
-      url = "https://Doctorpets.tk:3002/user/signup";
-    } 
-    // else if (localStorage.getItem("role") === "superadmin") {
-    //   url = "http://13.250.101.249:3000/user/signup";
-    // }
-
-    if (data.password !== data.passwordConfirmation) {
+    if (password !== passwordConfirmation) {
       setDiffPassword(true);
     } else {
       setDiffPassword(false);
     }
 
-    axios
-      .post(url, data)
-      .then((response) => {
-        if (localStorage.getItem("role") === "user") {
-          console.info(response, "<==USER RESPONSE");
-          console.info(response.data.data.nama, "<== nama")
-          localStorage.setItem("fullname", response.data.data.nama);
-          localStorage.setItem("email", response.data.email);
-          localStorage.setItem("password", response.data.password);
-          localStorage.setItem("password", response.data.passwordConfirmation);
-          localStorage.setItem("telepon", response.data.telepon);
-          localStorage.setItem("role", response.data.role);
-          localStorage.setItem("token", response.data.token);
+    localStorage.setItem("nama", { nama });
+    localStorage.setItem("email", { email });
+    localStorage.setItem("gender", { gender });
+    localStorage.setItem("password", { password });
+    localStorage.setItem("telepon", { telepon });
 
-          // localStorage.setItem("id", response.data.id);
-          // localStorage.setItem("gender", response.data.gender);
-          // localStorage.setItem("pictureurl", response.data.pictureUrl);
-          history.push("/");
-        } else if (localStorage.getItem("role") === "admin") {
-          console.info(response, "<==CLINIC RESPONSE");
-          localStorage.setItem("fullname", response.data.nama);
-          localStorage.setItem("email", response.data.email);
-          localStorage.setItem("password", response.data.password);
-          localStorage.setItem("password", response.data.passwordConfirmation);
-          localStorage.setItem("telepon", response.data.telepon);
-          localStorage.setItem("role", response.data.role);
-          localStorage.setItem("token", response.data.token);
-          history.push("/clinic/edit-profile");
-        }
-        console.info(response)
-        e.preventDefault();
-      })
-      .catch(() => {
-        setIsLoading(false);
-        setIsWrongRegister(true);
-      });
+    // const postData = () => {
+    //   axios
+    //     .post(url, data)
+    //     .then((response) => {
+    //       if (localStorage.getItem("role") === "user") {
+    //         console.info(response, "<==USER RESPONSE");
+    //         console.info(response.data.data.nama, "<== nama");
+    //         localStorage.setItem("fullname", response.data.data.nama);
+    //         localStorage.setItem("email", response.data.email);
+    //         localStorage.setItem("password", response.data.password);
+    //         localStorage.setItem(
+    //           "password",
+    //           response.data.passwordConfirmation
+    //         );
+    //         localStorage.setItem("telepon", response.data.telepon);
+    //         localStorage.setItem("role", response.data.role);
+    //         localStorage.setItem("gender", response.data.gender);
+    //         localStorage.setItem("token", response.data.token);
+
+    //         // localStorage.setItem("id", response.data.id);
+    //         // localStorage.setItem("gender", response.data.gender);
+    //         // localStorage.setItem("pictureurl", response.data.pictureUrl);
+    //         history.push("/");
+    //       } else if (localStorage.getItem("role") === "admin") {
+    //         console.info(response, "<==CLINIC RESPONSE");
+    //         localStorage.setItem("fullname", response.data.nama);
+    //         localStorage.setItem("email", response.data.email);
+    //         localStorage.setItem("password", response.data.password);
+    //         localStorage.setItem(
+    //           "password",
+    //           response.data.passwordConfirmation
+    //         );
+    //         localStorage.setItem("telepon", response.data.telepon);
+    //         localStorage.setItem("role", response.data.role);
+    //         localStorage.setItem("gender", response.data.gender);
+    //         localStorage.setItem("token", response.data.token);
+    //         history.push("/clinic/edit-profile");
+    //       }
+    //       console.info(response);
+    //     })
+    //     .catch(() => {
+    //       setIsLoading(false);
+    //       setIsWrongRegister(true);
+    //     });
+    // };
+    // postData();
   };
 
   const alertText = {
@@ -158,6 +176,7 @@ const SignUpForm = () => {
             <h6 className="signup-text">
               Daftarkan Dirimu Untuk Menggunakan Aplikasi Ini
             </h6>
+            {/* <Form onSubmit={onSubmit}> */}
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group>
                 <InputGroup size="sm">
@@ -170,7 +189,8 @@ const SignUpForm = () => {
                     className="signup-column-form"
                     type="text"
                     name="nama"
-                    onChange={(e) => setName(e.target.value)}
+                    value={nama}
+                    onChange={(e) => setNama(e.target.value)}
                     placeholder="Full Name"
                     ref={register({
                       required: true,
@@ -204,6 +224,7 @@ const SignUpForm = () => {
                     className="signup-column-form"
                     type="email"
                     name="email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@gmail.com"
                     ref={register({ required: true })}
@@ -212,6 +233,20 @@ const SignUpForm = () => {
                 {errors.email && errors.email.type === "required" && (
                   <p style={alertText}>Email required</p>
                 )}
+              </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                  as="select"
+                  ref={register({
+                    required: true,
+                  })}
+                >
+                  <option>Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </Form.Control>
               </Form.Group>
               <Form.Group>
                 <InputGroup size="sm">
@@ -224,7 +259,8 @@ const SignUpForm = () => {
                     className="signup-column-form"
                     type="number"
                     name="telepon"
-                    onChange={(e) => setTelephoneNum(e.target.value)}
+                    value={telepon}
+                    onChange={(e) => setTelepon(e.target.value)}
                     placeholder="Telephone Number"
                     ref={register({
                       required: true,
@@ -246,6 +282,7 @@ const SignUpForm = () => {
                     className="signup-column-form"
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    balue={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     ref={register({
@@ -281,7 +318,8 @@ const SignUpForm = () => {
                     className="signup-column-form"
                     type={showPasswordConfirm ? "text" : "password"}
                     name="passwordConfirmation"
-                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    value={passwordConfirmation}
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
                     placeholder="Password Confirmation"
                     ref={register({
                       required: true,
@@ -315,15 +353,7 @@ const SignUpForm = () => {
               ) : (
                 ""
               )}
-              {isLoading === true ? (
-                <div>
-                  <div class="spinner">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                  </div>
-                </div>
-              ) : (
+              <Link to="/">
                 <Button
                   type="submit"
                   onClick={onSubmit}
@@ -331,7 +361,7 @@ const SignUpForm = () => {
                 >
                   Sign Up
                 </Button>
-              )}
+              </Link>
               <h6 className="signup-text-down">
                 Already have an account? Please
                 <Link to="/signin" className="signin-text">
@@ -347,4 +377,10 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  processRegister: (data) => dispatch(registerAction(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
