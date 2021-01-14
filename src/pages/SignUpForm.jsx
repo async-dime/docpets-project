@@ -52,7 +52,7 @@ const SignUpForm = (props) => {
       alert("Password and Password Confirmation Need To Be The Same value");
     } else {
       setMessage(null);
-      props.processRegister({
+      props.signUpDatas({
         nama,
         email,
         gender,
@@ -74,53 +74,6 @@ const SignUpForm = (props) => {
     localStorage.setItem("gender", { gender });
     localStorage.setItem("password", { password });
     localStorage.setItem("telepon", { telepon });
-
-    // const postData = () => {
-    //   axios
-    //     .post(url, data)
-    //     .then((response) => {
-    //       if (localStorage.getItem("role") === "user") {
-    //         console.info(response, "<==USER RESPONSE");
-    //         console.info(response.data.data.nama, "<== nama");
-    //         localStorage.setItem("fullname", response.data.data.nama);
-    //         localStorage.setItem("email", response.data.email);
-    //         localStorage.setItem("password", response.data.password);
-    //         localStorage.setItem(
-    //           "password",
-    //           response.data.passwordConfirmation
-    //         );
-    //         localStorage.setItem("telepon", response.data.telepon);
-    //         localStorage.setItem("role", response.data.role);
-    //         localStorage.setItem("gender", response.data.gender);
-    //         localStorage.setItem("token", response.data.token);
-
-    //         // localStorage.setItem("id", response.data.id);
-    //         // localStorage.setItem("gender", response.data.gender);
-    //         // localStorage.setItem("pictureurl", response.data.pictureUrl);
-    //         history.push("/");
-    //       } else if (localStorage.getItem("role") === "admin") {
-    //         console.info(response, "<==CLINIC RESPONSE");
-    //         localStorage.setItem("fullname", response.data.nama);
-    //         localStorage.setItem("email", response.data.email);
-    //         localStorage.setItem("password", response.data.password);
-    //         localStorage.setItem(
-    //           "password",
-    //           response.data.passwordConfirmation
-    //         );
-    //         localStorage.setItem("telepon", response.data.telepon);
-    //         localStorage.setItem("role", response.data.role);
-    //         localStorage.setItem("gender", response.data.gender);
-    //         localStorage.setItem("token", response.data.token);
-    //         history.push("/clinic/edit-profile");
-    //       }
-    //       console.info(response);
-    //     })
-    //     .catch(() => {
-    //       setIsLoading(false);
-    //       setIsWrongRegister(true);
-    //     });
-    // };
-    // postData();
   };
 
   const alertText = {
@@ -380,7 +333,7 @@ const SignUpForm = (props) => {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  processRegister: (data) => dispatch(registerAction(data)),
+  signUpDatas: (data) => dispatch(registerAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

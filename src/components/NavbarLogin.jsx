@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./NavbarLogin.scss";
-import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faSearch } from "@fortawesome/free-solid-svg-icons";
 import logo from "./assets/img/logo.png";
@@ -8,34 +7,31 @@ import logofont from "./assets/img/logofont.png";
 import React, { useState } from "react";
 import { Button, Modal, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ClinicCard from "./ClinicCard";
+import axios from "axios"
 
-const NavBarLogin = () => {
+const NavBarLogin = (props) => {
   const [query, setQuery] = useState("");
-  const [clinic, setClinic] = useState([]);
+  const [clinics, setClinic] = useState([]);
   const search = <FontAwesomeIcon icon={faSearch} />;
 
   const [modalSearchClinic, setModalSearchClinic] = useState(false);
   const toggleModalSearchClinic = () =>
     setModalSearchClinic(!modalSearchClinic);
-
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data, "THIS IS DATA");
-  };
-
-  const searchClinic = async (e) => {
-    e.preventDefault();
-    const url = `13.250.101.249:3000/user/login`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      setClinic(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  console.log("testttt", clinic);
+  
+    const searchClinic = async (e, response, error) => {
+      e.preventDefault();
+      axios.post(`https://doctorpets.tk:3002/klinik/search?nama=${query}&lokasi=jawa`)
+        // .then(response => console.log(response.data.result))
+        .then((response) => {
+          // setClinic(response.data.result)
+          console.log(response.data.result)
+        }) 
+        .catch(error => {
+            setClinic({ errorMessage: error.message });
+            console.error('There was an error!', error);
+        });
+    };
 
   const pic = (
     <FontAwesomeIcon
@@ -69,7 +65,7 @@ const NavBarLogin = () => {
               <h3 className="navbar-h3">Chat</h3>
             </Link>
             <form className="navbar-search" onSubmit={searchClinic}>
-              <i onClick={handleSubmit(onSubmit), toggleModalSearchClinic} type="submit">
+              <i onClick={toggleModalSearchClinic} type="submit">
                 {search}
               </i>{" "}
               <input
@@ -78,16 +74,15 @@ const NavBarLogin = () => {
                 placeholder="  search clinic"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                ref={register({ required: " " })}
               />
               <Modal
                 isOpen={modalSearchClinic}
                 toggle={toggleModalSearchClinic}
               >
                 <div className="card-list">
-                  {/* {movies?.data?.map((movie) => (
-                  <MovieCard movie={movie} />
-                ))} */}
+                  {clinics?.data?.map((clinic) => (
+                    <ClinicCard clinic={clinic} />
+                  ))}
                 </div>
               </Modal>
             </form>
