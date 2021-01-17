@@ -1,0 +1,107 @@
+.Kenapamilih{
+    position: relative;
+    right: -40vh;
+    margin-top: 10vh;
+}
+
+.Kucing{
+    position: relative;
+    margin-top: 20vh;
+    right: 100vh;
+    height: 30vh;
+} 
+.Kenapa{
+    text-align: left;
+    right: 0vh;
+    margin-top: -25vh;
+}
+.Kenapamilihkita {
+    position: relative;
+    right: 47vh;
+    top: -23vh;
+}
+.Milih{
+    position: relative;
+    top: 15vh;
+    right: -0vh;
+    height: 15%;
+    text-align: left;
+}
+.Milihklinik{
+    position: relative;
+    right: -14vh;
+}
+.Choose{
+    position: relative;
+    right: 15vh;
+}
+.Carousel{
+    position: relative;
+    right: -100vh;
+    margin-top: -7vh;
+    width: 50vh;
+}
+
+.Jumbotron{
+    margin-top: 3vh;
+    padding-top: 0vh;
+    margin-bottom: 90vh;
+    width: 100vw;
+    height: 57vh;
+    position: relative;
+    right: 40vh;
+ 
+}
+.Curve{
+    position: relative;
+    right: 50vh;
+    width: 100vw;
+}
+.Anjing{
+    position: relative;
+    right: 10vh;
+    margin-top: -55vh;
+    width: 80vh;
+    right: -70vw;
+}
+.Tulisan{
+    position: relative;
+    right: -37vh;
+    text-align: left;
+    margin-top: -50vh;
+    color: white
+}
+.Pre{
+    color: white;
+    position: relative;
+    right: 28vh;
+}
+.Servis{
+    position: relative;
+    margin-top: -80vh;
+}
+.Servis-gambar{
+    position: relative;
+    margin-top: 5vh;
+    right: -75vh;
+}
+.Klinik{
+    position: relative;
+    margin-top: -5vh;
+    right: 110vh;
+}
+.Konsul{
+    position: relative;
+    margin-top: -40.5vh;
+    right: 75vh;
+}
+.Janji{
+    position: relative;
+    margin-top: -11.5vh;
+    right: 0vh;
+}
+.Dokter{
+    position: relative;
+    margin-top: -53vh;
+    right: 38vh;
+}

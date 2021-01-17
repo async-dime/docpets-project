@@ -104,7 +104,7 @@ const SignUpForm = () => {
               <Link to="/signup/form">
                 <Button
                   type="submit"
-                  className="btn btn-block-role"
+                  className="btn btn-block-role w-100"
                 >
                   Selanjutnya
                 </Button>

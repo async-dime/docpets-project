@@ -7,7 +7,7 @@ import { registerAction } from "../store/actions/auth";
 import { connect } from "react-redux";
 import banner from "../components/assets/img/dogbanner.png";
 import logo from "../components/assets/img/docpets.png";
-import "./SignUpForm.scss";
+import "./FormSignUp.scss";
 import userIcon from "../components/assets/img/user.svg";
 import lockIcon from "../components/assets/img/lock.svg";
 import mailIcon from "../components/assets/img/mail.svg";
@@ -15,7 +15,7 @@ import phoneIcon from "../components/assets/img/phone.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-const SignUpForm = (props) => {
+const FormSignUp = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const [nama, setNama] = useState();
   const [telepon, setTelepon] = useState();
@@ -306,18 +306,18 @@ const SignUpForm = (props) => {
               ) : (
                 ""
               )}
-              <Link to="/">
+              <Link to="/user">
                 <Button
                   type="submit"
                   onClick={onSubmit}
-                  className="btn btn-block-signup"
+                  className="btn btn-block-signup w-100"
                 >
                   Sign Up
                 </Button>
               </Link>
               <h6 className="signup-text-down">
                 Already have an account? Please
-                <Link to="/signin" className="signin-text">
+                <Link to="/signin" className="signup-text-link">
                   {" "}
                   Sign In
                 </Link>
@@ -336,4 +336,4 @@ const mapDispatchToProps = (dispatch) => ({
   signUpDatas: (data) => dispatch(registerAction(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(FormSignUp);

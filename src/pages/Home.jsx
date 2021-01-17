@@ -1,11 +1,14 @@
 import React from "react";
-import NavBarLogin from "../components/NavbarLogin";
+import HeaderLogin from "../components/headerloginpage";
+import Homes from "../components/Home";
+import Footer from "../components/Footer";
 
-
-function Home() {
+function Home () {
   return (
-    <div className="home">
-      <NavBarLogin />
+    <div >
+      <HeaderLogin />
+      <Homes />
+      <Footer/>
     </div>
   );
 }

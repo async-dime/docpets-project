@@ -4,34 +4,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faSearch } from "@fortawesome/free-solid-svg-icons";
 import logo from "./assets/img/logo.png";
 import logofont from "./assets/img/logofont.png";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ClinicCard from "./ClinicCard";
-import axios from "axios"
+import axios from "axios";
 
 const NavBarLogin = (props) => {
+  const [name, setName] = useState(localStorage.getItem("nama"));
   const [query, setQuery] = useState("");
   const [clinics, setClinic] = useState([]);
   const search = <FontAwesomeIcon icon={faSearch} />;
 
   const [modalSearchClinic, setModalSearchClinic] = useState(false);
-  const toggleModalSearchClinic = () =>
+  const toggleModalSearchClinic = () => {
     setModalSearchClinic(!modalSearchClinic);
-  
-    const searchClinic = async (e, response, error) => {
-      e.preventDefault();
-      axios.post(`https://doctorpets.tk:3002/klinik/search?nama=${query}&lokasi=jawa`)
-        // .then(response => console.log(response.data.result))
-        .then((response) => {
-          // setClinic(response.data.result)
-          console.log(response.data.result)
-        }) 
-        .catch(error => {
-            setClinic({ errorMessage: error.message });
-            console.error('There was an error!', error);
-        });
-    };
+  };
+
+  const searchClinic = async (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        `https://doctorpets.tk:3002/klinik/search?nama=${query}&lokasi=jawa`
+      )
+      // .then(response => console.log(response.data.result))
+      .then((response) => {
+        // setClinic(response.data.result)
+        console.log(response.data.result);
+      })
+      .catch((error) => {
+        setClinic({ errorMessage: error.message });
+        console.error("There was an error!", error);
+      });
+  };
+
+  console.log(localStorage.getItem("role", "<==this is role"));
+  console.log(localStorage.getItem("nama", "<==this is role"));
 
   const pic = (
     <FontAwesomeIcon
@@ -91,7 +99,7 @@ const NavBarLogin = (props) => {
               className="navbar-text nav-dropdown"
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item>hi, Full Name</NavDropdown.Item>
+              <NavDropdown.Item>hi, {name}</NavDropdown.Item>
               <NavDropdown.Item onClick={signOut}>
                 <Link to="/"> Sign out </Link>
               </NavDropdown.Item>

@@ -1,0 +1,28 @@
+.Baratas{
+    position: relative;
+    right:-110vh;
+}
+.Kota{
+    position: relative;
+    margin-top: 5vh;
+    width: 20vh;
+}
+.Hewan{
+    position: relative;
+    margin-top: -6vh;
+    right: -22vh;
+    width: 30vh;
+}
+.Cari{
+    position: relative;
+    margin-top: -10vh;
+    right: 15vw;
+    width: 30vh;
+
+}
+.RS{
+    position: relative;
+    right: -3vh;
+    width: 40vh;
+    height: 60vh;
+}
