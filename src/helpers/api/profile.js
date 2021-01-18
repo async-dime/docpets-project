@@ -1,18 +1,18 @@
 import axios from 'axios'
 import {baseUrl} from './index'
 
-export function apiGetProfile(id, headers) {
+export function apiGetProfile(headers) {
     return axios ({
         method: 'GET',
-        url: baseUrl + '/user/profile/',
+        url: baseUrl + '/user/getProfile',
         headers,
     });
 }
 
-export function apiUpdateProfile(id, headers, payload){
+export function apiUpdateProfile(headers, payload){
     return axios ({
-        method: 'PATCH',
-        url: baseUrl + 'profile/u/?id=' + id,
+        method: 'PUT',
+        url: baseUrl + 'user/updateProfile',
         headers,
         data: payload,
     });

@@ -3,17 +3,17 @@ import {baseUrl} from './index'
 
 export function apiAddAnimal (headers, payload) {
     return axios ({
-        method: 'POST',
-        url: baseUrl + 'pet',
+        method: 'PUT',
+        url: baseUrl + 'user/addPet',
         data: payload,
         headers
     });
 }
 
-export function apiGetAnimal (id, headers){
+export function apiGetAnimal (headers){
     return axios ({
         method: 'GET',
-        url: baseUrl + 'pet/' + id,
+        url: baseUrl + 'user/getPet',
         headers
     })
 }

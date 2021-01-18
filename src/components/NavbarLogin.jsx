@@ -38,8 +38,8 @@ const NavBarLogin = (props) => {
       });
   };
 
-  console.log(localStorage.getItem("role", "<==this is role"));
-  console.log(localStorage.getItem("nama", "<==this is role"));
+  console.info(localStorage.getItem("role", "<==this is role"));
+  console.info(localStorage.getItem("nama", "<==this is nama"));
 
   const pic = (
     <FontAwesomeIcon
@@ -89,7 +89,7 @@ const NavBarLogin = (props) => {
               >
                 <div className="card-list">
                   {clinics?.data?.map((clinic) => (
-                    <ClinicCard clinic={clinic} />
+                    <ClinicCard />
                   ))}
                 </div>
               </Modal>

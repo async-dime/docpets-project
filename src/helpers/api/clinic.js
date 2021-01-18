@@ -4,7 +4,7 @@ import {baseUrl} from './index'
 export function apiGetClinicAllRoute(headers) {
     return axios ({
         method: 'GET',
-        url: baseUrl + 'clinic',
+        url: baseUrl + 'klinik/getAllKlinik',
         headers,
     });
 }
@@ -12,7 +12,7 @@ export function apiGetClinicAllRoute(headers) {
 export function apiGetClinicByCityRoute(city, headers) {
     return axios ({
         method: 'GET',
-        url: baseUrl + 'search/?city=' + city,
+        url: baseUrl + 'search?lokasi=' + city,
         headers,
     });
 }
@@ -20,7 +20,7 @@ export function apiGetClinicByCityRoute(city, headers) {
 export function apiGetClinicByNameRoute(name, headers) {
     return axios ({
         method: 'GET',
-        url: baseUrl + 'search/name/?name=' + name,
+        url: baseUrl + 'search?nama=' + name,
         headers,
     });
 }

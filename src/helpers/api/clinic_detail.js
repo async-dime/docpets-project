@@ -4,7 +4,7 @@ import {baseUrl} from './index'
 export function apiGetClinicDetail(headers, id) {
     return axios ({
         method: 'GET',
-        url: baseUrl + "clinic/" + id,
+        url: baseUrl + "klinik/getKlinikById/" + id,
         headers
     })
 }
