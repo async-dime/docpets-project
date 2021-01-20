@@ -18,9 +18,10 @@ function* getProfileDetail() {
     console.info("sesudah headers");
 
     const resProfile = yield apiGetProfile(accountId, headers);
-    console.info("ini resprofile", resProfile.data);
+    console.info("ini resprofile", resProfile.data.result);
+    console.info("ini resprofile nama", resProfile.data.result.nama);
 
-    yield put({ type: GET_PROFILE_SUCCESS, payload: resProfile.data });
+    yield put({ type: GET_PROFILE_SUCCESS, payload: resProfile.data.result });
     console.log("berhasil ambil data profile");
   } catch (e) {
     alert("Data profil tidak dapat diakses");

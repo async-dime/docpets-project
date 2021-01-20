@@ -10,10 +10,9 @@ import Home from "../pages/Home";
 import RoleForm from "../pages/RoleForm";
 import FormSignUp from "../pages/FormSignUp";
 import FormSignIn from "../pages/FormSignIn";
-import Profile from "../pages/Profile";
+import Profile from "../pages/UserProfile";
 import DetailRS from "../pages/DetailRS";
 import ListRS from "../pages/ListRS";
-import Userprofile from "../pages/UserProfile";
 import TestPage from "../pages/TestPage";
 import NotFound from "../pages/404";
 
@@ -41,9 +40,6 @@ export const Routes = () => {
         </Route>
         <Route path="/listrs" exact>
           <ListRS />
-        </Route>
-        <Route path="/user" exact>
-          <Userprofile />
         </Route>
         <Route path="/test" exact>
           <TestPage />

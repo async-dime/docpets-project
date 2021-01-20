@@ -11,7 +11,6 @@ import {
 const initialState = {
     isLoading: false,
     isLoggedIn: false,
-    nama: localStorage.getItem("nama")
 };
 
 const auth = (state= initialState, action) => {

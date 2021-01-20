@@ -50,6 +50,7 @@
     height: 57vh;
     position: relative;
     right: 40vh;
+    justify-content: center;
  
 }
 .Curve{

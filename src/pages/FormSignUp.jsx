@@ -107,7 +107,7 @@ const FormSignUp = (props) => {
               <Link to={`/doctor`} className="navbar-text-h6">
                 <h6>Doctor</h6>
               </Link>
-              <Link to={`/clinic`} className="navbar-text-h6">
+              <Link to={`/listrs`} className="navbar-text-h6">
                 <h6>Search Clinic</h6>
               </Link>
               <Link to="/signin">
@@ -128,7 +128,6 @@ const FormSignUp = (props) => {
             <h6 className="signup-text">
               Daftarkan Dirimu Untuk Menggunakan Aplikasi Ini
             </h6>
-            {/* <Form onSubmit={onSubmit}> */}
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group>
                 <InputGroup size="sm">
@@ -234,7 +233,7 @@ const FormSignUp = (props) => {
                     className="signup-column-form"
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    balue={password}
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     ref={register({

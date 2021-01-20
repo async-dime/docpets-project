@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button, Modal, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./NavbarLogin.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faSearch } from "@fortawesome/free-solid-svg-icons";
-
-//redux
-import { getProfileDetail } from "../store/actions/profile";
-import { logoutAction } from "../store/actions/auth";
-
-import { connect } from "react-redux";
-
 import logo from "./assets/img/logo.png";
 import logofont from "./assets/img/logofont.png";
+import React, { useState, useEffect } from "react";
+import { Button, Modal, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import ClinicCard from "./ClinicCard";
 import axios from "axios";
 
@@ -21,18 +14,12 @@ const NavBarLogin = (props) => {
   const [name, setName] = useState(localStorage.getItem("nama"));
   const [query, setQuery] = useState("");
   const [clinics, setClinic] = useState([]);
-  const searchIcon = <FontAwesomeIcon icon={faSearch} />;
+  const search = <FontAwesomeIcon icon={faSearch} />;
 
   const [modalSearchClinic, setModalSearchClinic] = useState(false);
   const toggleModalSearchClinic = () => {
     setModalSearchClinic(!modalSearchClinic);
   };
-
-  useEffect(() => {
-    props.search('')
-    props.getProfile()
-  }, [])
-
 
   const searchClinic = async (e) => {
     e.preventDefault();
@@ -42,7 +29,7 @@ const NavBarLogin = (props) => {
       )
       // .then(response => console.log(response.data.result))
       .then((response) => {
-        setClinic(response.data.result)
+        // setClinic(response.data.result)
         console.log(response.data.result);
       })
       .catch((error) => {
@@ -52,6 +39,7 @@ const NavBarLogin = (props) => {
   };
 
   console.info(localStorage.getItem("role", "<==this is role"));
+  console.info(localStorage.getItem("nama", "<==this is nama"));
 
   const pic = (
     <FontAwesomeIcon
@@ -61,7 +49,6 @@ const NavBarLogin = (props) => {
     />
   );
   const signOut = () => {
-    props.logout()
     localStorage.clear("token");
     window.location.reload();
   };
@@ -87,7 +74,7 @@ const NavBarLogin = (props) => {
             </Link>
             <form className="navbar-search" onSubmit={searchClinic}>
               <i onClick={toggleModalSearchClinic} type="submit">
-                {searchIcon}
+                {search}
               </i>{" "}
               <input
                 type="text"
@@ -101,7 +88,7 @@ const NavBarLogin = (props) => {
                 toggle={toggleModalSearchClinic}
               >
                 <div className="card-list">
-                  {clinics?.data?.map((props) => (
+                  {clinics?.data?.map((clinic) => (
                     <ClinicCard />
                   ))}
                 </div>
@@ -124,18 +111,4 @@ const NavBarLogin = (props) => {
   );
 };
 
-
-const mapStateToProps = (state) => ({
-  animal: state.getAnimal.data,
-  // name: state.getProfileDetail.data,
-  clinics:state.clinicSearch.listClinicSearch,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  search:(name)=>dispatch({type:'GET_CLINIC',payload:name}),
-  getProfile: () => dispatch({type: 'GET_PROFILE'}),
-  logout: () => dispatch(logoutAction())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBarLogin);
-
+export default NavBarLogin;

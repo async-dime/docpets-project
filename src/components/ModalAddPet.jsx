@@ -20,10 +20,10 @@ const ModalAddPet = (props) => {
     setIsOpen(false);
   };
 
-  const [specyId, setSpecyId] = useState("");
+  const [species, setSpecies] = useState("");
 
   const handlePetSpecies = (e) => {
-    setSpecyId(e.target.value);
+    setSpecies(e.target.value);
   };
 
   const [petGender, setPetGender] = useState("");
@@ -42,15 +42,11 @@ const ModalAddPet = (props) => {
   const params = useParams().id;
 
   const handleSubmit = (e) => {
-    name === ""
-      ? alert("masukkan nama hewan peliharaan")
-      : specyId === ""
-      ? alert("masukkan jenis hewan peliharaan")
-      : "";
-
+    let test = () => name === "" ? alert("masukkan nama hewan peliharaan") : species === "" ? alert("masukkan jenis hewan peliharaan") : "";
+    test();
     const bodyData = {
-      name,
-      petSpecyId: specyId,
+      nama: name,
+      jenis: species,
       gender: petGender,
     };
     console.log(bodyData);
@@ -65,21 +61,19 @@ const ModalAddPet = (props) => {
     })
       .then(() => {
         history.push(`/book-clinic/${props.param}`);
-        props.addNewPet();
+        // props.addNewPet();
         toggle();
-        console.info(bodyData)
+        console.info(bodyData);
       })
       .catch((err) => {
-        err.message !== ""
-          ? alert(err.message)
-          : "";
-          console.info(err.message)
+        console.info(err.message);
+        return err.message !== "" ? alert(err.message) : "";
       });
   };
 
-  const modalAddPetStyle= {
+  const modalAddPetStyle = {
     maxWidth: "88vw",
-  }
+  };
 
   const modalAddPetStyleH1 = {
     fontSize: "30px",
@@ -87,7 +81,7 @@ const ModalAddPet = (props) => {
     marginLeft: "20px",
     margin: "10px 0",
     color: "#445e6b",
-  }
+  };
 
   const modalAddPetStyleH4 = {
     fontSize: "16px",
@@ -95,7 +89,7 @@ const ModalAddPet = (props) => {
     marginLeft: "20px",
     margin: "10px 0",
     color: "#445e6b",
-  }
+  };
 
   const plusStyle = {
     fontSize: "3rem",
@@ -108,7 +102,7 @@ const ModalAddPet = (props) => {
     fontWeight: "bold",
     position: "relative",
     marginTop: "0.5rem 0",
-    border: "0px solid",
+    border: "0px",
   };
 
   return (
@@ -123,7 +117,7 @@ const ModalAddPet = (props) => {
             <h1 style={modalAddPetStyleH1}>Informasi Hewan Peliharaan</h1>
           </Modal.Header>
           <Modal.Body className="add-pet-form">
-            <form action="yoi" onSubmit={(e) => handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <label className="border-0 my-2" htmlFor="namaHewan">
                 Nama Hewan Peliharaan Kamu
               </label>
@@ -182,13 +176,11 @@ const ModalAddPet = (props) => {
 };
 
 const stateProps = () => {
-  return {
-  };
+  return {};
 };
 
 const dispatchProps = (dispatch) => {
   return {
-    // addNewPet: () => dispatch({ type: "ADD_DOCTOR" }),
   };
 };
 

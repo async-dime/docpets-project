@@ -21,7 +21,6 @@ import {
 import { apiLogin, apiRegister } from "../../helpers/api/auth";
 import { GET_ANIMAL } from "../actions/types";
 
-const nama = localStorage.getItem("nama")
 
 function* login(action) {
   try {
@@ -31,13 +30,12 @@ function* login(action) {
 
     if (resLogin && resLogin.data) {
       // save token to local storage
-      yield saveToken(resLogin.data.token);
+      yield saveToken(resLogin.data.result.token);
       yield saveAccountId(resLogin.data.id);
 
       yield put({ type: LOGIN_SUCCESS });
 
-      alert("Selamat datang, " + {nama} );
-      // alert("Selamat datang, " + resLogin.data.nama);
+      alert("Selamat datang, " + resLogin.data.result.user.nama);
       yield put({ type: GET_PROFILE });
       yield put({ type: GET_ANIMAL });
     } else {
@@ -59,14 +57,12 @@ function* register(action) {
 
     if (resRegister && resRegister.data) {
       // save token to local storage
-      yield saveToken(resRegister.data.token);
+      yield saveToken(resRegister.data.result.token);
       yield saveAccountId(resRegister.data.id);
 
-      yield put({ type: GET_PROFILE, payload: resRegister.data });
+      yield put({ type: GET_PROFILE, payload: resRegister.data.result.user });
       yield put({ type: REGISTER_SUCCESS });
-
-      alert(`Selamat Datang, ${nama}`);
-      // alert("Selamat Datang, " + resRegister.data.nama);
+      alert("Selamat Datang, " + resRegister.data.result.user.nama);
     } else {
       alert("Register gagal");
       yield put({ type: REGISTER_FAILED });

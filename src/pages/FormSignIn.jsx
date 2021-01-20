@@ -34,15 +34,8 @@ const FormSignIn = (props) => {
       props.signInDatas({
         email,
         password,
-        role: localStorage.getItem("role"),
       });
     }
-
-    // localStorage.setItem("nama", { nama });
-    // localStorage.setItem("email", { email });
-    // localStorage.setItem("gender", { gender });
-    // localStorage.setItem("password", { password });
-    // localStorage.setItem("telepon", { telepon });
   };
 
   const alertText = {
@@ -77,7 +70,7 @@ const FormSignIn = (props) => {
               <Link to={`/doctor`} className="navbar-text-h6">
                 <h6>Doctor</h6>
               </Link>
-              <Link to={`/clinic`} className="navbar-text-h6">
+              <Link to={`/listrs`} className="navbar-text-h6">
                 <h6>Search Clinic</h6>
               </Link>
               <Link to="/signup">
@@ -159,7 +152,7 @@ const FormSignIn = (props) => {
                 )}
               </Form.Group>
               
-              <Link to="/">
+              <Link to="/user">
                 <Button
                   type="submit"
                   onClick={onSubmit}
@@ -183,7 +176,9 @@ const FormSignIn = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isLoading: state.auth.isLoading
+});
 
 const mapDispatchToProps = (dispatch) => ({
   signInDatas: (data) => dispatch(loginAction(data)),

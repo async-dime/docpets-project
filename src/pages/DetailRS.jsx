@@ -1,10 +1,14 @@
 import React from "react";
-import DetailRS from "../components/DetailRS";
+import NavbarLogin from "../components/NavbarLogin";
+import Footer from "../components/Footer"
+import DetailrsContent from "../components/DetailRSContent"
 
 function Detailrs() {
   return (
     <div className="home">
-        <DetailRS />
+        <NavbarLogin />
+        <DetailrsContent/>
+        <Footer />
     </div>
   );
 }

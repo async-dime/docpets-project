@@ -97,7 +97,7 @@ const ModalSuccessBook = (props) => {
   return (
     <div>
       <Button style={buttonSuccessBook} onClick={handlerClick}>
-        Book
+        Book Now
       </Button>
       <Modal show={isOpen} onHide={hideModal} centered>
         <Modal.Header className="rounded mb-0 border-0" style={modalSuccessBookHead} closeButton></Modal.Header>

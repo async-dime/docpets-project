@@ -48,10 +48,10 @@ const SignUpForm = () => {
               <Link to={`/doctor`} className="navbar-text-h6">
                 <h6>Doctor</h6>
               </Link>
-              <Link to={`/clinic`} className="navbar-text-h6">
+              <Link to={`/listrs`} className="navbar-text-h6">
                 <h6>Search Clinic</h6>
               </Link>
-              <Link to="/signin">
+              <Link to="/login">
                 <Button
                   className="btn border-0 pr-3 pl-3 ml-2"
                   style={{ backgroundColor: "#fde84d", color: "#445E6B" }}
