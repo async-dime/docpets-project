@@ -21,6 +21,14 @@ const NavBarLogin = (props) => {
     setModalSearchClinic(!modalSearchClinic);
   };
 
+  const isLogin = () => {
+    if (localStorage.getItem("token") === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   const searchClinic = async (e) => {
     e.preventDefault();
     axios

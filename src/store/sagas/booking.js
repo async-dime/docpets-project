@@ -28,7 +28,7 @@ function* addBooking(action) {
     yield put({ type: BOOKING_SUCCESS, payload: resAddBooking.data });
     console.log("berhasil menambah booking");
   } catch (e) {
-    alert("Gagal Menambahkan Booking");
+    console.info("Gagal Menambahkan Booking");
     console.log(JSON.stringify(e));
     yield put({ type: BOOKING_FAILED });
   }
@@ -45,7 +45,7 @@ function* getBooking() {
     yield put({ type: GET_BOOKING_SUCCESS, payload: resGetBooking.data });
     console.log("berhasil mendapatkan data booking");
   } catch (e) {
-    alert("Gagal Mendapatkan Data Booking");
+    console.info("Gagal Mendapatkan Data Booking");
     console.log(JSON.stringify(e));
     yield put({ type: GET_BOOKING_FAILED });
   }
@@ -65,7 +65,7 @@ function* getHistoryBooking() {
     });
     console.log("berhasil mendapatkan data history booking");
   } catch {
-    alert("Gagal Mendapatkan Data History Booking");
+    console.info("Gagal Mendapatkan Data History Booking");
     yield put({ type: GET_HISTORY_BOOKING_FAILED });
   }
 }

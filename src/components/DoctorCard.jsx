@@ -1,99 +1,70 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
 
+//styling, icons
+import { Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import "./DoctorCard.scss"
 
-import ava1 from "../components/assets/img/doc1.png";
-import ava2 from "../components/assets/img/doc2.jpg";
+const DoctorCard = (props) => {        
+    //custom styling
+    const textDocDown = {
+        margin: "0",
+        padding: "0",
+        paddingLeft: "5px",
+        fontSize: "15px",
+        fontWeight: "500",
+        color: "#0F0",
+        // color: "#F00",
+    };
+    let checkIcon = (
+        <FontAwesomeIcon
+            icon={faCheckCircle}
+            style={{
+                color: "#fde84d",
+                marginLeft: "0.5rem",
+                verticalAlign: "center",
+                position: "absolute",
+                top: "2rem",
+                left: "-1rem",
+            }}
+        />
+    );
+    let onlineIcon = (
+        <FontAwesomeIcon
+            icon={faGlobe}
+            style={{
+                color: `${textDocDown.color}`,
+                marginRight: "5px",
+                paddingLeft: "5px",
+            }}
+        />
+    );
 
-export default function DoctorCard(props) {
-  let dummyDoc = [
-    {
-      nama: "Dr. Alex, SP. Kucing",
-      status: "offline",
-      title: "Dokter Kucing",
-      checked: "true",
-      ava: ava1,
-    },
-  ];
+    return (
+        <Button variant="light" className="doctor-card-container">
+            <Row>
+                <Col className="col-sm-4">
+                    <img src={props.ava} className="doctor-image"></img>
+                </Col>
+                <Col className="col-sm-7">
+                    <Row>
+                        <p className="text-doctor-up">{props.title}</p>
+                    </Row>
+                    <Row>
+                        <p className="text-doctor-center">{props.nama}</p>
+                    </Row>
+                    <Row>
+                        <i>{onlineIcon}</i>
+                        <p className="text-doctor-down">{props.status}</p>
+                    </Row>
+                </Col>
+                <Col className="col-sm-1">
+                    <i>{checkIcon}</i>
+                </Col>
+            </Row>
+        </Button>
+    );
+};
 
-  let docStatus = dummyDoc[0].status;
-
-  //custom styling
-  const doctorCardContainer = {
-    padding: "0.5rem",
-    maxWidth: "250px",
-    maxHeight: "150px",
-  };
-  const docImage = {
-    verticalAlign: "middle",
-    maxWidth: "70px",
-    borderRadius: "50%",
-    margin: "10px",
-  };
-  const textDocSmall = {
-    margin: "0",
-    padding: "0",
-    fontSize: "15px",
-    fontWeight: "500",
-    color: "#fde84d",
-  };
-  const textDocBig = {
-    margin: "0",
-    padding: "0",
-    fontSize: "18px",
-    fontWeight: "500",
-    color: "#445e6b",
-  };
-  let checkIcon = (
-    <FontAwesomeIcon
-      icon={faCheckCircle}
-      style={{
-        color: "#fde84d",
-        marginLeft: "0.5rem",
-        verticalAlign: "center",
-      }}
-    />
-  );
-  let onlineIcon = (
-    <FontAwesomeIcon
-      icon={faGlobe}
-      style={{
-        color: "#fde84d",
-        marginRight: "8px",
-      }}
-    />
-  );
-
-  return (
-    <div className="card-body">
-      <Row>
-        <Col>
-          <img src={dummyDoc[0].ava} style={docImage}></img>
-        </Col>
-        <Col>
-          <Row>
-            <p style={textDocSmall}>{dummyDoc[0].title}</p>
-          </Row>
-          <Row>
-            <p style={textDocBig}>{dummyDoc[0].nama}</p>
-          </Row>
-          <Row>
-            <i>{onlineIcon}</i>
-            <p style={textDocBig}>{dummyDoc[0].status}</p>
-          </Row>
-        </Col>
-        <Col>
-          <br />
-          <Row>
-            <Col></Col>
-            <Col>
-              <i>{checkIcon}</i>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </div>
-  );
-}
+export default DoctorCard;

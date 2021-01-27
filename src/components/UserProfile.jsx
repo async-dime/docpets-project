@@ -6,16 +6,18 @@ import User from "./assets/img/user.svg";
 import Paw from "./assets/img/paw.svg";
 import History from "./assets/img/history.svg";
 import { Link } from "react-router-dom"
-
+import { useSelector } from "react-redux"
 function Userprofile() {
-
+    const userDetail = useSelector(state => state)
+    console.log(userDetail)
+    
     return (
         <>
             <CardDeck className="CardInfo">
                 <Card>
                     <Card.Img variant="top" src={User} className="Picture" />
                     <Card.Body>
-                        <Card.Title> Nama User </Card.Title>
+                        <Card.Title> {userDetail.profile.nama} </Card.Title>
                         <p>User</p>
                         <Card.Text className="Count">
                             <div className="Hewan">

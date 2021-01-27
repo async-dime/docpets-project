@@ -5,12 +5,13 @@ import {
   UPDATE_PROFILE,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILED,
+  REGISTER,
 } from "../actions/types.js";
 
 // initial state = nilai awal data profile yang ada di store
 const initialState = {
   isLoading: false,
-  data: [
+  data: 
     {
       email: "",
       foto: "",
@@ -20,7 +21,6 @@ const initialState = {
       telepon: "",
       numPet: NaN,
     },
-  ],
 };
 
 const profile = (state = initialState, action) => {
@@ -49,7 +49,23 @@ const profile = (state = initialState, action) => {
         ...state,
         isLoading: true,
       };
-    }
+    };
+    case REGISTER: {
+      console.info ('reducer register');
+      console.log("action", action.payload)
+      return {
+          ...state,
+          data:{
+          ...state.data,
+            email: action.email,
+            nama: action.nama,
+            role: action.role,
+            gender: action.gender,
+            telepon: action.telepon,
+          },
+          isLoading: true,
+      }
+  }
     case UPDATE_PROFILE_SUCCESS: {
       return {
         ...state,

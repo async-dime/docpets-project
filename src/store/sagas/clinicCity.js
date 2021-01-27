@@ -17,7 +17,7 @@ function* getClinicCity(action) {
     yield put({ type: GET_CLINIC_SUCCESS_SEARCH, payload: resClinic.data });
   } catch (e) {
     yield put({ type: GET_CLINIC_FAILED_SEARCH });
-    alert("Klinik belum tersedia di kota ini");
+    console.info("Klinik belum tersedia di kota ini");
   }
 }
 

@@ -26,7 +26,7 @@ function* getClinicDetail(action) {
     console.log("berhasil menambahkan clinic");
   } catch (err) {
     console.log(JSON.stringify(err));
-    alert("Gagal Mengambil Data Klinik");
+    console.info("Gagal Mengambil Data Klinik");
     yield put({ type: GET_CLINIC_DETAIL_FAILED });
   }
 }

@@ -26,7 +26,7 @@ function* login(action) {
   try {
     //LOGIN
     const resLogin = yield apiLogin(action.payload);
-    console.log("data resLogin :", resLogin.data);
+    console.info("data resLogin :", resLogin.data);
 
     if (resLogin && resLogin.data) {
       // save token to local storage
@@ -35,25 +35,25 @@ function* login(action) {
 
       yield put({ type: LOGIN_SUCCESS });
 
-      alert("Selamat datang, " + resLogin.data.result.user.nama);
+      console.info("Selamat datang, " + resLogin.data.result.user.nama);
       yield put({ type: GET_PROFILE });
       yield put({ type: GET_ANIMAL });
     } else {
       // show alert
-      alert("Login Gagal");
+      console.info("Login Gagal");
       yield put({ type: LOGIN_FAILED });
     }
   } catch {
-    alert("Gagal login");
+    console.info("Gagal login");
     yield put({ type: LOGIN_FAILED });
   }
 }
 
 function* register(action) {
   try {
-    console.log("register saga: ", action);
+    console.info("register saga: ", action);
     const resRegister = yield apiRegister(action.payload);
-    console.log("data resRegister :", resRegister.data);
+    console.info("data resRegister :", resRegister.data);
 
     if (resRegister && resRegister.data) {
       // save token to local storage
@@ -62,13 +62,13 @@ function* register(action) {
 
       yield put({ type: GET_PROFILE, payload: resRegister.data.result.user });
       yield put({ type: REGISTER_SUCCESS });
-      alert("Selamat Datang, " + resRegister.data.result.user.nama);
+      console.info("Selamat Datang, " + resRegister.data.result.user.nama);
     } else {
-      alert("Register gagal");
+      console.info("Register gagal");
       yield put({ type: REGISTER_FAILED });
     }
   } catch (e) {
-    alert("Gagal register");
+    console.info("Gagal register");
   }
 }
 
@@ -76,7 +76,7 @@ function* logout() {
   try {
     yield removeToken();
   } catch (e) {
-    alert("Gagal logout");
+    console.info("Gagal logout");
   }
 }
 

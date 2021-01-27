@@ -1,12 +1,11 @@
 .detailrs-container {
-    padding: 1rem 2rem;
-    .col {
-        padding-left: 0;
-        padding-right: 0;
-    }
+  padding: 1rem 2rem;
+  .col {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    
-  .detailButtonBookDay{
+  .detailButtonBook {
     background-color: #fff;
     color: #000;
     position: relative;
@@ -20,8 +19,8 @@
     font-weight: 500;
     padding: 0.5rem;
   }
-  .detailButtonBookDayClick {
+  .detailButtonBookClick {
     background-color: #fde84d;
     color: #445e6b;
-}
+  }
 }

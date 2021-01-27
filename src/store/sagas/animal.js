@@ -16,7 +16,6 @@ import {
   DELETE_ANIMAL_SUCCESS,
 } from "../actions/types";
 import { getAccountId, getHeaders } from "../../helpers/function/auth.js";
-import { Alert } from "react-bootstrap";
 
 function* addAnimal(action) {
   try {
@@ -29,7 +28,7 @@ function* addAnimal(action) {
     yield put({ type: ADD_ANIMAL_SUCCESS, payload: resAddAnimal.data });
     console.log("berhasil menambah hewan");
   } catch {
-    alert("Gagal Menambahkan Hewan");
+    console.info("Gagal Menambahkan Hewan");
     yield put({ type: ADD_ANIMAL_FAILED });
   }
 }
@@ -45,7 +44,7 @@ function* getAnimal() {
     yield put({ type: GET_ANIMAL_SUCCESS, payload: resGetAnimal.data });
     console.log("berhasil mendapatkan hewan");
   } catch {
-    alert("Gagal Mendapatkan Hewan");
+    console.info("Gagal Mendapatkan Hewan");
     yield put({ type: GET_ANIMAL_FAILED });
   }
 }
@@ -60,7 +59,7 @@ function* deleteAnimal(action) {
 
     yield put({ type: DELETE_ANIMAL_SUCCESS });
   } catch {
-    alert("Gagal Menghapus Hewan");
+    console.info("Gagal Menghapus Hewan");
     yield put({ type: DELETE_ANIMAL_FAILED });
   }
 }

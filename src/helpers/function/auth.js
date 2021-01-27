@@ -1,6 +1,6 @@
 
 export async function getHeaders(){
-    const token = await localStorage.getItem("token")
+    const token = await localStorage.getItem('APP_AUTH_TOKEN')
     return {
         'Content-Type' : 'application/json',
         Authorization: 'Bearer ' + token,

@@ -20,36 +20,6 @@ const ModalSuccessBook = (props) => {
   const handlerClick = () => {
     showModal();
 
-    //     const urlBooking = "https://api.vetclinic.my.id/booking"
-    //     const bodyDataBook = {
-    //         userVetenariesId: localStorage.getItem('vetId'),
-    //         clinicId: localStorage.getItem('clinicIdForBooking'),
-    //         petId: localStorage.getItem('petId'),
-    //         operationalDay: localStorage.getItem('hariKunjungan'),
-    //         startTime: localStorage.getItem('waktuKunjungan').slice(0,5),
-    //         endTime: localStorage.getItem('waktuKunjungan').slice(6,11),
-    //         userId:localStorage.getItem('id')
-    //     }
-    //     console.log(bodyDataBook)
-
-    //     Axios(urlBooking, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Authorization: `Bearer ${localStorage.getItem('token')}`
-    //         }, data: JSON.stringify(bodyDataBook)
-    //     })
-    //         .then((res) => {
-    //             console.log(res)
-    //             toggle()
-    //             localStorage.removeItem('namaHewan1')
-    //             localStorage.removeItem('namaHewan2')
-    //             localStorage.removeItem('namaHewan3')
-    //             localStorage.removeItem('namaHewan4')
-    //             localStorage.removeItem('namaDokter')
-    //             localStorage.removeItem('waktuKunjungan')
-    //             localStorage.removeItem('hariKunjungan')
-    //         })
   };
 
   const modalSuccessBookHead = {

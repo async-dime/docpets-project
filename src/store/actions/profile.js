@@ -1,7 +1,7 @@
 import {GET_PROFILE, UPDATE_PROFILE} from './types'
 
-export const getProfileDetail = () => {
-  return {type: GET_PROFILE};
+export const getProfileDetail = (payload) => {
+  return {type: GET_PROFILE, payload};
 };
 
 export const updateProfile = (payload) => {

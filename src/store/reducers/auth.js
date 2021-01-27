@@ -2,7 +2,6 @@ import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILED,
-    REGISTER,
     REGISTER_SUCCESS,
     REGISTER_FAILED,
     LOGOUT,
@@ -36,13 +35,7 @@ const auth = (state= initialState, action) => {
                 isLoading: false
             };
         }
-        case REGISTER: {
-            console.info ('reducer register');
-            return {
-                ...state,
-                isLoading: true,
-            }
-        }
+
         case REGISTER_SUCCESS: {
             console.info('reducer register_success')
             return {

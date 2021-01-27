@@ -1,4 +1,4 @@
-import { takeLatest, put } from "redux-saga/effects";
+import { takeLatest, put, select } from "redux-saga/effects";
 import { apiGetProfile, apiUpdateProfile } from "../../helpers/api/profile";
 import { getAccountId, getHeaders } from "../../helpers/function/auth";
 import {
@@ -10,6 +10,9 @@ import {
   UPDATE_PROFILE_FAILED,
 } from "../actions/types";
 
+const getDatas = state => state.profile.data;
+
+
 function* getProfileDetail() {
   try {
     console.info("sebelum headers");
@@ -18,13 +21,17 @@ function* getProfileDetail() {
     console.info("sesudah headers");
 
     const resProfile = yield apiGetProfile(accountId, headers);
-    console.info("ini resprofile", resProfile.data.result);
+    console.info("ini resprofile", resProfile.data);
+    // console.info("ini resprofile", resProfile.data.result);
     console.info("ini resprofile nama", resProfile.data.result.nama);
 
-    yield put({ type: GET_PROFILE_SUCCESS, payload: resProfile.data.result });
-    console.log("berhasil ambil data profile");
+
+    yield put({ type: GET_PROFILE_SUCCESS, payload: resProfile.data });
+    yield select(getDatas)
+    // yield put({ type: GET_PROFILE_SUCCESS, payload: resProfile.data.result });
+    console.info("berhasil ambil data profile");
   } catch (e) {
-    alert("Data profil tidak dapat diakses");
+    console.info("Data profil tidak dapat diakses");
 
     yield put({ type: GET_PROFILE_FAILED });
   }
@@ -32,12 +39,12 @@ function* getProfileDetail() {
 
 function* updateProfile(action) {
   try {
-    console.log("sebelum headers update profile");
+    console.info("sebelum headers update profile");
     const headers = yield getHeaders();
-    console.log("sebelum account ID update", headers);
+    console.info("sebelum account ID update", headers);
     const accountId = yield getAccountId();
-    console.log(accountId);
-    console.log("saga updateProfile :", action);
+    console.info(accountId);
+    console.info("saga updateProfile :", action);
     // Update Profile
     const resProfileUpdate = yield apiUpdateProfile(
       accountId,
@@ -52,10 +59,10 @@ function* updateProfile(action) {
     // console.log('berhasil edit profile')
     yield put({ type: GET_PROFILE });
 
-    alert("Sukses mengupdate data profil");
+    console.info("Sukses mengupdate data profil");
   } catch (e) {
     // show alert
-    alert("Gagal mengupdate profil");
+    console.info("Gagal mengupdate profil");
     yield put({ type: UPDATE_PROFILE_FAILED });
   }
 }

@@ -17,13 +17,13 @@ function* getClinicPet(action) {
     if (resClinic.data.length > 0) {
       clinicsPet = resClinic.data[0].petSpeciesLists.map((item) => item.clinic);
     } else {
-      alert("Data tidak tersedia");
+      console.info("Data tidak tersedia");
     }
     console.log("sesudah search pet saga", resClinic.data);
     yield put({ type: GET_CLINIC_SUCCESS_SEARCH, payload: clinicsPet });
   } catch (e) {
     yield put({ type: GET_CLINIC_FAILED_SEARCH });
-    alert("Gagal menampilkan data clinic 3");
+    console.info("Gagal menampilkan data clinic 3");
   }
 }
 

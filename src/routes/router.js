@@ -12,9 +12,12 @@ import FormSignUp from "../pages/FormSignUp";
 import FormSignIn from "../pages/FormSignIn";
 import Profile from "../pages/UserProfile";
 import DetailRS from "../pages/DetailRS";
+import DetailBooking from "../pages/DetailBooking";
 import ListRS from "../pages/ListRS";
 import TestPage from "../pages/TestPage";
 import NotFound from "../pages/404";
+import Clinic from '../pages/ClinicProfile.jsx'
+import DoctorProfile from '../pages/DoctorProfile'
 
 export const Routes = () => {
   return (
@@ -38,11 +41,20 @@ export const Routes = () => {
         <Route path="/detailrs" exact>
           <DetailRS />
         </Route>
+        <Route path="/detailbooking" exact>
+          <DetailBooking />
+        </Route>
         <Route path="/listrs" exact>
           <ListRS />
         </Route>
         <Route path="/test" exact>
           <TestPage />
+        </Route>
+        <Route path="/clinicprofile" exact>
+          <Clinic />
+        </Route>
+        <Route path="/DoctorProfile" exact>
+          <DoctorProfile />
         </Route>
         <Route path="*" >
           <NotFound />

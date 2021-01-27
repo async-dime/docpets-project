@@ -10,7 +10,7 @@ function* getClinic() {
     yield put({ type: GET_CLINIC_SUCCESS, payload: resClinic.data });
   } catch (e) {
     yield put({ type: GET_CLINIC_FAILED });
-    alert("Gagal menampilkan data clinic");
+    console.info("Gagal menampilkan data clinic");
   }
 }
 

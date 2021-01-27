@@ -315,7 +315,7 @@ const FormSignUp = (props) => {
               </Link>
               <h6 className="signup-text-down">
                 Already have an account? Please
-                <Link to="/signin" className="signup-text-link">
+                <Link to="/login" className="signup-text-link">
                   {" "}
                   Sign In
                 </Link>
