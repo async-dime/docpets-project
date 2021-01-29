@@ -5,11 +5,7 @@ import logo2 from '../components/assets/headerimg/docpets2font.png'
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse'
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle'
 import 'bootstrap/dist/css/bootstrap.min.css'
-<<<<<<< HEAD
-import '../components/Footer.css'
-=======
-import './Footer.css'
->>>>>>> da1d34cf742a51164fd6223a7ee138350956db7b
+// import './Footer.css'
 
 const Header = () => {
 

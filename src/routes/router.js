@@ -53,7 +53,7 @@ export const Routes = () => {
         <Route path="/clinicprofile" exact>
           <Clinic />
         </Route>
-        <Route path="/DoctorProfile" exact>
+        <Route path="/doctorprofile" exact>
           <DoctorProfile />
         </Route>
         <Route path="*" >

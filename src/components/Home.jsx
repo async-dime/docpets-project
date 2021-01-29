@@ -1,8 +1,16 @@
-import React from 'react';
-import { Container, Row, Col, Carousel, Card, Button, Jumbotron } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './Home.css';
-import RumahSakit from "./assets/img/RS.png";
+import React from "react";
+import {
+    Container,
+    Row,
+    Col,
+    Carousel,
+    Card,
+    Button,
+    Jumbotron,
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Home.css";
+import RumahSakit from "./assets/img/RS.jpeg";
 import Kucing from "./assets/img/kucing.png";
 import Anjing from "./assets/img/duduk.png";
 import Dokter from "./assets/img/dokter.png";
@@ -13,28 +21,36 @@ import { Link } from "react-router-dom";
 function Home() {
     return (
         <>
-            <div className='bg-footer text-light' expand='lg'>
+            <div className="bg-footer text-light" expand="lg">
                 <Container className="Container">
                     {/* <img src={Gambar} className="Curve" /> */}
                     <img src={Anjing} className="Anjing" />
                     <div className="Tulisan">
-                        <h1>Welcome to VET</h1>
-                        <p className="Pre">{`
+                        <h1>Welcome to DocPets</h1>
+                        <p className="Pre">
+                            {`
                         This is a platform where we pet owner can book a desired clinic and the
                         veterinarian. This website is made for the final project of Glints Academy 
                         x Binar Academy batch 9. Please enjoy the website as much as you could.`}
                         </p>
-                        <Button className="Tombol">
-                          <Link to="/detailrs"></Link>
-                        Booking Now</Button>
+                        <Link to="/listrs">
+                            <Button className="Tombol">
+                            <Link to="/listrs">Book Now</Link>
+                            </Button>
+                        </Link>
                     </div>
                 </Container>
             </div>
-            <div class="container">
-                <Row className="Row">
-                    <div className="Servis">
-                        <h1> OUR SERVICE </h1>
-                        <div className="Servis-gambar">
+            <br />
+            <div className="container">
+                <Row className="Tengah">
+                    <div className="justify-content-center align-content-center">
+                        <h1 className="text-sm-center mt-2 Servis">
+                            {" "}
+                            OUR SERVICE{" "}
+                        </h1>
+                        <br />
+                        <div className="text-sm-center">
                             <img src={Klinik} className="Klinik" />
                             <img src={Konsul} className="Konsul" />
                             <img src={Dokter} className="Dokter" />
@@ -42,6 +58,7 @@ function Home() {
                     </div>
                 </Row>
             </div>
+            <br />
             <div class="container">
                 <Row className="Row">
                     <div className="Kenapamilih">
@@ -57,7 +74,8 @@ function Home() {
 
                     <div className="Milih">
                         <h1 className="Milihklinik">Choose Clinic</h1>
-                        <p className="Choose">{`
+                        <p className="Choose">
+                            {`
                         Please choose your desired clinics. For further search, 
                         please click on the "Find Clinics" in the header section.
                         You can filter the search bar based on the clinics' name,
@@ -72,12 +90,13 @@ function Home() {
                             <Card>
                                 <Card.Img variant="top" src={RumahSakit} />
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>Klinik Pukul 10</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk of
-                                        the card's content.
-                                     </Card.Text>
-                                    <Button className="Tombol">Go somewhere</Button>
+                                    klinik tempat menghilangkan stress
+                                    </Card.Text>
+                                    <Button className="Tombol">
+                                    <Link to="/detailrs">Book Now</Link>
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </Carousel.Item>
@@ -86,25 +105,27 @@ function Home() {
                             <Card>
                                 <Card.Img variant="top" src={RumahSakit} />
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>Klinik Peliharaan Sejati</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk of
-                                        the card's content.
-                                     </Card.Text>
-                                    <Button className="Tombol">Go somewhere</Button>
+                                    klinik terbaik untuk para pria sejati
+                                    </Card.Text>
+                                    <Button className="Tombol">
+                                    <Link to="/detailrs">Book Now</Link>
+                                    </Button>
                                 </Card.Body>
                             </Card>
-                            </Carousel.Item>
-                            <Carousel.Item interval={1000}>
+                        </Carousel.Item>
+                        <Carousel.Item interval={1000}>
                             <Card>
                                 <Card.Img variant="top" src={RumahSakit} />
                                 <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
+                                    <Card.Title>Klinik Harapan Indah</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk of
-                                        the card's content.
-                                     </Card.Text>
-                                    <Button className="Tombol">Go somewhere</Button>
+                                    klinik terbaik parah indah
+                                    </Card.Text>
+                                    <Button className="Tombol">
+                                    <Link to="/detailrs">Book Now</Link>
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </Carousel.Item>
@@ -112,6 +133,6 @@ function Home() {
                 </Row>
             </div>
         </>
-    )
+    );
 }
-export default Home
+export default Home;

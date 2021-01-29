@@ -7,13 +7,20 @@
     color: black;
     background-color: #fbe859;
 }
+.Tengah {
+    display: block;
+}
 .Row{
-    
     width: 100%;
     margin: auto;
     padding: 0;
     margin: 0;
 
+}
+.H1{
+    border: 5px solid black;
+    width: 50%;
+    right: 10%;
 }
 .Tulisan{
     position: relative;
@@ -23,10 +30,10 @@
 
 }
 .Servis{
-    position: relative;
+    /* position: relative;
     padding-top: 2%;
-    left: 40%;
-    
+    left: 40%; */
+    font-weight: 700;
 }
 .Servis-gambar{
     position: relative;
@@ -36,10 +43,14 @@
     position: relative;
     padding-bottom: 4% ;
     right: 10%;
+    width: 25%;
+
 }
 .Konsul{
     position: relative;
     right: 3%;
+    width: 25%;
+
 }
 .Dokter{
     position: relative;

@@ -1,30 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardDeck, Button, Form } from "react-bootstrap";
-import ImageUploader from 'react-images-upload';
+import ImageUploader from "react-images-upload";
 import "./UserProfile.css";
+import axios from "axios";
 import User from "./assets/img/user.svg";
 import Paw from "./assets/img/paw.svg";
 import History from "./assets/img/history.svg";
-import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 function Userprofile() {
-    const userDetail = useSelector(state => state)
-    console.log(userDetail)
-    
+    // const [users, setUsers] = useState('');
+    const [users, setUsers] = useState({});
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState(" ");
+    const name = localStorage.getItem("nama");
+
+    const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        axios
+            .get(`https://doctorpets.tk:3002/user/getProfile`)
+            // .get(`https://doctorpets.tk:3002/user/getProfile`, {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //     },
+            // })
+            .then((res) => {
+                console.log(res.data);
+                setUsers(res.data.result);
+                setLoad(true);
+                // {
+                //     console.log(res.data.result.nama, "usernih");
+                // }
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoad(true);
+            });
+    }, []);
+
     return (
         <>
             <CardDeck className="CardInfo">
                 <Card>
                     <Card.Img variant="top" src={User} className="Picture" />
                     <Card.Body>
-                        <Card.Title> {userDetail.profile.nama} </Card.Title>
+                        {console.log(users, "tess")}
+
+                        <Card.Title> {name} </Card.Title>
                         <p>User</p>
                         <Card.Text className="Count">
                             <div className="Hewan">
-                                <img src={Paw} className="Paw" /> <p className="Jumlah">4 Pets</p>
+                                <img src={Paw} className="Paw" />{" "}
+                                <p className="Jumlah">4 Pets</p>
                             </div>
                             <div className="History">
-                                <img src={History} className="Date" /> <p className="Kunjungan">3 Times</p>
+                                <img src={History} className="Date" />{" "}
+                                <p className="Kunjungan">3 Times</p>
                             </div>
                         </Card.Text>
                         <Button variant="warning">Edit Profile</Button>
@@ -32,30 +65,38 @@ function Userprofile() {
                 </Card>
             </CardDeck>
 
-            <Card body className="Logout"> <Link to="/">Log Out </Link> </Card>
+            <Card body className="Logout">
+                {" "}
+                <Link to="/">Log Out </Link>{" "}
+            </Card>
 
             <Card className="Uploadfoto">
-                <Card.Body> <b>Upload Foto</b></Card.Body>
+                <Card.Body>
+                    {" "}
+                    <b>Upload Foto</b>
+                </Card.Body>
             </Card>
 
             <Card className="Upload">
-
                 <ImageUploader
                     withIcon={true}
-                    buttonText='Choose images'
-                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                    maxFileSize={5242880} />
+                    buttonText="Choose images"
+                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                    maxFileSize={5242880}
+                />
             </Card>
 
             <Card className="Basicinformation">
-                <Card.Body> <b>Basic Information</b>
+                <Card.Body>
+                    {" "}
+                    <b>Basic Information</b>
                 </Card.Body>
                 <Form.Group controlId="FormEmail" className="Username">
                     <p>Username</p>
                     <Form.Control
                         type="text"
-                        placeholder="Username" >
-                    </Form.Control>
+                        placeholder="Username"
+                    ></Form.Control>
                 </Form.Group>
                 <Form.Group className="Gender">
                     <p>Gender</p>
@@ -75,32 +116,36 @@ function Userprofile() {
             </Card>
 
             <Card className="Contact">
-                <Card.Body> <b>Contact Information</b>
+                <Card.Body>
+                    {" "}
+                    <b>Contact Information</b>
                 </Card.Body>
                 <Form.Group controlId="FormEmail" className="Username">
                     <p>Phone Number</p>
                     <Form.Control
                         type="number"
-                        placeholder="Phone Number" >
-                    </Form.Control>
+                        placeholder="Phone Number"
+                    ></Form.Control>
                 </Form.Group>
                 <Form.Group controlId="FormEmail" className="Username">
                     <p>Email</p>
                     <Form.Control
                         type="email"
-                        placeholder="Email" >
-                    </Form.Control>
+                        placeholder="Email"
+                    ></Form.Control>
                 </Form.Group>
                 <Form.Group controlId="FormEmail" className="Username">
                     <p>Password</p>
                     <Form.Control
                         type="password"
-                        placeholder="Password" >
-                    </Form.Control>
+                        placeholder="Password"
+                    ></Form.Control>
                 </Form.Group>
             </Card>
-            <Button variant="warning" className="Simpan">Save Profile</Button>
+            <Button variant="warning" className="Simpan">
+                Save Profile
+            </Button>
         </>
-    )
+    );
 }
-export default Userprofile
+export default Userprofile;

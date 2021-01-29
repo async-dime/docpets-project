@@ -19,9 +19,10 @@ import ClinicCard from "./ClinicCard";
 import axios from "axios";
 
 const NavBarLogin = (props) => {
-    const [name, setName] = useState(localStorage.getItem("nama"));
     const [query, setQuery] = useState("");
     const [clinics, setClinic] = useState([]);
+    const nama = localStorage.getItem("nama");
+
     const searchIcon = <FontAwesomeIcon icon={faSearch} />;
 
     const [modalSearchClinic, setModalSearchClinic] = useState(false);
@@ -54,8 +55,8 @@ const NavBarLogin = (props) => {
             });
     };
     
-    const userData = useSelector(state => state)
-    console.log(userData)
+    // const userData = useSelector(state => state)
+    // console.log(userData)
     // console.info(localStorage.getItem("role", "<==this is role"));
 
     const pic = (
@@ -73,7 +74,7 @@ const NavBarLogin = (props) => {
 
     return (
         <header>
-            <div className="navbar-container w-100">
+            <div className="navbar-container w-100 shadowEffect">
                 <div className="navbar">
                     <Link to={`/`}>
                         <img
@@ -121,7 +122,7 @@ const NavBarLogin = (props) => {
                             className="navbar-text nav-dropdown"
                             id="basic-nav-dropdown"
                         >
-                            <NavDropdown.Item>hi, {name}</NavDropdown.Item>
+                            <NavDropdown.Item>hi, {nama}</NavDropdown.Item>
                             <NavDropdown.Item onClick={signOut}>
                                 <Link to="/"> Sign out </Link>
                             </NavDropdown.Item>

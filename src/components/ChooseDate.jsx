@@ -37,7 +37,6 @@ function ChooseDate() {
                     );
                 }}
             >
-                {/* {value} */}
                 {value.split(" ")[0] + " " + value.split(" ")[1] + " " + value.split(" ")[2]}
             </Button>
             <Button
@@ -56,7 +55,7 @@ function ChooseDate() {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 minDate={new Date()}
-                maxDate={addDays(new Date(), 14)}
+                maxDate={addDays(new Date(), 366)}
                 minTime={setHours(setMinutes(new Date(), 0), 10)}
                 maxTime={setHours(setMinutes(new Date(), 0), 14)}
                 filterDate={isWeekday}
