@@ -8,6 +8,7 @@ function TestPage() {
         <div className="home">
             <NavBarLogin />
             <ChatBox />
+            {/* <Footer /> */}
         </div>
     );
 }

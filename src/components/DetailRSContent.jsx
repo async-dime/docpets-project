@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 //component
+import ChooseDate from "./ChooseDate";
 import ModalAddPet from "./ModalAddPet";
 import DoctorCard from "./DoctorCard";
 import BoxAnimal from "../components/BoxAnimal";
@@ -23,6 +24,8 @@ const DetailrsContent = (props) => {
     //hooks
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
+    const [doctor, setDoctor] = useState("")
+
 
     //handler
     const handlerClickBook = () => {
@@ -58,8 +61,8 @@ const DetailrsContent = (props) => {
         color: "#445e6b",
     };
     const detailrsH4 = {
-        fontSize: "16px",
-        fontWeight: "500",
+        fontSize: "17px",
+        fontWeight: "700",
         marginLeft: "20px",
         margin: "10px 0",
         color: "#445e6b",
@@ -114,42 +117,24 @@ const DetailrsContent = (props) => {
             nama: "Dr. Alex, SP. Kucing",
             status: "offline",
             title: "Dokter Kucing",
-            checked: "true",
             ava: ava1,
         },
         {
             nama: "Dr. Alizah, SP. Hamster",
             status: "online",
             title: "Dokter Hamster",
-            checked: "true",
             ava: ava2,
         },
         {
             nama: "Dr. Alex, SP. Kelinci",
-            status: "offline",
+            status: "online",
             title: "Dokter Kelinci",
-            checked: "true",
             ava: ava1,
         },
         {
             nama: "Dr. Alizah, SP. Anjing",
-            status: "online",
-            title: "Dokter Anjing",
-            checked: "false",
-            ava: ava2,
-        },
-        {
-            nama: "Dr. Alex, SP. Kelinci",
             status: "offline",
-            title: "Dokter Kelinci",
-            checked: "true",
-            ava: ava1,
-        },
-        {
-            nama: "Dr. Alizah, SP. Anjing",
-            status: "online",
             title: "Dokter Anjing",
-            checked: "false",
             ava: ava2,
         },
     ];
@@ -213,10 +198,29 @@ const DetailrsContent = (props) => {
                     </Row>
                     <br />
                     <Row>
+                        <h4 style={detailrsH4}>Hari dan Waktu Kunjungan</h4>
+                    </Row>
+                    <Row>
+                        <ChooseDate />
+                    </Row>
+                    <br/>
+                    <Row>
+                        <p>Klinik buka dari pukul 10:00 - 16:00</p>
+                    </Row>
+                    <Row>
+                        <p>
+                            Anda bisa memilih jam kunjungan antara pukul 10:00,
+                            12:00, dan 14:00
+                        </p>
+                    </Row>
+                    <Row>
+                        <p>Setiap sesi berlangsung selama maksimal 2 jam</p>
+                    </Row>
+                    {/* <Row>
                         <h4 style={detailrsH4}>Hari Kunjungan</h4>
                     </Row>
                     <Row>
-                        <div className="d-flex">
+                        <div className="d-flex">                            
                             <button
                                 value="1"
                                 onClick={(e) => {
@@ -336,7 +340,7 @@ const DetailrsContent = (props) => {
                                 15:00-18:00 Sore
                             </button>
                         </div>
-                    </Row>
+                    </Row> */}
                 </Col>
             </Row>
             <br />
@@ -362,44 +366,17 @@ const DetailrsContent = (props) => {
                 <h3 style={detailrsH3}>Pilih Dokter</h3>
             </Row>
             <Row>
-                <DoctorCard
-                    ava={dummyDoc[0].ava}
-                    title={dummyDoc[0].title}
-                    nama={dummyDoc[0].nama}
-                    status={dummyDoc[0].status}
-                />
-                <DoctorCard
-                    ava={dummyDoc[1].ava}
-                    title={dummyDoc[1].title}
-                    nama={dummyDoc[1].nama}
-                    status={dummyDoc[1].status}
-                />
-                <DoctorCard
-                    ava={dummyDoc[2].ava}
-                    title={dummyDoc[2].title}
-                    nama={dummyDoc[2].nama}
-                    status={dummyDoc[2].status}
-                />
-            </Row>
-            <Row>
-                <DoctorCard
-                    ava={dummyDoc[3].ava}
-                    title={dummyDoc[3].title}
-                    nama={dummyDoc[3].nama}
-                    status={dummyDoc[3].status}
-                />
-                <DoctorCard
-                    ava={dummyDoc[4].ava}
-                    title={dummyDoc[4].title}
-                    nama={dummyDoc[4].nama}
-                    status={dummyDoc[4].status}
-                />
-                <DoctorCard
-                    ava={dummyDoc[5].ava}
-                    title={dummyDoc[5].title}
-                    nama={dummyDoc[5].nama}
-                    status={dummyDoc[5].status}
-                />
+                {dummyDoc.map((doctor, idx) => {
+                    return (
+                        <DoctorCard
+                            key={idx}
+                            ava={doctor.ava}
+                            title={doctor.title}
+                            nama={doctor.nama}
+                            status={doctor.status}
+                        />
+                    );
+                })}
             </Row>
             <Row>
                 <h3 style={detailrsH3}>Masukkan Informasi Hewan Peliharaan</h3>
@@ -432,8 +409,6 @@ const DetailrsContent = (props) => {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-    // signUpDatas: (data) => dispatch(registerAction(data)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailrsContent);

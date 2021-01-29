@@ -42,7 +42,7 @@ const Footer = () => {
         <Col className="tt" md='2'> 
               <p className='followus'>Follow Us</p>
               {facebook}{instagram}{twitter}
-              <p className='followus'>Copyright © 2020 DOCPETS.  All Rights Reserved</p>
+              <p className='followus'>Copyright © 2021 DOCPETS.  All Rights Reserved</p>
         </Col>     
         </Row> 
       </Container>

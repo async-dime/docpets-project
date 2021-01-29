@@ -1,11 +1,15 @@
 import React from 'react'
 import { NavbarBrand, Col, Container, Image, Navbar, Form, FormControl, NavLink, Button, } from 'react-bootstrap'
-import logo1 from '../../assets/headerimg/docpets2animal.png'
-import logo2 from '../../assets/headerimg/docpets2font.png'
+import logo1 from '../components/assets/headerimg/docpets2animal.png'
+import logo2 from '../components/assets/headerimg/docpets2font.png'
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse'
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../Footer/footer.css'
+<<<<<<< HEAD
+import '../components/Footer.css'
+=======
+import './Footer.css'
+>>>>>>> da1d34cf742a51164fd6223a7ee138350956db7b
 
 const Header = () => {
 

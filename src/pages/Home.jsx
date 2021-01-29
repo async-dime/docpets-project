@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderLogin from "../components/headerloginpage";
+import HeaderLogin from "../components/NavbarLogin";
 import Homes from "../components/Home";
 import Footer from "../components/Footer";
 
@@ -8,7 +8,7 @@ function Home () {
     <div >
       <HeaderLogin />
       <Homes />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
