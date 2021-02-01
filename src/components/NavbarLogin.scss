@@ -32,12 +32,8 @@
             .navbar-search {
                 position: relative;
             }
-            .navbar-text,
-            .navbar-search {
-                padding-left: 1rem;
-                padding-right: auto;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
+            .navbar-text{
+                padding: 0.5rem 1rem !important;
                 place-self: center;
 
                 .navbar-h3 {
