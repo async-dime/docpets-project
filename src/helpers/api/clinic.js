@@ -5,7 +5,7 @@ export function apiGetClinicAllRoute(headers) {
     return axios ({
         method: 'GET',
         url: baseUrl + 'klinik/getAllKlinik',
-        headers,
+        // headers,
     });
 }
 

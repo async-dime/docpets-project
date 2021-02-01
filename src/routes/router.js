@@ -10,6 +10,7 @@ import Home from "../pages/Home";
 import RoleForm from "../pages/RoleForm";
 import FormSignUp from "../pages/FormSignUp";
 import FormSignIn from "../pages/FormSignIn";
+import ChatBox from "../components/Chat/ChatBox";
 import Profile from "../pages/UserProfile";
 import DetailRS from "../pages/DetailRS";
 import DetailBooking from "../pages/DetailBooking";
@@ -32,13 +33,16 @@ export const Routes = () => {
         <Route path="/signup" exact>
           <RoleForm />
         </Route>
+        <Route path="/chat" exact>
+          <ChatBox />
+        </Route>
         <Route path="/signup/form" exact>
           <FormSignUp />
         </Route>
         <Route path="/login" exact>
           <FormSignIn />
         </Route>
-        <Route path="/detailrs" exact>
+        <Route path="/detailrs/:id" exact>
           <DetailRS />
         </Route>
         <Route path="/detailbooking" exact>

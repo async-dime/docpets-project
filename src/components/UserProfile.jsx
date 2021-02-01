@@ -15,6 +15,9 @@ function Userprofile() {
     const [load, setLoad] = useState(false);
     const [error, setError] = useState(" ");
     const name = localStorage.getItem("nama");
+    const id = localStorage.getItem("id");
+    const foto = localStorage.getItem("foto");
+    const email = localStorage.getItem("email");
 
     const token = localStorage.getItem("token");
 
@@ -44,7 +47,8 @@ function Userprofile() {
         <>
             <CardDeck className="CardInfo">
                 <Card>
-                    <Card.Img variant="top" src={User} className="Picture" />
+                    <Card.Img variant="top" src={foto} className="Picture" />
+                    {/* <Card.Img variant="top" src={User} className="Picture" /> */}
                     <Card.Body>
                         {console.log(users, "tess")}
 

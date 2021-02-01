@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { getClinic } from "../store/actions/clinic";
 
 //component
 import ChooseDate from "./ChooseDate";
@@ -21,11 +22,34 @@ import hamster from "./assets/img/emojiHamster.svg";
 import rabbit from "./assets/img/emojiRabbit.svg";
 
 const DetailrsContent = (props) => {
+    //param
+    let { id } = useParams();
+
+    console.log(id)
+
+
+    const dispatch = useDispatch();
+    const listRs = useSelector((state) => state.clinic);
+    useEffect(() => {
+        dispatch(getClinic());
+    }, []);
+    const detailRs = listRs.listClinic.map((rumahSakit)=> rumahSakit.hasOwnProperty(id))
+
+    console.log(detailRs)
+
+    const detailRS = listRs.listClinic
+    console.log(detailRS)
+
+    const rsFilter = (firstDay, secondDay) => {
+        // do code here
+        return firstDay.filter((person) => secondDay.includes(person));
+    };
+
+
     //hooks
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
-    const [doctor, setDoctor] = useState("")
-
+    const [doctor, setDoctor] = useState("");
 
     //handler
     const handlerClickBook = () => {
@@ -74,9 +98,6 @@ const DetailrsContent = (props) => {
         maxWidth: "550px",
         overflow: "hidden",
         marginRight: "1rem",
-    };
-    const colHalf = {
-        maxWidth: "50vw",
     };
     const buttonBookNow = {
         backgroundColor: "#fde84d",
@@ -189,10 +210,10 @@ const DetailrsContent = (props) => {
             </Row>
             <br />
             <Row>
-                <Col style={colHalf}>
+                <Col>
                     <img src={dummy.foto} style={detailrsImage} alt="" />
                 </Col>
-                <Col style={colHalf}>
+                <Col>
                     <Row>
                         <h3 style={detailrsH3}>Informasi Kunjungan</h3>
                     </Row>
@@ -203,7 +224,7 @@ const DetailrsContent = (props) => {
                     <Row>
                         <ChooseDate />
                     </Row>
-                    <br/>
+                    <br />
                     <Row>
                         <p>Klinik buka dari pukul 10:00 - 16:00</p>
                     </Row>
@@ -253,6 +274,9 @@ const DetailrsContent = (props) => {
                     );
                 })}
             </Row>
+            <br />
+            <br />
+            <br />
             <Row>
                 <h3 style={detailrsH3}>Masukkan Informasi Hewan Peliharaan</h3>
             </Row>
@@ -261,19 +285,21 @@ const DetailrsContent = (props) => {
                 {dummyPet.map((pet, idx) => {
                     return (
                         <div key={idx}>
-                            <BoxAnimal
-                                nama={pet.nama}
-                                gender={pet.gender}
-                                image={`${
-                                    pet.jenis === "anjing"
-                                        ? dog
-                                        : pet.jenis === "kucing"
-                                        ? cat
-                                        : pet.jenis === "hamster"
-                                        ? hamster
-                                        : rabbit
-                                }`}
-                            />
+                            <Col>
+                                <BoxAnimal
+                                    nama={pet.nama}
+                                    gender={pet.gender}
+                                    image={`${
+                                        pet.jenis === "anjing"
+                                            ? dog
+                                            : pet.jenis === "kucing"
+                                            ? cat
+                                            : pet.jenis === "hamster"
+                                            ? hamster
+                                            : rabbit
+                                    }`}
+                                />
+                            </Col>
                         </div>
                     );
                 })}

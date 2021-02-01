@@ -34,10 +34,10 @@
             }
             .navbar-text,
             .navbar-search {
-                padding-left: 1rem !important; 
-                padding-right: auto !important;
-                padding-top: 0.5rem !important;
-                padding-bottom: 0.5rem !important;
+                padding-left: 1rem;
+                padding-right: auto;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
                 place-self: center;
 
                 .navbar-h3 {
@@ -46,7 +46,6 @@
                     right: 0;
                     padding-bottom: 0;
                     color: #fff;
-                    margin-right: 1rem;
                 }
                 input {
                     min-width: 20vw;
@@ -58,12 +57,14 @@
                     border-radius: 5px;
                     margin-left: 10px;
                 }
-                i {
+                .buttonSearch {
                     position: absolute;
-                    top: 34%;
-                    right: 5%;
+                    width: 25px;
+                    height: 20px;
+                    top: 17%;
+                    right: 10%;
                     :hover {
-                        color: #445e6b;
+                        color: #353636;
                     }
                 }
             }
@@ -77,6 +78,43 @@
         margin-top: 0;
     }
 }
+
+.card-list {
+    width: 100%;
+    background: #343434;
+}
+    
+
+.clinic-card {
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    background-color: #343434;
+    color: #E5E5E5;
+    &--title {
+        margin-bottom: 0.5rem;
+        font-size: 1.75rem;
+        text-align: center;
+    }    
+    &--loc {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        text-align: center;
+    }    
+    &--desc {
+        font-size: 1.2rem;
+        text-align: center;
+    }        
+    &--image {
+        margin: 0 auto;
+        display: block;
+        height: 500px;
+    }        
+}
+    
+
+
 
 @media (max-width: 768px) {
     .navbar-container {

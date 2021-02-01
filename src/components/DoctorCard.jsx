@@ -17,6 +17,11 @@ const DoctorCard = (props) => {
     };
 
     //custom styling
+    const buttonBoxStyle = {
+        height: "50px",
+        width: "300px",
+        border: "0px",
+    };
     let checkIcon = (
         <FontAwesomeIcon
             icon={faCheckCircle}
@@ -48,6 +53,7 @@ const DoctorCard = (props) => {
             }}
             variant="light"
             className="doctor-card-container"
+            style={buttonBoxStyle}
         >
             <Row>
                 <Col className="col-sm-4">

@@ -70,6 +70,7 @@ const FormSignUp = (props) => {
                     localStorage.setItem("token", res.data.result.token);
                     localStorage.setItem("nama", res.data.result.user.nama);
                     localStorage.setItem("id", res.data.result.user.id);
+                    localStorage.setItem("foto", res.data.result.user.foto);
                     localStorage.setItem("email", res.data.result.user.email);
                     window.location.href = '/login'
                 })

@@ -20,44 +20,11 @@ import axios from "axios";
 
 const NavBarLogin = (props) => {
     const [query, setQuery] = useState("");
-    const [clinics, setClinic] = useState([]);
+    const [clinics, setClinics] = useState([]);
     const nama = localStorage.getItem("nama");
+    const token = localStorage.getItem("token");
 
-    const searchIcon = <FontAwesomeIcon icon={faSearch} />;
-
-    const [modalSearchClinic, setModalSearchClinic] = useState(false);
-    const toggleModalSearchClinic = () => {
-        setModalSearchClinic(!modalSearchClinic);
-    };
-
-    useEffect(() => {
-        // klinik;
-        props.search("");
-        props.getProfile();
-        // props.getProfileprofileprofile()
-        // props.
-    }, []);
-
-    const searchClinic = async (e) => {
-        e.preventDefault();
-        axios
-            .post(
-                `https://doctorpets.tk:3002/klinik/search?nama=${query}&lokasi=jawa`
-            )
-            // .then(response => console.log(response.data.result))
-            .then((response) => {
-                setClinic(response.data.result);
-                console.log(response.data.result);
-            })
-            .catch((error) => {
-                setClinic({ errorMessage: error.message });
-                console.error("There was an error!", error);
-            });
-    };
-    
-    // const userData = useSelector(state => state)
-    // console.log(userData)
-    // console.info(localStorage.getItem("role", "<==this is role"));
+   
 
     const pic = (
         <FontAwesomeIcon
@@ -67,7 +34,6 @@ const NavBarLogin = (props) => {
         />
     );
     const signOut = () => {
-        // props.logout()
         localStorage.clear("token");
         window.location.reload();
     };
@@ -92,41 +58,38 @@ const NavBarLogin = (props) => {
                         <Link to={`/`} className="navbar-text">
                             <h3 className="navbar-h3">Home</h3>
                         </Link>
-                        <Link to={`/`} className="navbar-text">
+                        <Link to={`/chat`} className="navbar-text">
                             <h3 className="navbar-h3">Chat</h3>
                         </Link>
-                        <form className="navbar-search" onSubmit={searchClinic}>
-                            <i onClick={toggleModalSearchClinic} type="submit">
-                                {searchIcon}
-                            </i>{" "}
-                            <input
-                                type="text"
-                                name="query"
-                                placeholder="  search clinic"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                            />
-                            <Modal
-                                isOpen={modalSearchClinic}
-                                toggle={toggleModalSearchClinic}
+                        <Link to={`/listrs`} className="navbar-text">
+                            <h3 className="navbar-h3">Cari Klinik</h3>
+                        </Link>
+                        {token ? (
+                            <NavDropdown
+                                title={pic}
+                                className="navbar-text nav-dropdown"
+                                id="basic-nav-dropdown"
                             >
-                                <div className="card-list">
-                                    {/* {clinics?.data?.map((props) => (
-                    <ClinicCard />
-                  ))} */}
-                                </div>
-                            </Modal>
-                        </form>
-                        <NavDropdown
-                            title={pic}
-                            className="navbar-text nav-dropdown"
-                            id="basic-nav-dropdown"
-                        >
-                            <NavDropdown.Item>hi, {nama}</NavDropdown.Item>
-                            <NavDropdown.Item onClick={signOut}>
-                                <Link to="/"> Sign out </Link>
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                                <NavDropdown.Item>hi, {nama}</NavDropdown.Item>
+                                <NavDropdown.Item onClick={signOut}>
+                                    <Link to="/"> Sign out </Link>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        ) : (
+                            <Link to="/signup">
+                                <Button
+                                    className="btn border-0 pr-3 pl-3 ml-2"
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        margin: "1rem 1rem",
+                                        fontWeight: "700",
+                                    }}
+                                >
+                                    Sign Up
+                                </Button>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>
@@ -134,16 +97,18 @@ const NavBarLogin = (props) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    animal: state.getAnimal.data,
-    nama: state.profile.data.nama,
-    clinics: state.clinicSearch.listClinicSearch,
-});
+export default NavBarLogin;
 
-const mapDispatchToProps = (dispatch) => ({
-    search: (name) => dispatch({ type: "GET_CLINIC", payload: name }),
-    getProfile: () => dispatch({ type: "GET_PROFILE" }),
-    logout: () => dispatch(logoutAction()),
-});
+// const mapStateToProps = (state) => ({
+//     animal: state.getAnimal.data,
+//     nama: state.profile.data.nama,
+//     clinics: state.clinicSearch.listClinicSearch,
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBarLogin);
+// const mapDispatchToProps = (dispatch) => ({
+//     search: (query) => dispatch({ type: "GET_CLINIC", payload: query }),
+//     getProfile: () => dispatch({ type: "GET_PROFILE" }),
+//     logout: () => dispatch(logoutAction()),
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(NavBarLogin);

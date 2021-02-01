@@ -1,4 +1,6 @@
-import React from "react";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getClinic} from "../store/actions/clinic";
 import {
     Container,
     Row,
@@ -19,6 +21,11 @@ import Konsul from "./assets/img/konsul.png";
 import Gambar from "./assets/img/gambar.png";
 import { Link } from "react-router-dom";
 function Home() {
+        const dispatch = useDispatch ()
+        const listRs = useSelector (state => state.clinic)
+        useEffect (()=>{
+            dispatch(getClinic())
+        }, [])
     return (
         <>
             <div className="bg-footer text-light" expand="lg">
@@ -84,52 +91,26 @@ function Home() {
                         "find more" to find out more about those clinics.`}
                         </p>
                     </div>
-
+                    
                     <Carousel className="Carousel">
-                        <Carousel.Item interval={1000}>
+                    {listRs.listClinic.map((clinic) =>(
+                        <Carousel.Item interval={4000}>
                             <Card>
-                                <Card.Img variant="top" src={RumahSakit} />
+                                <Card.Img variant="top" src={clinic.foto} />
                                 <Card.Body>
-                                    <Card.Title>Klinik Pukul 10</Card.Title>
+                                    <Card.Title>{clinic.nama}</Card.Title>
                                     <Card.Text>
-                                    klinik tempat menghilangkan stress
+                                    {clinic.tentang}
                                     </Card.Text>
                                     <Button className="Tombol">
                                     <Link to="/detailrs">Book Now</Link>
                                     </Button>
                                 </Card.Body>
-                            </Card>
+                            </Card>   
                         </Carousel.Item>
-
-                        <Carousel.Item interval={1000}>
-                            <Card>
-                                <Card.Img variant="top" src={RumahSakit} />
-                                <Card.Body>
-                                    <Card.Title>Klinik Peliharaan Sejati</Card.Title>
-                                    <Card.Text>
-                                    klinik terbaik untuk para pria sejati
-                                    </Card.Text>
-                                    <Button className="Tombol">
-                                    <Link to="/detailrs">Book Now</Link>
-                                    </Button>
-                                </Card.Body>
-                            </Card>
-                        </Carousel.Item>
-                        <Carousel.Item interval={1000}>
-                            <Card>
-                                <Card.Img variant="top" src={RumahSakit} />
-                                <Card.Body>
-                                    <Card.Title>Klinik Harapan Indah</Card.Title>
-                                    <Card.Text>
-                                    klinik terbaik parah indah
-                                    </Card.Text>
-                                    <Button className="Tombol">
-                                    <Link to="/detailrs">Book Now</Link>
-                                    </Button>
-                                </Card.Body>
-                            </Card>
-                        </Carousel.Item>
+                    ))}
                     </Carousel>
+                    
                 </Row>
             </div>
         </>

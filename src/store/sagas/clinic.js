@@ -1,21 +1,22 @@
 import { takeLatest, put } from "redux-saga/effects";
 import { apiGetClinicAllRoute } from "../../helpers/api/clinic";
 import { getHeaders } from "../../helpers/function/auth";
-import { GET_CLINIC_FAILED, GET_CLINIC_SUCCESS } from "../actions/types";
+import { GET_CLINIC_FAILED, GET_CLINIC_SUCCESS, REQUEST_GET_CLINIC } from "../actions/types";
 
 function* getClinic() {
   try {
     const headers = yield getHeaders();
     const resClinic = yield apiGetClinicAllRoute(headers);
-    yield put({ type: GET_CLINIC_SUCCESS, payload: resClinic.data });
+    console.log(resClinic.data.result, "TAMPILKAN KLINIK")
+    yield put({ type: GET_CLINIC_SUCCESS, payload: resClinic.data.result }); // dilempar ke reducers
   } catch (e) {
-    yield put({ type: GET_CLINIC_FAILED });
+    yield put({ type: GET_CLINIC_FAILED }); // dilempar ke reducer
     console.info("Gagal menampilkan data clinic");
   }
 }
 
 function* clinicSaga() {
   console.info("authsaga()");
-  yield takeLatest("GET_CLINIC", getClinic);
+  yield takeLatest(REQUEST_GET_CLINIC, getClinic); // bikin request get clinic
 }
 export default clinicSaga;

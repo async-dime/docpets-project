@@ -5,7 +5,6 @@ import logo2 from '../components/assets/headerimg/docpets2font.png'
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse'
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import './Footer.css'
 
 const Header = () => {
 
