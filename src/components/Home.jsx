@@ -103,7 +103,7 @@ function Home() {
                                     {clinic.tentang}
                                     </Card.Text>
                                     <Button className="Tombol">
-                                    <Link to="/detailrs">Book Now</Link>
+                                    <Link to={`/detailrs/${clinic.id}`}>Book Now</Link>
                                     </Button>
                                 </Card.Body>
                             </Card>   

@@ -3,6 +3,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getClinic } from "../store/actions/clinic";
+import axios from "axios";
 
 //component
 import ChooseDate from "./ChooseDate";
@@ -22,31 +23,11 @@ import hamster from "./assets/img/emojiHamster.svg";
 import rabbit from "./assets/img/emojiRabbit.svg";
 
 const DetailrsContent = (props) => {
-    //param
-    let { id } = useParams();
-
-    console.log(id)
-
-
-    const dispatch = useDispatch();
-    const listRs = useSelector((state) => state.clinic);
-    useEffect(() => {
-        dispatch(getClinic());
-    }, []);
-    const detailRs = listRs.listClinic.map((rumahSakit)=> rumahSakit.hasOwnProperty(id))
-
-    console.log(detailRs)
-
-    const detailRS = listRs.listClinic
-    console.log(detailRS)
-
-    const rsFilter = (firstDay, secondDay) => {
-        // do code here
-        return firstDay.filter((person) => secondDay.includes(person));
-    };
-
-
     //hooks
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState(" ");
+    const [clinic, setClinic] = useState({});
+    const [facilities, setFacilities] = useState("");
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
     const [doctor, setDoctor] = useState("");
@@ -61,6 +42,44 @@ const DetailrsContent = (props) => {
     const handleClickWaktu = (e) => {
         setWaktu(e.target.value);
     };
+
+    //param
+    let { id } = useParams();
+    let userId = localStorage.getItem("id")
+    console.log(userId)
+
+    //useEffect
+    useEffect(() => {
+        axios
+            .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
+            .then((res) => {
+                console.log(res.data.result[0]);
+                setClinic(res.data.result[0]);
+                setFacilities(res.data.result[0].fasilitas);
+                setDoctor(res.data.result[0].dokter);
+                setLoad(true);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoad(true);
+            });
+            // axios
+            // .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
+            // .then((res) => {
+            //     console.log(res.data.result[0]);
+            //     setClinic(res.data.result[0]);
+            //     setFacilities(res.data.result[0].fasilitas);
+            //     setDoctor(res.data.result[0].dokter);
+            //     setLoad(true);
+            // })
+            // .catch((err) => {
+            //     setError(err.message);
+            //     setLoad(true);
+            // });
+    }, []);
+
+    //split facilities
+    let facility = facilities.split(",");
 
     //custom styling
     const detailrsH1 = {
@@ -120,19 +139,6 @@ const DetailrsContent = (props) => {
     );
 
     //dummy
-    const dummy = {
-        id: 51,
-        nama: "Klinik Peliharaan Sejati",
-        lokasi: "batam",
-        tentang: "klinik terbaik untuk para pria sejati",
-        fasilitas: "toilet,whiskas gratis",
-        foto:
-            "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3e%2FHELIOS_ENDO-Klinik_Hamburg_Foto_2013_June_05.jpg&f=1&nofb=1",
-        dokter: null,
-        adminId: 4,
-        createdAt: "2021-01-13T14:28:45.000Z",
-        updatedAt: "2021-01-13T14:28:45.000Z",
-    };
     let dummyDoc = [
         {
             nama: "Dr. Alex, SP. Kucing",
@@ -182,15 +188,11 @@ const DetailrsContent = (props) => {
         },
     ];
 
-    let str = dummy.fasilitas;
-    let temp = new Array();
-    temp = str.split(",");
-
     return (
         <div className="detailrs-container">
             <Row>
                 <Col>
-                    <h1 style={detailrsH1}>{dummy.nama}</h1>
+                    <h1 style={detailrsH1}>{clinic.nama}</h1>
                 </Col>
                 <Col md="auto"></Col>
                 <Col xs lg="2">
@@ -211,7 +213,7 @@ const DetailrsContent = (props) => {
             <br />
             <Row>
                 <Col>
-                    <img src={dummy.foto} style={detailrsImage} alt="" />
+                    <img src={clinic.foto} style={detailrsImage} alt="" />
                 </Col>
                 <Col>
                     <Row>
@@ -243,12 +245,12 @@ const DetailrsContent = (props) => {
             <Row>
                 <Col>
                     <h3 style={detailrsH3}>Tentang</h3>
-                    <p>{dummy.tentang}</p>
+                    <p>{clinic.tentang}</p>
                 </Col>
                 <Col>
                     <h3 style={detailrsH3}>Fasilitas</h3>
                     <div>
-                        {temp.map((yey, idx) => {
+                        {facility.map((yey, idx) => {
                             return (
                                 <Row key={idx}>
                                     <i>{yuhu}</i> <p>{yey}</p>
@@ -262,17 +264,30 @@ const DetailrsContent = (props) => {
                 <h3 style={detailrsH3}>Pilih Dokter</h3>
             </Row>
             <Row>
-                {dummyDoc.map((doctor, idx) => {
-                    return (
-                        <DoctorCard
-                            key={idx}
-                            ava={doctor.ava}
-                            title={doctor.title}
-                            nama={doctor.nama}
-                            status={doctor.status}
-                        />
-                    );
-                })}
+                {doctor
+                    ? doctor.map((doctor, idx) => {
+                          return (
+                              <DoctorCard
+                                  key={idx}
+                                  ava={doctor.ava}
+                                  title={doctor.title}
+                                  nama={doctor.nama}
+                                  status={doctor.status}
+                              />
+                          );
+                      })
+                    : dummyDoc.map((doctor, idx) => {
+                          return (
+                              <DoctorCard
+                                  value={doctor.nama}
+                                  key={idx}
+                                  ava={doctor.ava}
+                                  title={doctor.title}
+                                  nama={doctor.nama}
+                                  status={doctor.status}
+                              />
+                          );
+                      })}
             </Row>
             <br />
             <br />

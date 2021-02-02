@@ -48,12 +48,6 @@ const FormSignIn = (props) => {
                     window.location.href = "/";
                 })
                 .catch((err) => alert(err));
-
-            // setMessage(null);
-            // props.signInDatas({
-            //     email,
-            //     password,
-            // });
         }
     };
 

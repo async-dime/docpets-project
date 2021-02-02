@@ -45,7 +45,7 @@ export const Routes = () => {
         <Route path="/detailrs/:id" exact>
           <DetailRS />
         </Route>
-        <Route path="/detailbooking" exact>
+        <Route path="/detailbooking/:id" exact>
           <DetailBooking />
         </Route>
         <Route path="/listrs" exact>

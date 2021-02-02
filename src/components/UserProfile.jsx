@@ -52,7 +52,7 @@ function Userprofile() {
                     <Card.Body>
                         {console.log(users, "tess")}
 
-                        <Card.Title> {name} </Card.Title>
+                        <Card.Title> {users.nama} </Card.Title>
                         <p>User</p>
                         <Card.Text className="Count">
                             <div className="Hewan">
