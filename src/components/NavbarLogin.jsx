@@ -62,7 +62,13 @@ const NavBarLogin = (props) => {
     return (
         <header>
             <div className="navbar-container w-100 shadowEffect">
-                <div className="navbar">
+                <div
+                    className="navbar"
+                    data-aos="fade-down"
+                    data-aos-delay="50"
+                    data-aos-duration="2000"
+                    data-aos-easing="ease-in-out-cubic"
+                >
                     <Link to={`/`}>
                         <img
                             src={logo}
@@ -79,11 +85,17 @@ const NavBarLogin = (props) => {
                         <Link to={`/`} className="navbar-text">
                             <h3 className="navbar-h3">Home</h3>
                         </Link>
-                        <Link to={`/chat`} className="navbar-text">
-                            <h3 className="navbar-h3">Chat</h3>
-                        </Link>
+                        {token ? (
+                            <Link to={`/chat`} className="navbar-text">
+                                <h3 className="navbar-h3">Chat</h3>
+                            </Link>
+                        ) : (
+                            <Link to={`/signup`} className="navbar-text">
+                                <h3 className="navbar-h3">Chat</h3>
+                            </Link>
+                        )}
                         <Link to={`/listrs`} className="navbar-text">
-                            <h3 className="navbar-h3">Cari Klinik</h3>
+                            <h3 className="navbar-h3">Find Clinics</h3>
                         </Link>
                         {token ? (
                             <NavDropdown

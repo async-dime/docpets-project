@@ -4,12 +4,12 @@ GET_CLINIC_DETAIL_FAILED} from '../actions/types.js'
 
 const initialState = {
     isLoading: false,
-    data: [{
-        userVetenaries: [{
-            user: {}
-        }]
-    }]
-
+    // data: [{
+    //     userVeterinaries: [{
+    //         user: {}
+    //     }]
+    // }]
+    data: {},
 }
 
 const getClinicDetail = (state = initialState, action) => {

@@ -19,6 +19,7 @@ import TestPage from "../pages/TestPage";
 import NotFound from "../pages/404";
 import Clinic from '../pages/ClinicProfile.jsx'
 import DoctorProfile from '../pages/DoctorProfile'
+import AppointmentHistory from '../pages/appointmentHistory'
 
 export const Routes = () => {
   return (
@@ -59,6 +60,9 @@ export const Routes = () => {
         </Route>
         <Route path="/doctorprofile" exact>
           <DoctorProfile />
+        </Route>
+        <Route path="/AppointmentHistory" exact>
+          <AppointmentHistory />
         </Route>
         <Route path="*" >
           <NotFound />

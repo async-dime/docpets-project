@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getClinic } from "../store/actions/clinic";
+import { getClinicDetail } from "../store/actions/clinicDetail";
 import axios from "axios";
 
 //component
@@ -26,8 +26,6 @@ const DetailrsContent = (props) => {
     //hooks
     const [load, setLoad] = useState(false);
     const [error, setError] = useState(" ");
-    const [clinic, setClinic] = useState({});
-    const [facilities, setFacilities] = useState("");
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
     const [doctor, setDoctor] = useState("");
@@ -46,40 +44,50 @@ const DetailrsContent = (props) => {
     //param
     let { id } = useParams();
     let userId = localStorage.getItem("id")
-    console.log(userId)
+    let clinicId = localStorage.setItem("clinicId", id)
+    // console.log(userId)
+    // console.log(clinicId)
 
     //useEffect
+    const dispatch = useDispatch();
+    const detailClinic = useSelector((state) => state.getClinicDetail.data[0]);
+    console.log(detailClinic, "detailklinik")
+
     useEffect(() => {
-        axios
-            .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
-            .then((res) => {
-                console.log(res.data.result[0]);
-                setClinic(res.data.result[0]);
-                setFacilities(res.data.result[0].fasilitas);
-                setDoctor(res.data.result[0].dokter);
-                setLoad(true);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setLoad(true);
-            });
-            // axios
-            // .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
-            // .then((res) => {
-            //     console.log(res.data.result[0]);
-            //     setClinic(res.data.result[0]);
-            //     setFacilities(res.data.result[0].fasilitas);
-            //     setDoctor(res.data.result[0].dokter);
-            //     setLoad(true);
-            // })
-            // .catch((err) => {
-            //     setError(err.message);
-            //     setLoad(true);
-            // });
+        dispatch(getClinicDetail());
     }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
+    //         .then((res) => {
+    //             console.log(res.data.result[0]);
+    //             setClinic(res.data.result[0]);
+    //             setFacilities(res.data.result[0].fasilitas);
+    //             setDoctor(res.data.result[0].dokter);
+    //             setLoad(true);
+    //         })
+    //         .catch((err) => {
+    //             setError(err.message);
+    //             setLoad(true);
+    //         });
+    //         // axios
+    //         // .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
+    //         // .then((res) => {
+    //         //     console.log(res.data.result[0]);
+    //         //     setClinic(res.data.result[0]);
+    //         //     setFacilities(res.data.result[0].fasilitas);
+    //         //     setDoctor(res.data.result[0].dokter);
+    //         //     setLoad(true);
+    //         // })
+    //         // .catch((err) => {
+    //         //     setError(err.message);
+    //         //     setLoad(true);
+    //         // });
+    // }, []);
 
     //split facilities
-    let facility = facilities.split(",");
+    // let facilities = clinic.fasilitas.split(",");
+    // console.log(facilities)
 
     //custom styling
     const detailrsH1 = {
@@ -192,7 +200,7 @@ const DetailrsContent = (props) => {
         <div className="detailrs-container">
             <Row>
                 <Col>
-                    <h1 style={detailrsH1}>{clinic.nama}</h1>
+                    {/* <h1 style={detailrsH1}>{detailClinic.nama}</h1> */}
                 </Col>
                 <Col md="auto"></Col>
                 <Col xs lg="2">
@@ -213,7 +221,7 @@ const DetailrsContent = (props) => {
             <br />
             <Row>
                 <Col>
-                    <img src={clinic.foto} style={detailrsImage} alt="" />
+                    {/* <img src={detailClinic.foto} style={detailrsImage} alt="" /> */}
                 </Col>
                 <Col>
                     <Row>
@@ -243,20 +251,20 @@ const DetailrsContent = (props) => {
             </Row>
             <br />
             <Row>
-                <Col>
+                <Col className="pr-5">
                     <h3 style={detailrsH3}>Tentang</h3>
-                    <p>{clinic.tentang}</p>
+                    {/* <p>{detailClinic.tentang}</p> */}
                 </Col>
                 <Col>
                     <h3 style={detailrsH3}>Fasilitas</h3>
                     <div>
-                        {facility.map((yey, idx) => {
+                        {/* {detailClinic.fasilitas.split(",").map((yey, idx) => {
                             return (
                                 <Row key={idx}>
                                     <i>{yuhu}</i> <p>{yey}</p>
                                 </Row>
                             );
-                        })}
+                        })} */}
                     </div>
                 </Col>
             </Row>
@@ -273,6 +281,7 @@ const DetailrsContent = (props) => {
                                   title={doctor.title}
                                   nama={doctor.nama}
                                   status={doctor.status}
+                                  className="mx-2"
                               />
                           );
                       })
@@ -285,6 +294,7 @@ const DetailrsContent = (props) => {
                                   title={doctor.title}
                                   nama={doctor.nama}
                                   status={doctor.status}
+                                  className="mx-2"
                               />
                           );
                       })}

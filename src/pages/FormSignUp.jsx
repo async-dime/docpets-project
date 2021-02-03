@@ -28,6 +28,7 @@ const FormSignUp = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [diffPassword, setDiffPassword] = useState(false);
     const [message, setMessage] = useState("");
+    let role = localStorage.getItem("role");
     const eye = <FontAwesomeIcon icon={faEye} />;
 
     const togglePasswordVisibility = () => {
@@ -46,7 +47,7 @@ const FormSignUp = (props) => {
             telepon: telepon,
             password: password,
             passwordConfirmation: passwordConfirmation,
-            role: localStorage.getItem("role"),
+            role: role,
         };
         if (!nama) {
             alert("Name is Required");
@@ -54,6 +55,8 @@ const FormSignUp = (props) => {
             alert("Email is Required");
         } else if (!telepon) {
             alert("Phone Number is Required");
+        } else if (!role) {
+            alert(`You must choose role between "patient" or "clinic"`);
         } else if (!password) {
             alert("Password is Required");
         } else if (!passwordConfirmation) {
@@ -72,9 +75,12 @@ const FormSignUp = (props) => {
                     localStorage.setItem("id", res.data.result.user.id);
                     localStorage.setItem("foto", res.data.result.user.foto);
                     localStorage.setItem("email", res.data.result.user.email);
-                    window.location.href = '/login'
+                    window.location.href = "/login";
                 })
-                .catch((err) => alert(err));
+                .catch((err) => {
+                    alert(err);
+                    console.log(err);
+                });
         }
 
         if (password !== passwordConfirmation) {
@@ -95,29 +101,50 @@ const FormSignUp = (props) => {
     return (
         <div className="signup-form-container">
             <div className="item-left">
-                <img src={banner} alt="dog-banner" className="dog-banner"></img>
+                <img
+                    src={banner}
+                    alt="dog-banner"
+                    className="dog-banner"
+                    data-aos="fade-right"
+                    data-aos-delay="500"
+                    data-aos-duration="1000"
+                    data-aos-easing="ease-in-out-cubic"
+                ></img>
                 <div>
                     <img
                         src={logo}
                         style={{ height: "100px" }}
                         alt=""
                         className="docpets-logo"
+                        data-aos="fade-down"
+                        data-aos-delay="100"
+                        data-aos-duration="1500"
+                        data-aos-easing="ease-in"
                     ></img>
                 </div>
             </div>
 
             <div className="item-right">
                 <header>
-                    <div className="navbar-containers">
+                    <div
+                        className="navbar-containers"
+                        data-aos="fade-left"
+                        data-aos-delay="400"
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in"
+                    >
                         <div className="navbar-right">
                             <Link to={`/`} className="navbar-text-h6">
                                 <h6>Home</h6>
                             </Link>
-                            <Link to={`/doctor`} className="navbar-text-h6">
+                            <Link
+                                to={`/doctorprofile`}
+                                className="navbar-text-h6"
+                            >
                                 <h6>Doctor</h6>
                             </Link>
                             <Link to={`/listrs`} className="navbar-text-h6">
-                                <h6>Search Clinic</h6>
+                                <h6>Search Clinics</h6>
                             </Link>
                             <Link to="/login">
                                 <Button
@@ -134,7 +161,13 @@ const FormSignUp = (props) => {
                     </div>
                 </header>
 
-                <div className="form-containers">
+                <div
+                    className="form-containers"
+                    data-aos="fade-up"
+                    data-aos-delay="0"
+                    data-aos-duration="1500"
+                    data-aos-easing="ease-out"
+                >
                     <div className="signup-form">
                         <h2 className="signup-text">Buat Akun baru</h2>
                         <h6 className="signup-text">

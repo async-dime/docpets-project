@@ -52,6 +52,7 @@
     width: 22%;
 
 }
+
 .Dokter{
     position: relative;
     left: 5%;
@@ -94,6 +95,9 @@
     margin-right: 10px;
     margin-left: 10px;
 } */
+.carousel-indicators {
+    display: none;
+}
 .Curve{
     display: flex;
     position: relative;
@@ -104,6 +108,7 @@
     position: relative;
     width: 20%;
     height: 20%;
-    padding-top: 5%;
+    /* padding-top: 5%; */
     left: 75%;
+    bottom: 20%;
 }

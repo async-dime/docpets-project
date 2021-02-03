@@ -62,29 +62,50 @@ const FormSignIn = (props) => {
     return (
         <div className="signin-form-container">
             <div className="item-left">
-                <img src={banner} alt="dog-banner" className="dog-banner"></img>
+                <img
+                    src={banner}
+                    alt="dog-banner"
+                    className="dog-banner"
+                    data-aos="fade-right"
+                    data-aos-delay="500"
+                    data-aos-duration="1000"
+                    data-aos-easing="ease-in-out-cubic"
+                ></img>
                 <div>
                     <img
                         src={logo}
                         style={{ height: "100px" }}
                         alt=""
                         className="docpets-logo"
+                        data-aos="fade-down"
+                        data-aos-delay="100"
+                        data-aos-duration="1500"
+                        data-aos-easing="ease-in"
                     ></img>
                 </div>
             </div>
 
             <div className="item-right">
                 <header>
-                    <div className="navbar-containers">
+                    <div
+                        className="navbar-containers"
+                        data-aos="fade-left"
+                        data-aos-delay="400"
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in"
+                    >
                         <div className="navbar-right">
                             <Link to={`/`} className="navbar-text-h6">
                                 <h6>Home</h6>
                             </Link>
-                            <Link to={`/doctor`} className="navbar-text-h6">
+                            <Link
+                                to={`/doctorprofile`}
+                                className="navbar-text-h6"
+                            >
                                 <h6>Doctor</h6>
                             </Link>
                             <Link to={`/listrs`} className="navbar-text-h6">
-                                <h6>Search Clinic</h6>
+                                <h6>Search Clinics</h6>
                             </Link>
                             <Link to="/signup">
                                 <Button
@@ -101,7 +122,13 @@ const FormSignIn = (props) => {
                     </div>
                 </header>
 
-                <div className="form-containers">
+                <div
+                    className="form-containers"
+                    data-aos="fade-up"
+                    data-aos-delay="0"
+                    data-aos-duration="1500"
+                    data-aos-easing="ease-out"
+                >
                     <div className="signin-form">
                         <h2 className="signin-text">Welcome Back</h2>
                         <h6 className="signin-text">
