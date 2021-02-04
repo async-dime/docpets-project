@@ -10,6 +10,8 @@ import user1 from "../components/assets/img/user-selected.svg";
 import user2 from "../components/assets/img/user-unselect.svg";
 
 const SignUpForm = () => {
+    const token = localStorage.getItem("token");
+    let role = localStorage.getItem("role");
     const [isUser, setIsUser] = useState("");
 
     const handleChooseClinic = () => {
@@ -22,7 +24,6 @@ const SignUpForm = () => {
         localStorage.setItem("role", "user");
     };
 
-    console.log(localStorage.getItem("role", "<==this is role"));
 
     return (
         <div className="role-form-container">
@@ -63,12 +64,21 @@ const SignUpForm = () => {
                             <Link to={`/`} className="navbar-text-h6">
                                 <h6>Home</h6>
                             </Link>
-                            <Link
-                                to={`/doctorprofile`}
-                                className="navbar-text-h6"
-                            >
-                                <h6>Doctor</h6>
-                            </Link>
+                            {token && role === ("klinik" || "admin") ? (
+                                <Link
+                                    to={`/doctorprofile`}
+                                    className="navbar-text-h6"
+                                >
+                                    <h6>Doctor</h6>
+                                </Link>
+                            ) : (
+                                <Link
+                                    to={`/unauthorized`}
+                                    className="navbar-text-h6"
+                                >
+                                    <h6>Doctor</h6>
+                                </Link>
+                            )}
                             <Link to={`/listrs`} className="navbar-text-h6">
                                 <h6>Search Clinic</h6>
                             </Link>

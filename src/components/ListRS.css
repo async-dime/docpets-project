@@ -26,11 +26,52 @@
     /* width: 40vh; */
     max-height: 200px;
 }
-.Button{
-    color: black;
-    background-color: #fbe859;
+
+.Rowrs{
+    /* border: 5px solid black; */
+    padding-left: 5%;
+    padding-right: 2%;
+    height: 70vh;
+    width: 100%;
 }
-/* .Row{
-    border: 5px solid black;
-    padding-left: 7%;
+
+/* .Buttoncard{
+    position: absolute;
+    bottom: 0%;
+    border: 0px;
 } */
+.Gambarcard{
+    width: 100%;
+    height: 30vh;
+    margin-bottom: 10%;
+}
+
+.Cardrs{
+    position: relative;
+    /* height: 100%; */
+    width: 100%;
+}
+.Cardutama{
+    margin-left: 33%;
+    position: relative;
+}
+.Tombolrs{
+        width: 150px;
+        position: relative;
+        bottom: 2.3vh;
+        border: 0rem;
+        right: 1%;
+}
+.Fasilitas{
+    width: 100%;
+    font-size: 1.5vh;
+}
+.Lokasi{
+    width: 8%;
+    position: absolute;
+    color: #fbe859 !important;
+}
+.Location{
+    position: relative;
+    left: 12%;
+}

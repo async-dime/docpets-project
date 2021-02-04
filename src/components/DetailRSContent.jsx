@@ -24,11 +24,13 @@ import rabbit from "./assets/img/emojiRabbit.svg";
 
 const DetailrsContent = (props) => {
     //hooks
-    const [load, setLoad] = useState(false);
+    const [clinic, setClinic] = useState({});
+    const [facilities, setFacilities] = useState("");
+    const [doctor, setDoctor] = useState("");
+    const [load, setLoad] = useState(true);
     const [error, setError] = useState(" ");
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
-    const [doctor, setDoctor] = useState("");
 
     //handler
     const handlerClickBook = () => {
@@ -43,51 +45,40 @@ const DetailrsContent = (props) => {
 
     //param
     let { id } = useParams();
-    let userId = localStorage.getItem("id")
-    let clinicId = localStorage.setItem("clinicId", id)
+    let userId = localStorage.getItem("id");
+    let clinicId = localStorage.setItem("clinicId", id);
     // console.log(userId)
     // console.log(clinicId)
 
     //useEffect
     const dispatch = useDispatch();
     const detailClinic = useSelector((state) => state.getClinicDetail.data[0]);
-    console.log(detailClinic, "detailklinik")
+    console.log(detailClinic, "detailklinik");
+
+    // useEffect(() => {
+    //     dispatch(getClinicDetail());
+    // }, [detailClinic]);
 
     useEffect(() => {
-        dispatch(getClinicDetail());
+        axios
+            .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
+            .then((res) => {
+                console.log(res.data.result[0]);
+                setClinic(res.data.result[0]);
+                setFacilities(res.data.result[0].fasilitas);
+                setDoctor(res.data.result[0].dokter);
+                setLoad(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoad(true);
+            });
     }, []);
-    // useEffect(() => {
-    //     axios
-    //         .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
-    //         .then((res) => {
-    //             console.log(res.data.result[0]);
-    //             setClinic(res.data.result[0]);
-    //             setFacilities(res.data.result[0].fasilitas);
-    //             setDoctor(res.data.result[0].dokter);
-    //             setLoad(true);
-    //         })
-    //         .catch((err) => {
-    //             setError(err.message);
-    //             setLoad(true);
-    //         });
-    //         // axios
-    //         // .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
-    //         // .then((res) => {
-    //         //     console.log(res.data.result[0]);
-    //         //     setClinic(res.data.result[0]);
-    //         //     setFacilities(res.data.result[0].fasilitas);
-    //         //     setDoctor(res.data.result[0].dokter);
-    //         //     setLoad(true);
-    //         // })
-    //         // .catch((err) => {
-    //         //     setError(err.message);
-    //         //     setLoad(true);
-    //         // });
-    // }, []);
 
-    //split facilities
-    // let facilities = clinic.fasilitas.split(",");
-    // console.log(facilities)
+    // split facilities
+    let facility = facilities.split(",");
+    // let facility = clinic.fasilitas.split(",");
+    console.log(facility);
 
     //custom styling
     const detailrsH1 = {
@@ -200,11 +191,12 @@ const DetailrsContent = (props) => {
         <div className="detailrs-container">
             <Row>
                 <Col>
+                    <h1 style={detailrsH1}>{clinic.nama}</h1>
                     {/* <h1 style={detailrsH1}>{detailClinic.nama}</h1> */}
                 </Col>
                 <Col md="auto"></Col>
                 <Col xs lg="2">
-                    <Link to="/detailbooking">
+                    <Link to={`/detailbooking/${id}`}>
                         <Button
                             style={buttonBookNow}
                             onClick={handlerClickBook}
@@ -221,6 +213,15 @@ const DetailrsContent = (props) => {
             <br />
             <Row>
                 <Col>
+                    <img
+                        src={clinic.foto}
+                        style={detailrsImage}
+                        alt="photos of clinic"
+                        data-aos="fade-right"
+                        data-aos-delay="100"
+                        data-aos-duration="2000"
+                        data-aos-easing="ease-out"
+                    />
                     {/* <img src={detailClinic.foto} style={detailrsImage} alt="" /> */}
                 </Col>
                 <Col>
@@ -253,18 +254,20 @@ const DetailrsContent = (props) => {
             <Row>
                 <Col className="pr-5">
                     <h3 style={detailrsH3}>Tentang</h3>
+                    <p>{clinic.tentang}</p>
                     {/* <p>{detailClinic.tentang}</p> */}
                 </Col>
                 <Col>
                     <h3 style={detailrsH3}>Fasilitas</h3>
                     <div>
-                        {/* {detailClinic.fasilitas.split(",").map((yey, idx) => {
+                        {facility.map((yey, idx) => {
+                            // {detailClinic.fasilitas.split(",").map((yey, idx) => {
                             return (
                                 <Row key={idx}>
                                     <i>{yuhu}</i> <p>{yey}</p>
                                 </Row>
                             );
-                        })} */}
+                        })}
                     </div>
                 </Col>
             </Row>

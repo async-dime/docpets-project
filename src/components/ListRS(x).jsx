@@ -14,20 +14,21 @@ function Listrs(props) {
         (state) => state.clinicSearch.listClinicSearch
     );
     const listRs = useSelector((state) => state.clinic);
-    useEffect(() => {
-        dispatch(getClinic());
-    }, []);
-
     // useEffect(() => {
-    //     props.search("");
-    //     setKlinik(klinikSearchList);
+    //     dispatch(getClinic());
     // }, []);
 
-    // useEffect(() => {
-    //     props.clinics;
-    // }, [props.clinics]);
+    useEffect(() => {
+        props.search("");
+        setKlinik(klinikSearchList);
+    }, []);
+
+    useEffect(() => {
+        props.clinics;
+    }, [props.clinics]);
 
     let { id } = useParams();
+
 
     // useEffect(() => {
     //     console.log("ini list rs lo", listRs);
@@ -40,7 +41,7 @@ function Listrs(props) {
 
     return (
         <>
-            <Row className="my-2 mx-3 justify-content-center">
+            {/* <Row className="my-2 mx-3 justify-content-center">
                 <div>
                     <div className="searchButton">
                         <form className="form-inline my-0 my-lg-0">
@@ -56,7 +57,7 @@ function Listrs(props) {
                     <Form.Group>
                         <Form.Control
                             name="gender"
-                            onChange={(e) => setKlinik(e.target.value)}
+                            onChange={(e) => setGender(e.target.value)}
                             as="select"
                         >
                             <option>Lokasi</option>
@@ -67,23 +68,59 @@ function Listrs(props) {
                         </Form.Control>
                     </Form.Group>
                 </Form>
-                <Button
-                    variant="warning"
-                    className="mr-2"
-                    style={{
-                        backgroundColor: "#fde84d",
-                        color: "#445E6B",
-                        fontWeight: "700",
-                        height: "50px",
-                    }}
-                >
+                <Button variant="warning" className="mr-2">
                     Cari Sekarang
                 </Button>
-            </Row>
+            </Row> */}
+
             <div>
                 {/* ini hard code list rs */}
-                <Row className="Row">
-                    {listRs.listClinic.map((clinic) => (
+                <Row>
+                    <form className="form-inline my-0 my-lg-0">
+                        <input
+                            className="form-control mr-sm-1 searching"
+                            type="text"
+                            placeholder="Search clinic"
+                            onChange={(text) => {
+                                let aaaa = klinik.filter((e) =>
+                                    e.nama
+                                        .toLowerCase()
+                                        .includes(text.toLowerCase())
+                                );
+                                let bbbb = klinik.filter((e) =>
+                                    e.lokasi
+                                        .toLowerCase()
+                                        .includes(text.toLowerCase())
+                                );
+                                console.log("ini testing 2", klinik);
+
+                                if (text.length == 0) {
+                                    setKlinik(klinikSearchList);
+                                    console.log("hahaha", klinikSearchList);
+                                } else {
+                                    if (aaaa.length != 0) {
+                                        setKlinik(aaaa);
+                                    } else {
+                                        setKlinik(bbbb);
+                                    }
+                                }
+                            }}
+                        />
+                    </form>
+                    {klinik.map((item, index) => (
+                        <ClinicCard
+                            key={index}
+                            clinicName={item.nama}
+                            image={item.foto}
+                            lokasi={item.lokasi}
+                            tentang={item.tentang}
+                            fasilitas={item.fasilitas}
+                            patient={item.patient}
+                            id={item.id}
+                        />
+                    ))}
+
+                    {/* {listRs.listClinic.map((clinic) => (
                         <div className="m-3">
                             <Card
                                 style={{ width: "20rem", height: "40rem" }}
@@ -129,11 +166,22 @@ function Listrs(props) {
                                 </Card.Footer>
                             </Card>
                         </div>
-                    ))}
+                    ))} */}
                 </Row>
             </div>
         </>
     );
 }
+const mapStateToProps = (state) => ({
+    clinics: state.clinicSearch.listClinicSearch,
+});
 
-export default Listrs;
+const mapDispatchToProps = (dispatch) => ({
+    search: (nama) => dispatch({ type: "GET_CLINIC_CARI", payload: nama }),
+    searchCity: (lokasi) =>
+        dispatch({ type: "GET_CLINIC_CITY", payload: lokasi }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Listrs);
+
+// export default Listrs;

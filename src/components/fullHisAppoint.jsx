@@ -6,7 +6,7 @@ import '../components/ClinicProfile.css'
 import '../components/fullHisAppoint.css'
 import AppointmentUser from '../components/AppointmentUser'
 import HistoryUser from '../components/HistoryUser'
-import Bag from '../components/assets/img/koper.jpeg'
+import Bag from '../components/assets/img/koper.png'
 import { Route, NavLink, HashRouter } from 'react-router-dom'
 
 
@@ -53,16 +53,14 @@ const DoctorProfile = (props) => {
                 </div>
                 </Card>
             </div>
-     <div className='col-xs-12 col-md-8'>       
+    <div className='col-xs-12 col-md-8'>       
         <div className="row">
             <div className="col-lg-12">
                 <div className="panel3 panel-default">
                     <HashRouter>
                     <div ClassName='nav-bar d-inline' width='100%'>
-                        {/* <ul className='ApCok'> */}
                         <li className='NvCOK'><NavLink active tag='a' exact to='/AppointmentUser'>Appointment</NavLink></li>
                         <li className='NvCOK'><NavLink to='/HistoryUser'>History</NavLink></li>
-                        {/* </ul> */}
                     </div>
                     <div className='contentx'>
                         <Route active tag='a' exact path='/AppointmentUser' component={AppointmentUser}/>

@@ -20,6 +20,11 @@ const ModalAddPet = (props) => {
         setIsOpen(false);
     };
 
+    const [pet, setPet] = useState({});
+    const handlePet = (e) => {
+        setPet(e.target.value)
+    }
+
     const [species, setSpecies] = useState("");
 
     const handlePetSpecies = (e) => {
@@ -65,7 +70,7 @@ const ModalAddPet = (props) => {
             data: JSON.stringify(bodyData),
         })
             .then(() => {
-                history.push(`/book-clinic/${props.param}`);
+                history.push(`/detailbooking/${localStorage.getItem("clinicId")}`);
                 // props.addNewPet();
                 toggle();
                 console.info(bodyData);

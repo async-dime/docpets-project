@@ -33,6 +33,8 @@ const NavBarLogin = (props) => {
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
 
+    const namaUpper = nama?.toUpperCase();
+
     //custom style n icons
     const textStyle = {
         fontSize: "15px",
@@ -62,14 +64,14 @@ const NavBarLogin = (props) => {
     return (
         <header>
             <div className="navbar-container w-100 shadowEffect">
-                <div
-                    className="navbar"
-                    data-aos="fade-down"
-                    data-aos-delay="50"
-                    data-aos-duration="2000"
-                    data-aos-easing="ease-in-out-cubic"
-                >
-                    <Link to={`/`}>
+                <div className="navbar">
+                    <Link
+                        to={`/`}
+                        data-aos="fade-down"
+                        data-aos-delay="500"
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in-out-cubic"
+                    >
                         <img
                             src={logo}
                             alt="docpets logo"
@@ -99,18 +101,18 @@ const NavBarLogin = (props) => {
                         </Link>
                         {token ? (
                             <NavDropdown
-                                title={pic}
+                                title={<>{pic} <span className="mx-2 my-0" style={{fontWeight: "700", color: "#fde84d"}}>Hi, {nama}</span></>}
                                 className="navbar-text nav-dropdown"
                                 id="basic-nav-dropdown"
                             >
-                                <NavDropdown.Item>
-                                    <Row style={textStyle}>Hi, {nama}</Row>
+                                <NavDropdown.Item className="navItem">
+                                    <Row style={textStyle}>{namaUpper}</Row>
                                     <Row style={textStyle}>{email}</Row>
                                 </NavDropdown.Item>
                                 <hr />
                                 <NavDropdown.Item
                                     style={textStyle}
-                                    className="alignMiddle"
+                                    className="navItem"
                                 >
                                     <div>
                                         <Link
@@ -126,7 +128,7 @@ const NavBarLogin = (props) => {
                                 </NavDropdown.Item>
                                 <NavDropdown.Item
                                     style={textStyle}
-                                    className="alignMiddle"
+                                    className="navItem"
                                 >
                                     <div onClick={signOut}>
                                         <Link

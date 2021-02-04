@@ -28,14 +28,18 @@ const FormSignUp = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [diffPassword, setDiffPassword] = useState(false);
     const [message, setMessage] = useState("");
-    let role = localStorage.getItem("role");
     const eye = <FontAwesomeIcon icon={faEye} />;
+    const token = localStorage.getItem("token");
+    let role = localStorage.getItem("role");
 
     const togglePasswordVisibility = () => {
         setShowPassword(showPassword ? false : true);
     };
     const togglePasswordConfirmVisibility = () => {
         setShowPasswordConfirm(showPasswordConfirm ? false : true);
+    };
+    const handleGender = (e) => {
+        setGender(e.target.value);
     };
 
     const onSubmit = (e) => {
@@ -114,7 +118,7 @@ const FormSignUp = (props) => {
                     <img
                         src={logo}
                         style={{ height: "100px" }}
-                        alt=""
+                        alt="docpets logo"
                         className="docpets-logo"
                         data-aos="fade-down"
                         data-aos-delay="100"
@@ -137,12 +141,21 @@ const FormSignUp = (props) => {
                             <Link to={`/`} className="navbar-text-h6">
                                 <h6>Home</h6>
                             </Link>
-                            <Link
-                                to={`/doctorprofile`}
-                                className="navbar-text-h6"
-                            >
-                                <h6>Doctor</h6>
-                            </Link>
+                            {token && role === ("klinik" || "admin") ? (
+                                <Link
+                                    to={`/doctorprofile`}
+                                    className="navbar-text-h6"
+                                >
+                                    <h6>Doctor</h6>
+                                </Link>
+                            ) : (
+                                <Link
+                                    to={`/unauthorized`}
+                                    className="navbar-text-h6"
+                                >
+                                    <h6>Doctor</h6>
+                                </Link>
+                            )}
                             <Link to={`/listrs`} className="navbar-text-h6">
                                 <h6>Search Clinics</h6>
                             </Link>
@@ -181,7 +194,7 @@ const FormSignUp = (props) => {
                                             <img
                                                 src={userIcon}
                                                 style={inputIconSize}
-                                                alt=""
+                                                alt="user icon"
                                             />
                                         </InputGroup.Text>
                                     </InputGroup.Prepend>
@@ -230,9 +243,47 @@ const FormSignUp = (props) => {
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>
                                             <img
+                                                src={userIcon}
+                                                style={inputIconSize}
+                                                alt="user icon"
+                                            />
+                                        </InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <div className="my-2 ml-3">
+                                        <span className="mr-3">Gender:</span>
+                                        <span className="mr-4">
+                                            <input
+                                                id="gender1"
+                                                value="male"
+                                                name="gender"
+                                                type="radio"
+                                                className="mx-2"
+                                                onChange={handleGender}
+                                            />
+                                            Male
+                                        </span>
+                                        <span>
+                                            <input
+                                                id="gender2"
+                                                value="female"
+                                                name="gender"
+                                                type="radio"
+                                                className="mx-2"
+                                                onChange={handleGender}
+                                            />
+                                            Female
+                                        </span>
+                                    </div>
+                                </InputGroup>
+                            </Form.Group>
+                            <Form.Group>
+                                <InputGroup size="sm">
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text>
+                                            <img
                                                 src={mailIcon}
                                                 style={inputIconSize}
-                                                alt=""
+                                                alt="mail icon"
                                             />
                                         </InputGroup.Text>
                                     </InputGroup.Prepend>
@@ -254,27 +305,13 @@ const FormSignUp = (props) => {
                                     )}
                             </Form.Group>
                             <Form.Group>
-                                <Form.Control
-                                    name="gender"
-                                    onChange={(e) => setGender(e.target.value)}
-                                    as="select"
-                                    ref={register({
-                                        required: true,
-                                    })}
-                                >
-                                    <option>Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group>
                                 <InputGroup size="sm">
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>
                                             <img
                                                 src={phoneIcon}
                                                 style={inputIconSize}
-                                                alt=""
+                                                alt="phone icon"
                                             />
                                         </InputGroup.Text>
                                     </InputGroup.Prepend>
@@ -306,7 +343,7 @@ const FormSignUp = (props) => {
                                             <img
                                                 src={lockIcon}
                                                 style={inputIconSize}
-                                                alt=""
+                                                alt="lock icon"
                                             />
                                         </InputGroup.Text>
                                     </InputGroup.Prepend>
@@ -359,7 +396,7 @@ const FormSignUp = (props) => {
                                             <img
                                                 src={lockIcon}
                                                 style={inputIconSize}
-                                                alt=""
+                                                alt="lock icon"
                                             />
                                         </InputGroup.Text>
                                     </InputGroup.Prepend>

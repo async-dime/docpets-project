@@ -5,6 +5,7 @@ import { addDays, setHours, setMinutes } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ChooseDate() {
+    const [waktu, setWaktu] = useState("");
     const [startDate, setStartDate] = useState(
         setHours(setMinutes(new Date(), 120), 10)
     );
@@ -20,7 +21,7 @@ function ChooseDate() {
         fontSize: "15px",
         fontWeight: "700",
     };
-    const ChooseDateButton = ({ value, onClick }) => (
+    const ChooseDateButton = ({ value, onClick, onChange }) => (
         <div>
             <Button
                 style={buttonBoxStyle}
@@ -28,24 +29,44 @@ function ChooseDate() {
                 className="my-2 mx-1"
                 onClick={(e) => {
                     onClick(e, "value");
+                    setWaktu(value);
+                    localStorage.setItem("waktu", waktu);
                     console.log(value);
-                    console.log(value.split(" ")[0]);
-                    console.log(value.split(" ")[1].slice(0, -1));
-                    console.log(value.split(" ")[2]);
-                    console.log(
-                        value.split(" ")[3] + " " + value.split(" ")[4]
-                    );
+                    console.log(waktu);
                 }}
+                // onChange={(e) => {
+                //     onChange(e, "value");
+                //     setWaktu(value);
+                //     localStorage.setItem("waktu", waktu);
+                //     console.log(value);
+                //     console.log(waktu);
+                // }}
             >
-                {value.split(" ")[0] + " " + value.split(" ")[1] + " " + value.split(" ")[2]}
+                Choose Date
             </Button>
-            <Button
-                style={buttonBoxStyle}
-                variant="light"
-                className="my-2 mx-1"
-            >
-                {value.split(" ")[3] + " " + value.split(" ")[4]}
-            </Button>
+            {waktu ? (
+                <>
+                    {" "}
+                    <Button
+                        style={buttonBoxStyle}
+                        variant="light"
+                        className="my-2 mx-1"
+                    >
+                        {value.split(" ")[0] +
+                            " " +
+                            value.split(" ")[1] +
+                            " " +
+                            value.split(" ")[2]}
+                    </Button>
+                    <Button
+                        style={buttonBoxStyle}
+                        variant="light"
+                        className="my-2 mx-1"
+                    >
+                        {value.split(" ")[3] + " " + value.split(" ")[4]}
+                    </Button>{" "}
+                </>
+            ) : null}
         </div>
     );
     return (

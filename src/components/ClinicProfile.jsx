@@ -18,7 +18,7 @@ const ClinicProfile = (props) => {
                         <div className='boxats mx-auto'>
                             <br/>
                             <center>
-                                <img src={PP} alt='photo-prf' className='img-circle' />
+                                <img src={PP} alt='photo-prf' className='rounded-circle' />
                             <br />
                             <div className='info'>
                                 <p>drh Syohan Demega P</p>
@@ -45,7 +45,16 @@ const ClinicProfile = (props) => {
                                 </select>  
                                 </div>
                                 <div className='btn-ats mx-auto d-flex'>
-                                    <Button type='button' className='btn-md mx-auto d-flex btn-outline-warning'>Edit Profile</Button>
+                                <Button
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        margin: "auto",
+                                        fontWeight: "700",
+                                        border: "none",
+                                    }}
+                                > Edit Profile 
+                                </Button>
                                 </div>
                             </div>
                             </center> 
@@ -57,17 +66,17 @@ const ClinicProfile = (props) => {
                 </div>
             </Card>
             </div>
-     <div className='col-xs-12 col-md-8'>       
+    <div className='col-xs-12 col-md-8'>       
     <div className="con-bwh container-fluid d-flex mt-4 mb-4">
         <div className="row">
             <div className="col-lg mb-6">
                 <h1 className="page-header">Clinic Profile</h1>
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12" style={{border:'none'}}>
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         <h5 className='judultulisan'>Upload Photo</h5>
-                     </div>
+                    </div>
                     <div ClassName='uploadpc'>
                     <ImageUploader
                         withIcon={true}
@@ -76,18 +85,22 @@ const ClinicProfile = (props) => {
                         maxFileSize={5242880}
                     />
                     </div>
-                    <div className="radio-ktk d-inline-block mr-2 d-flex mx-auto">
+                    <div className="radio-ktk mr-2 d-flex mx-auto">
                         <h5 className='judultulisan mr-2 mx-auto'>Clinic Information</h5> 
-                            <label className='mr-2 d-inline-block d-flex mx-auto'>
-                            <p>Status</p>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" defaultChecked />Open
-                                    </label> 
-                            <label className='mr-2 d-inline-block d-flex mx-auto'>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />Closed
+                    </div>
+                    <div className='radio-ktk mr-2 d-flex mx-auto'>
+                            <label className='mr-2 d-flex mx-auto'>
+                            <p className='mr-4 mx-auto'>Status</p>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" defaultChecked />Open
+                            </label> 
+                            <label className='mr-2 d-flex mx-auto'>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />Closed
                             </label>
                     </div>
                     <div className='form-opr d-inline-block mb-2 d-flex mx-auto'>
-                        <label>Waktu Buka</label> <br />
+                        <label>Waktu Buka</label> 
+                    </div>
+                    <div className='form-opr d-inline-blokc mb-2 d-flex mx-auto'>    
                             <select className="form-opr">
                                 <option>Choose Operation Times</option>
                                 <option>08.00-10.00</option>
@@ -99,7 +112,7 @@ const ClinicProfile = (props) => {
                     </div> 
                     <div className="panel-body">
                         <div className="row">
-                            <div className="col-lg-12">
+                            <div className="col-lg-12" width={100} style={{border:'none'}}>
                                     <div className="form-group" >
                                     <h5 className='judultulisan mr-2 mx-auto'>Basic Information</h5> 
                                         <label>Nama Klinik</label>
@@ -129,8 +142,16 @@ const ClinicProfile = (props) => {
                                         <label>Special Notes Clinic</label>
                                         <textarea className="form-control" rows="3"></textarea>
                                     </div>
-                                    <button type="submit" className="btn-sb btn-default">Simpan</button>
-                                    <button type="reset" className="btn-re btn-default">Reset</button>
+                                    <Button
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        margin: "auto",
+                                        fontWeight: "700",
+                                        border: "none",
+                                    }}
+                                > Simpan 
+                                </Button>
                             </div>
                         </div>
                     </div>

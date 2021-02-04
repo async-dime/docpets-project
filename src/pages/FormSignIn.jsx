@@ -20,6 +20,8 @@ const FormSignIn = (props) => {
     const [showPassword, setShowPassword] = useState(false);
     const [message, setMessage] = useState("");
     const eye = <FontAwesomeIcon icon={faEye} />;
+    const token = localStorage.getItem("token");
+    let role = localStorage.getItem("role");
 
     const togglePasswordVisibility = () => {
         setShowPassword(showPassword ? false : true);
@@ -98,12 +100,21 @@ const FormSignIn = (props) => {
                             <Link to={`/`} className="navbar-text-h6">
                                 <h6>Home</h6>
                             </Link>
-                            <Link
-                                to={`/doctorprofile`}
-                                className="navbar-text-h6"
-                            >
-                                <h6>Doctor</h6>
-                            </Link>
+                            {token && role === ("klinik" || "admin") ? (
+                                <Link
+                                    to={`/doctorprofile`}
+                                    className="navbar-text-h6"
+                                >
+                                    <h6>Doctor</h6>
+                                </Link>
+                            ) : (
+                                <Link
+                                    to={`/unauthorized`}
+                                    className="navbar-text-h6"
+                                >
+                                    <h6>Doctor</h6>
+                                </Link>
+                            )}
                             <Link to={`/listrs`} className="navbar-text-h6">
                                 <h6>Search Clinics</h6>
                             </Link>

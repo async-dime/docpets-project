@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
+import axios from "axios";
 
 //styling
 import { Row, Col, Button } from "react-bootstrap";
@@ -11,22 +13,45 @@ const DetailBooking = (props) => {
     //state
     const [modals, setModals] = useState(false);
     const toggleModals = () => setModals(!modals);
+    const [clinic, setClinic] = useState({});
+    const [facilities, setFacilities] = useState("");
+    // const [doctor, setDoctor] = useState("");
+    const [load, setLoad] = useState(true);
+    const [error, setError] = useState(" ");
+    const [day, setDay] = useState("");
+    const [waktu, setWaktu] = useState();
 
-    //dummy datas
-    const dummy = {
-        id: 51,
-        nama: "Klinik Peliharaan Sejati",
-        lokasi: "batam",
-        tentang: "klinik terbaik untuk para pria sejati",
-        fasilitas: "toilet,whiskas gratis",
-        foto:
-            "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3e%2FHELIOS_ENDO-Klinik_Hamburg_Foto_2013_June_05.jpg&f=1&nofb=1",
-        dokter: null,
-        adminId: 4,
-        createdAt: "2021-01-13T14:28:45.000Z",
-        updatedAt: "2021-01-13T14:28:45.000Z",
+    //handler
+    const handleClickDay = (e) => {
+        setDay(e.target.value);
+    };
+    const handleClickWaktu = (e) => {
+        setWaktu(e.target.value);
     };
 
+    //param
+    let { id } = useParams();
+    console.log(id);
+
+    let tanggal = localStorage.getItem("waktu")
+    let doctor = localStorage.getItem("doctor")
+
+    useEffect(() => {
+        axios
+            .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
+            .then((res) => {
+                console.log(res.data.result[0]);
+                setClinic(res.data.result[0]);
+                // setDoctor(res.data.result[0].dokter);
+                setLoad(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoad(true);
+            });
+    }, []);
+
+    //dummy datas
     let dummyDoc = [
         {
             nama: "Dr. Alex, SP. Kucing",
@@ -78,18 +103,6 @@ const DetailBooking = (props) => {
         },
     ];
 
-    //hooks
-    const [day, setDay] = useState("");
-    const [waktu, setWaktu] = useState();
-
-    //handler
-    const handleClickDay = (e) => {
-        setDay(e.target.value);
-    };
-    const handleClickWaktu = (e) => {
-        setWaktu(e.target.value);
-    };
-
     //custom styling
     const detailrsH1 = {
         fontSize: "45px",
@@ -138,9 +151,9 @@ const DetailBooking = (props) => {
         border: "0px solid",
     };
 
-    let str = dummy.fasilitas;
-    let temp = new Array();
-    temp = str.split(",");
+    // let str = dummy.fasilitas;
+    // let temp = new Array();
+    // temp = str.split(",");
 
     return (
         <div className="detailrs-container">
@@ -161,12 +174,22 @@ const DetailBooking = (props) => {
             </Row>
             <hr />
             <Row>
-                <h3 style={detailrsH3}>{dummy.nama}</h3>
+                <h3 style={detailrsH3}>{clinic.nama}</h3>
+                {/* <h3 style={detailrsH3}>{dummy.nama}</h3> */}
             </Row>
             <br />
             <Row>
                 <Col>
-                    <img src={dummy.foto} style={detailrsImage} alt="" />
+                    <img
+                        src={clinic.foto}
+                        style={detailrsImage}
+                        alt="photo of clinic"
+                        data-aos="fade-right"
+                        data-aos-delay="100"
+                        data-aos-duration="2000"
+                        data-aos-easing="ease-out"
+                    />
+                    {/* <img src={dummy.foto} style={detailrsImage} alt="" /> */}
                 </Col>
                 <Col>
                     <Row>
@@ -178,7 +201,7 @@ const DetailBooking = (props) => {
                     </Row>
                     <Row>
                         <h4 style={detailrsH4}>
-                            Senin 12 Oktober, Pukul 12:00-15:00 Siang
+                            {tanggal}
                         </h4>
                     </Row>
                     <br />
@@ -187,7 +210,8 @@ const DetailBooking = (props) => {
                         <h3 style={detailrsH3}>Dokter</h3>
                     </Row>
                     <Row>
-                        <h4 style={detailrsH4}>{dummyDoc[0].nama}</h4>
+                        <h4 style={detailrsH4}>{doctor}</h4>
+                        {/* <h4 style={detailrsH4}>{dummyDoc[0].nama}</h4> */}
                     </Row>
                     <br />
 

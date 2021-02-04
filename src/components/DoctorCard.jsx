@@ -14,6 +14,7 @@ const DoctorCard = (props) => {
     const onClickDoctor = (e) => {
         setDoctor(e.target.value);
         console.log(doctor)
+        localStorage.setItem("doctor", props.nama)
     };
 
     //custom styling

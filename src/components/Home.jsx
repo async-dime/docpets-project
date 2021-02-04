@@ -46,54 +46,59 @@ function Home() {
         <>
             <div className="bg-footer text-light" expand="lg">
                 <Container className="Container pt-5 pb-5">
-                    <img
-                        src={Anjing}
-                        className="Anjing"
-                        data-aos="zoom-in-right"
-                        data-aos-delay="50"
-                        data-aos-duration="2000"
-                        data-aos-easing="ease-in-quad"
-                    />
-                    <div className="Tulisan my-3">
-                        <h1
-                            data-aos="fade-right"
-                            data-aos-delay="500"
-                            data-aos-duration="1000"
-                            data-aos-easing="ease-in-out-cubic"
-                        >
-                            Welcome to DocPets
-                        </h1>
-                        <p
-                            className="Pre"
-                            data-aos="fade-right"
-                            data-aos-delay="750"
-                            data-aos-duration="1500"
-                            data-aos-easing="ease-in-out-cubic"
-                        >
-                            {`
+                <Col className="col-sm-7">
+                        <div className="Tulisan my-3">
+                            <h1
+                                data-aos="fade-right"
+                                data-aos-delay="500"
+                                data-aos-duration="1000"
+                                data-aos-easing="ease-in-out-cubic"
+                            >
+                                Welcome to DocPets
+                            </h1>
+                            <p
+                                className="Pre"
+                                data-aos="fade-right"
+                                data-aos-delay="750"
+                                data-aos-duration="1500"
+                                data-aos-easing="ease-in-out-cubic"
+                            >
+                                {`
                         This is a platform where we pet owner can book a desired clinic and the
                         veterinarian. This website is made for the final project of Glints Academy 
                         x Binar Academy batch 9. Please enjoy the website as much as you could.`}
-                        </p>
-                        <Link to="/listrs">
-                            <Button
-                                className="btn border-0 pr-3 pl-3 ml-2"
-                                style={{
-                                    backgroundColor: "#fde84d",
-                                    color: "#445E6B",
-                                    margin: "1rem 1rem",
-                                    fontWeight: "700",
-                                    width: "200px",
-                                }}
-                                data-aos="fade-right"
-                                data-aos-delay="100"
-                                data-aos-duration="2000"
-                                data-aos-easing="ease-in-out-cubic"
-                            >
-                                Book Now
-                            </Button>
-                        </Link>
-                    </div>
+                            </p>
+                            <Link to="/listrs">
+                                <Button
+                                    className="btn border-0 pr-3 pl-3 ml-2"
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        margin: "1rem 1rem",
+                                        fontWeight: "700",
+                                        width: "200px",
+                                    }}
+                                    data-aos="fade-right"
+                                    data-aos-delay="100"
+                                    data-aos-duration="2000"
+                                    data-aos-easing="ease-in-out-cubic"
+                                >
+                                    Book Now
+                                </Button>
+                            </Link>
+                        </div>
+                    </Col>
+                    <Col className="col-sm-3">
+                        <img
+                            src={Anjing}
+                            className="Anjing"
+                            data-aos="zoom-in-left"
+                            data-aos-delay="50"
+                            data-aos-duration="2000"
+                            data-aos-easing="ease-in-quad"
+                        />
+                    </Col>
+                <Col className="col-sm-2"></Col>
                 </Container>
             </div>
             <br />
@@ -163,7 +168,7 @@ function Home() {
                                             className="mx-auto my-2"
                                             style={textH3}
                                         >
-                                            Animal Clinic/ Hospital
+                                            Klinik/ Rumah Sakit
                                         </h3>
                                     </Row>
                                     <Row>
@@ -171,7 +176,7 @@ function Home() {
                                             className="mx-auto my-2"
                                             style={textStyle}
                                         >
-                                            choose the animal clinic or hospital
+                                            choose the clinic or hospital
                                             closest to you
                                         </p>
                                     </Row>
@@ -213,7 +218,7 @@ function Home() {
                                             className="mx-auto my-2"
                                             style={textH3}
                                         >
-                                            Meet the Veterinarian
+                                            Meet the veterinarian
                                         </h3>
                                     </Row>
                                     <Row>

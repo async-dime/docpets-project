@@ -17,6 +17,7 @@ import DetailBooking from "../pages/DetailBooking";
 import ListRS from "../pages/ListRS";
 import TestPage from "../pages/TestPage";
 import NotFound from "../pages/404";
+import Unauthorized from "../pages/Unauthorized";
 import Clinic from '../pages/ClinicProfile.jsx'
 import DoctorProfile from '../pages/DoctorProfile'
 import AppointmentHistory from '../pages/appointmentHistory'
@@ -63,6 +64,9 @@ export const Routes = () => {
         </Route>
         <Route path="/AppointmentHistory" exact>
           <AppointmentHistory />
+        </Route>
+        <Route path="/unauthorized" >
+          <Unauthorized />
         </Route>
         <Route path="*" >
           <NotFound />

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Container, Row, Button, Card } from 'react-bootstrap'
+import { Container, Row, Button, Card, Center } from 'react-bootstrap'
 import PP from '../components/assets/img/sunrise.jpg'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../components/ClinicProfile.css'
 import ImageUploader from 'react-images-upload'
-import Koper from '../components/assets/img/koper.jpeg'
+import Koper from '../components/assets/img/koper.png'
 
 
 const DoctorProfile = (props) => {
@@ -14,12 +14,11 @@ const DoctorProfile = (props) => {
         <Row>
             <div className='col-12 col-lg-4'>
                 <div className='container-profile mx-auto d-flex mt-4'>
-
                     <br /><br />
                         <div className='boxats mx-auto'>
                             <br/>
                             <center>
-                                <img src={PP} alt='photo-prf' className='img-circle' />
+                                <img src={PP} alt='photo-prf' className='rounded-circle' />
                             <br />
                             <div className='info'>
                                 <p>drh Syohan Demega P</p>
@@ -35,10 +34,19 @@ const DoctorProfile = (props) => {
                                     <label className='mr<i class="fas fa-signal-4    "></i> mx-auto'>
                                         <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />Offline
                                     </label> <br />
-                                    <img src={Koper} alt='koper' className='koperku' /> <p>3 years</p> 
+                                    <img src={Koper} alt='koper' className='koperku' width={45} height={45} /> <p>3 years</p> 
                                 </div>
                                 <div className='btn-ats mx-auto d-flex'>
-                                    <Button type='button' className='btn-md mx-auto d-flex btn-outline-warning'>Edit Profile</Button>
+                                <Button
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        margin: "auto",
+                                        fontWeight: "700",
+                                        border: "none",
+                                    }}
+                                > Edit Profile 
+                                </Button>
                                 </div>
                             </div>
                             </center> 
@@ -50,17 +58,17 @@ const DoctorProfile = (props) => {
                 </div>
             </Card>
             </div>
-     <div className='col-xs-12 col-md-8'>       
+    <div className='col-xs-12 col-md-8'>   
     <div className="con-bwh container-fluid d-flex mt-4 mb-4">
         <div className="row">
             <div className="col-lg mb-6">
                 <h1 className="page-header">Doctor Profile</h1>
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12 mx-auto" style={{border:'none'}}>
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         <h5 className='judultulisan'>Upload Photo</h5>
-                     </div>
+                    </div>
                     <div ClassName='uploadpc'>
                     <ImageUploader
                         withIcon={true}
@@ -69,19 +77,23 @@ const DoctorProfile = (props) => {
                         maxFileSize={5242880}
                     />
                     </div>
-                    <div className="radio-ktk d-inline-block mr-2 d-flex mx-auto">
-                        <h5 className='judultulisan mr-2 mx-auto'>Doctor Information</h5> 
-                            <label className='mb-2 d-inline-block d-flex mx-auto'>
-                            <p>Status</p>
+                    <div className="radio-ktk mr-2 d-flex mx-auto">
+                        <h5 className='judultulisan'>Doctor Information</h5> 
+                    </div>
+                    <div className='radio-ktk mr-2 d-flex mx-auto'>
+                    <p className='radio-ktk mr-2 d-flex'>Status</p>
+                            <label className='mb-2 d-flex mx-auto'>
                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" defaultChecked />Active
                                     </label> 
-                            <label className='mr-2 d-inline-block d-flex mx-auto'>
+                            <label className='mr-2 d-flex mx-auto'>
                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />Offline
                             </label>
-                    </div>
-                    <div className='form-opr d-inline-block mb-2 d-flex mx-auto'>
+                    </div>        
+                    <div className='form-opr d-flex mx-auto'>
                         <label>Waktu Aktif</label> <br />
-                            <select className="form-opr">
+                    </div>
+                    <div className='form-opr d-flex mx-auto'>
+                            <select className="form-opr">x
                                 <option>Choose Operation Times</option>
                                 <option>08.00-10.00</option>
                                 <option>10.00-1200</option>
@@ -92,7 +104,7 @@ const DoctorProfile = (props) => {
                     </div> 
                     <div className="panel-body">
                         <div className="row">
-                            <div className="col-lg-12">
+                            <div className="col-lg-12 mx-auto" style={{border:'none'}}>
                                     <div className="form-group" >
                                     <h5 className='judultulisan mr-2 mx-auto'>Basic Information</h5> 
                                         <label>Nama Lengkap</label>
@@ -119,21 +131,39 @@ const DoctorProfile = (props) => {
                                         <input className="form-control" placeholder="Type E-mail" />
                                     </div>
                                     <div className="form-group">
-                                        <label>Special Notes Clinic</label>
+                                        <label>Special Notes Doctor</label>
                                         <textarea className="form-control" rows="3"></textarea>
                                     </div>
-                                    <button type="submit" className="btn-sb btn-default">Simpan</button>
-                                    <button type="reset" className="btn-re btn-default">Reset</button>
+                                    <Button
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        marginRight: "10px",
+                                        fontWeight: "700",
+                                        border: "none",
+                                    }}
+                                > Submit 
+                                </Button>
+                                <Button
+                                    style={{
+                                        backgroundColor: "#fde84d",
+                                        color: "#445E6B",
+                                        margin: "auto",
+                                        fontWeight: "700",
+                                        border: "none",
+                                    }}
+                                > Reset 
+                                </Button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>    
     </div>
     </div>
     </Row>
-    </Container>
+</Container>
 );
 }
 
