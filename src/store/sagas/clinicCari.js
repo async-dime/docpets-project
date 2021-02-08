@@ -15,7 +15,7 @@ function* getClinic(action) {
 }
 
 function* clinicCariSaga() {
-  console.info("authsaga()");
+  // console.info("authsaga()");
   yield takeLatest("GET_CLINIC_CARI", getClinic);
 }
 export default clinicCariSaga;

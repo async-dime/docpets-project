@@ -8,3 +8,4 @@ export const updateProfile = (payload) => {
     console.log('updateProfileDetail', payload);
     return {type: UPDATE_PROFILE, payload};
 };
+

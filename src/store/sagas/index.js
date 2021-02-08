@@ -7,12 +7,13 @@ import clinicCariSaga from './clinicCari'
 import clinicCitySaga from './clinicCity'
 import clinicPetSaga from './clinicPet'
 import clinicDetailSaga from './clinic_detail'
+// import clinicDoctorSaga from './clinicDoctor'
 import profileSaga from './profile'
+import userSagas from './userSagas'
 
 export default function* rootSaga() {
     yield all([
         authSaga(),
-        profileSaga(),
         clinicSaga(),
         clinicCariSaga(),
         clinicCitySaga(),
@@ -20,5 +21,8 @@ export default function* rootSaga() {
         clinicDetailSaga(),
         bookingSaga(),
         clinicPetSaga(),
+        profileSaga(),
+        userSagas(),
+        // clinicDoctorSaga()
     ])
 }

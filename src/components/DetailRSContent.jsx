@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getClinicDetail } from "../store/actions/clinicDetail";
-import axios from "axios";
+import { getClinicDoctor } from "../store/actions/clinicDoctor";
+import { getAnimal } from "../store/actions/animal";
+import { getUserProfile } from "../store/actions/user";
 
 //component
 import ChooseDate from "./ChooseDate";
 import ModalAddPet from "./ModalAddPet";
 import DoctorCard from "./DoctorCard";
-import BoxAnimal from "../components/BoxAnimal";
+import BoxAnimal from "./BoxAnimal";
+import Loadscreen from "../pages/Loadscreen";
 
 //styling, icon, & image
 import "./DetailRSContent.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import Lokasi from "./assets/img/lokasi.png";
 import ava1 from "../components/assets/img/doc1.png";
 import ava2 from "../components/assets/img/doc2.jpg";
 import dog from "./assets/img/emojiDog.svg";
@@ -23,10 +27,15 @@ import hamster from "./assets/img/emojiHamster.svg";
 import rabbit from "./assets/img/emojiRabbit.svg";
 
 const DetailrsContent = (props) => {
+    //param
+    let { id } = useParams();
+
+    localStorage.setItem("clinicId", id);
+
     //hooks
-    const [clinic, setClinic] = useState({});
-    const [facilities, setFacilities] = useState("");
-    const [doctor, setDoctor] = useState("");
+    const [loading, setLoading] = useState("true");
+    const [pet, setPet] = useState({});
+    const [doctor, setDoctor] = useState([]);
     const [load, setLoad] = useState(true);
     const [error, setError] = useState(" ");
     const [day, setDay] = useState("");
@@ -43,42 +52,24 @@ const DetailrsContent = (props) => {
         setWaktu(e.target.value);
     };
 
-    //param
-    let { id } = useParams();
-    let userId = localStorage.getItem("id");
-    let clinicId = localStorage.setItem("clinicId", id);
-    // console.log(userId)
-    // console.log(clinicId)
-
-    //useEffect
     const dispatch = useDispatch();
-    const detailClinic = useSelector((state) => state.getClinicDetail.data[0]);
-    console.log(detailClinic, "detailklinik");
-
-    // useEffect(() => {
-    //     dispatch(getClinicDetail());
-    // }, [detailClinic]);
 
     useEffect(() => {
-        axios
-            .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
-            .then((res) => {
-                console.log(res.data.result[0]);
-                setClinic(res.data.result[0]);
-                setFacilities(res.data.result[0].fasilitas);
-                setDoctor(res.data.result[0].dokter);
-                setLoad(false);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setLoad(true);
-            });
+        dispatch(getClinicDetail());
+        dispatch(getClinicDoctor());
+        dispatch(getAnimal());
+        setTimeout(() => setLoading("false"), 1500);
     }, []);
 
-    // split facilities
-    let facility = facilities.split(",");
-    // let facility = clinic.fasilitas.split(",");
-    console.log(facility);
+    const detailClinic = useSelector((state) => state.getClinicDetail);
+    const doctorClinic = useSelector((state) => state.getClinicDoctor);
+    const userProfile = useSelector((state) => state.user);
+    const userPet = useSelector((state) => state.getAnimal);
+    const states = useSelector((state) => state);
+
+    console.log("doctorClinic", doctorClinic);
+    console.log("userPet", userPet);
+    console.log(states);
 
     //custom styling
     const detailrsH1 = {
@@ -137,206 +128,171 @@ const DetailrsContent = (props) => {
         />
     );
 
-    //dummy
-    let dummyDoc = [
-        {
-            nama: "Dr. Alex, SP. Kucing",
-            status: "offline",
-            title: "Dokter Kucing",
-            ava: ava1,
-        },
-        {
-            nama: "Dr. Alizah, SP. Hamster",
-            status: "online",
-            title: "Dokter Hamster",
-            ava: ava2,
-        },
-        {
-            nama: "Dr. Alex, SP. Kelinci",
-            status: "online",
-            title: "Dokter Kelinci",
-            ava: ava1,
-        },
-        {
-            nama: "Dr. Alizah, SP. Anjing",
-            status: "offline",
-            title: "Dokter Anjing",
-            ava: ava2,
-        },
-    ];
-    let dummyPet = [
-        {
-            nama: "pampam",
-            jenis: "anjing",
-            gender: "male",
-        },
-        {
-            nama: "ronin",
-            jenis: "kucing",
-            gender: "female",
-        },
-        {
-            nama: "kiano",
-            jenis: "kelinci",
-            gender: "male",
-        },
-        {
-            nama: "blacky",
-            jenis: "hamster",
-            gender: "female",
-        },
-    ];
-
     return (
-        <div className="detailrs-container">
-            <Row>
-                <Col>
-                    <h1 style={detailrsH1}>{clinic.nama}</h1>
-                    {/* <h1 style={detailrsH1}>{detailClinic.nama}</h1> */}
-                </Col>
-                <Col md="auto"></Col>
-                <Col xs lg="2">
-                    <Link to={`/detailbooking/${id}`}>
-                        <Button
-                            style={buttonBookNow}
-                            onClick={handlerClickBook}
-                        >
-                            Book Now
-                        </Button>
-                    </Link>
-                </Col>
-            </Row>
-            <br />
-            <Row>
-                <h2 style={detailrsH2}>Informasi Umum</h2>
-            </Row>
-            <br />
-            <Row>
-                <Col>
-                    <img
-                        src={clinic.foto}
-                        style={detailrsImage}
-                        alt="photos of clinic"
-                        data-aos="fade-right"
-                        data-aos-delay="100"
-                        data-aos-duration="2000"
-                        data-aos-easing="ease-out"
-                    />
-                    {/* <img src={detailClinic.foto} style={detailrsImage} alt="" /> */}
-                </Col>
-                <Col>
+        <>
+            {loading === "false" ? (
+                <div className="detailrs-container">
                     <Row>
-                        <h3 style={detailrsH3}>Informasi Kunjungan</h3>
+                        <Col>
+                            <h1 style={detailrsH1}>{detailClinic.data.nama}</h1>
+                        </Col>
+                        <Col md="auto"></Col>
+                        <Col xs lg="2">
+                            <Link to={`/detailbooking/${id}`}>
+                                <Button
+                                    style={buttonBookNow}
+                                    onClick={handlerClickBook}
+                                >
+                                    Book Now
+                                </Button>
+                            </Link>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <img
+                            src={Lokasi}
+                            style={{ height: "20px", margin: "10px 0" }}
+                        />
+                        <h3 className="ml-2" style={detailrsH3}>
+                            {detailClinic.data.lokasi}
+                        </h3>
                     </Row>
                     <br />
                     <Row>
-                        <h4 style={detailrsH4}>Hari dan Waktu Kunjungan</h4>
-                    </Row>
-                    <Row>
-                        <ChooseDate />
+                        <h2 style={detailrsH2}>Main information</h2>
                     </Row>
                     <br />
                     <Row>
-                        <p>Klinik buka dari pukul 10:00 - 16:00</p>
+                        <Col>
+                            <img
+                                src={detailClinic.data.foto}
+                                style={detailrsImage}
+                                alt="photos of clinic"
+                                data-aos="fade-right"
+                                data-aos-delay="100"
+                                data-aos-duration="2000"
+                                data-aos-easing="ease-out"
+                            />
+                        </Col>
+                        <Col>
+                            <Row>
+                                <h3 style={detailrsH3}>
+                                    Appointment Information
+                                </h3>
+                            </Row>
+                            <br />
+                            <Row>
+                                <h4 style={detailrsH4}>
+                                    Appointment Date And Time
+                                </h4>
+                            </Row>
+                            <Row>
+                                <ChooseDate />
+                            </Row>
+                            <br />
+                            <Row>
+                                <p>Clinic open from 10:00 AM - 04:00 PM</p>
+                            </Row>
+                            <Row>
+                                <p>
+                                    You can choose appointment time from 10:00
+                                    AM, 12:00 PM, and 02:00 PM
+                                </p>
+                            </Row>
+                            <Row>
+                                <p>Each session takes time maximum 2 hours</p>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <Col className="pr-5">
+                            <h3 style={detailrsH3}>About</h3>
+                            <p>{detailClinic.data.tentang}</p>
+                        </Col>
+                        <Col>
+                            <h3 style={detailrsH3}>Facility</h3>
+                            <div>
+                                <p>
+                                    {detailClinic.data.fasilitas}
+                                    {/* {detailClinic.data.fasilitas
+                                    .split(",")
+                                    .map((yey, idx) => {
+                                        return (
+                                            <Row key={idx}>
+                                                <i>{yuhu}</i> <p>{yey}</p>
+                                            </Row>
+                                        );
+                                    })} */}
+                                </p>
+                            </div>
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <h3 style={detailrsH3}>Choose Doctor</h3>
                     </Row>
                     <Row>
-                        <p>
-                            Anda bisa memilih jam kunjungan antara pukul 10:00,
-                            12:00, dan 14:00
-                        </p>
+                        {/* {
+                            doctorClinic?.map((doctor) => {
+                                return (
+                                <div key={doctor.id}>
+
+                                    <DoctorCard
+                                    // key={idx}
+                                    ava={yuhu}
+                                    title={doctor.User.email}
+                                    nama={doctor.User.nama}
+                                    status={doctor.User.status}
+                                    experience={doctor.User.pengalaman}
+                                    time={doctor.User.waktuKerja}
+                                    className="mx-2"
+                                />
+                                </div>
+                                );
+                            })
+                        } */}
+                    </Row>
+                    <br />
+                    <br />
+                    <br />
+                    <Row>
+                        <h3 style={detailrsH3}>Put Your Pet's Information</h3>
                     </Row>
                     <Row>
-                        <p>Setiap sesi berlangsung selama maksimal 2 jam</p>
-                    </Row>
-                </Col>
-            </Row>
-            <br />
-            <Row>
-                <Col className="pr-5">
-                    <h3 style={detailrsH3}>Tentang</h3>
-                    <p>{clinic.tentang}</p>
-                    {/* <p>{detailClinic.tentang}</p> */}
-                </Col>
-                <Col>
-                    <h3 style={detailrsH3}>Fasilitas</h3>
-                    <div>
-                        {facility.map((yey, idx) => {
-                            // {detailClinic.fasilitas.split(",").map((yey, idx) => {
+                        <ModalAddPet />
+                        {userPet.data.result?.map((pet) => {
                             return (
-                                <Row key={idx}>
-                                    <i>{yuhu}</i> <p>{yey}</p>
-                                </Row>
+                                <div key={pet.id}>
+                                    <Col>
+                                        <BoxAnimal
+                                            nama={pet.nama}
+                                            gender={pet.gender}
+                                            image={`${
+                                                pet.jenis === "anjing"
+                                                    ? dog
+                                                    : pet.jenis === "kucing"
+                                                    ? cat
+                                                    : pet.jenis === "hamster"
+                                                    ? hamster
+                                                    : rabbit
+                                            }`}
+                                        />
+                                    </Col>
+                                </div>
                             );
                         })}
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                <h3 style={detailrsH3}>Pilih Dokter</h3>
-            </Row>
-            <Row>
-                {doctor
-                    ? doctor.map((doctor, idx) => {
-                          return (
-                              <DoctorCard
-                                  key={idx}
-                                  ava={doctor.ava}
-                                  title={doctor.title}
-                                  nama={doctor.nama}
-                                  status={doctor.status}
-                                  className="mx-2"
-                              />
-                          );
-                      })
-                    : dummyDoc.map((doctor, idx) => {
-                          return (
-                              <DoctorCard
-                                  value={doctor.nama}
-                                  key={idx}
-                                  ava={doctor.ava}
-                                  title={doctor.title}
-                                  nama={doctor.nama}
-                                  status={doctor.status}
-                                  className="mx-2"
-                              />
-                          );
-                      })}
-            </Row>
-            <br />
-            <br />
-            <br />
-            <Row>
-                <h3 style={detailrsH3}>Masukkan Informasi Hewan Peliharaan</h3>
-            </Row>
-            <Row>
-                <ModalAddPet />
-                {dummyPet.map((pet, idx) => {
-                    return (
-                        <div key={idx}>
-                            <Col>
-                                <BoxAnimal
-                                    nama={pet.nama}
-                                    gender={pet.gender}
-                                    image={`${
-                                        pet.jenis === "anjing"
-                                            ? dog
-                                            : pet.jenis === "kucing"
-                                            ? cat
-                                            : pet.jenis === "hamster"
-                                            ? hamster
-                                            : rabbit
-                                    }`}
-                                />
-                            </Col>
-                        </div>
-                    );
-                })}
-            </Row>
-        </div>
+                    </Row>
+                </div>
+            ) : (
+                <Loadscreen />
+            )}
+        </>
     );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+});
 
 const mapDispatchToProps = (dispatch) => ({});
 

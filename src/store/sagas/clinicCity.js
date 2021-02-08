@@ -22,7 +22,7 @@ function* getClinicCity(action) {
 }
 
 function* clinicCitySaga() {
-  console.info("authsaga()");
+  // console.info("authsaga()");
   yield takeLatest("GET_CLINIC_CITY", getClinicCity);
 }
 export default clinicCitySaga;

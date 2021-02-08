@@ -55,11 +55,15 @@ export const GET_CLINIC_PET = 'GET_CLINIC_PET';
 export const GET_CLINIC_SUCCESS_PET = 'GET_CLINIC_SUCCES_PET';
 export const GET_CLINIC_FAILED_PET = 'GET_CLINIC_FAILED_PET';
 
-// clinivDetail_types
+// clinicDetail_types
 export const GET_CLINIC_DETAIL = 'GET_CLINIC_DETAIL';
 export const GET_CLINIC_DETAIL_SUCCESS = 'GET_CLINIC_DETAIL_SUCCESS';
 export const GET_CLINIC_DETAIL_FAILED = 'GET_CLINIC_DETAIL_FAILED';
 
+// clinicDoctor_types
+export const GET_CLINIC_DOCTOR = 'GET_CLINIC_DOCTOR';
+export const GET_CLINIC_DOCTOR_SUCCESS = 'GET_CLINIC_DOCTOR_SUCCESS';
+export const GET_CLINIC_DOCTOR_FAILED = 'GET_CLINIC_DOCTOR_FAILED';
 
 // profile_types
 export const GET_PROFILE = 'GET_PROFILE';

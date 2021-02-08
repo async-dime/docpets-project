@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 //styling, icons
 import "./ModalBookingSuccess.scss";
@@ -9,15 +10,20 @@ const ModalBookingSuccess = (props) => {
     const divStyle = {
         display: props.displayModal ? "block" : "none",
     };
+    const history = useHistory();
     function closeModal(e) {
         e.stopPropagation();
         props.closeModal();
+        history.push(`/detailpayment/`);
     }
     const check = <FontAwesomeIcon icon={faCheckCircle} />;
 
     return (
-
-        <div className="modal-book-success-container" onClick={closeModal} style={divStyle}>
+        <div
+            className="modal-book-success-container"
+            onClick={closeModal}
+            style={divStyle}
+        >
             <div
                 className="modal-book-success-content"
                 onClick={(e) => e.stopPropagation()}

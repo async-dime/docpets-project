@@ -16,7 +16,7 @@ function Listrs(props) {
     const listRs = useSelector((state) => state.clinic);
     useEffect(() => {
         dispatch(getClinic());
-    }, []);
+    }, []); //masukin api klinik
 
     // useEffect(() => {
     //     props.search("");
@@ -74,10 +74,10 @@ function Listrs(props) {
                         backgroundColor: "#fde84d",
                         color: "#445E6B",
                         fontWeight: "700",
-                        height: "50px",
+                        height: "40px",
                     }}
                 >
-                    Cari Sekarang
+                    Search Clinic
                 </Button>
             </Row>
             <div>
@@ -87,7 +87,7 @@ function Listrs(props) {
                         <div className="m-3">
                             <Card
                                 style={{ width: "20rem", height: "40rem" }}
-                                data-aos="fade-down"
+                                data-aos="fade-right"
                                 data-aos-delay="100"
                                 data-aos-duration="1000"
                                 data-aos-easing="ease-in"
@@ -116,6 +116,7 @@ function Listrs(props) {
                                     <Link to={`/detailrs/${clinic.id}`}>
                                         <Button
                                             className="btn border-0 w-100"
+                                            onClick={localStorage.setItem("clinicId", clinic.id)}
                                             style={{
                                                 backgroundColor: "#fde84d",
                                                 color: "#445E6B",

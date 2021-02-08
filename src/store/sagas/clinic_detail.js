@@ -12,14 +12,14 @@ function* getClinicDetail(action) {
         const headers = yield getHeaders();
         const accountId = yield getAccountId();
         const resGetClinicDetail = yield apiGetClinicDetail(
-            headers
-            // action.payload
+            headers,
+            action.payload
         );
-        console.log(resGetClinicDetail.data.result, "clinic details saga");
+        // console.log(resGetClinicDetail.data.result[0], "clinic details saga");
 
         yield put({
             type: GET_CLINIC_DETAIL_SUCCESS,
-            payload: resGetClinicDetail.data.result,
+            payload: resGetClinicDetail.data.result[0],
         });
         console.log("berhasil menambahkan clinic");
     } catch (err) {

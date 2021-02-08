@@ -5,7 +5,7 @@ import {
 
 const initialState = {
     isLoading: false,
-    data: []
+    data: {},
 }
 
 const getAnimal = (state = initialState, action) => {

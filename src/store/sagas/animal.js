@@ -21,7 +21,7 @@ function* addAnimal(action) {
   try {
     const headers = yield getHeaders();
     const accountId = yield getAccountId();
-    console.log("headers saga animal");
+    // console.log("headers saga animal");
     const resAddAnimal = yield apiAddAnimal(headers, action.payload);
     console.log(resAddAnimal.data);
 
@@ -37,12 +37,12 @@ function* getAnimal() {
   try {
     const headers = yield getHeaders();
     const accountId = yield getAccountId();
-    console.log("headers saga get animal");
+    // console.log("headers saga get animal");
 
-    const resGetAnimal = yield apiGetAnimal(accountId, headers);
-    console.log("ini res get animal", resGetAnimal.data);
+    const resGetAnimal = yield apiGetAnimal(headers);
+    // console.log("ini res get animal", resGetAnimal.data);
     yield put({ type: GET_ANIMAL_SUCCESS, payload: resGetAnimal.data });
-    console.log("berhasil mendapatkan hewan");
+    // console.log("berhasil mendapatkan hewan");
   } catch {
     console.info("Gagal Mendapatkan Hewan");
     yield put({ type: GET_ANIMAL_FAILED });

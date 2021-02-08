@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
+import {getUserProfile} from "../store/actions/user"
 import { Link } from "react-router-dom";
 import {
     Button,
@@ -18,22 +19,19 @@ import {
     faTools,
 } from "@fortawesome/free-solid-svg-icons";
 
-//redux
-import { getProfileDetail } from "../store/actions/profile";
-import { logoutAction } from "../store/actions/auth";
-
-import { connect } from "react-redux";
-
 import logo from "./assets/img/logo.png";
 import logofont from "./assets/img/logofont.png";
 import axios from "axios";
 
 const NavBarLogin = (props) => {
-    const nama = localStorage.getItem("nama");
     const token = localStorage.getItem("token");
-    const email = localStorage.getItem("email");
 
-    const namaUpper = nama?.toUpperCase();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUserProfile());
+    }, []);
+    const userProfile = useSelector( state => state.user)
+    const namaUpper = userProfile.nama?.toUpperCase();
 
     //custom style n icons
     const textStyle = {
@@ -101,13 +99,13 @@ const NavBarLogin = (props) => {
                         </Link>
                         {token ? (
                             <NavDropdown
-                                title={<>{pic} <span className="mx-2 my-0" style={{fontWeight: "700", color: "#fde84d"}}>Hi, {nama}</span></>}
+                                title={<>{pic} <span className="mx-2 my-0" style={{fontWeight: "700", color: "#fde84d"}}>Hi, {userProfile.nama}</span></>}
                                 className="navbar-text nav-dropdown"
                                 id="basic-nav-dropdown"
                             >
                                 <NavDropdown.Item className="navItem">
                                     <Row style={textStyle}>{namaUpper}</Row>
-                                    <Row style={textStyle}>{email}</Row>
+                                    <Row style={textStyle}>{userProfile.email}</Row>
                                 </NavDropdown.Item>
                                 <hr />
                                 <NavDropdown.Item
@@ -162,18 +160,10 @@ const NavBarLogin = (props) => {
     );
 };
 
-export default NavBarLogin;
+// export default NavBarLogin;
 
-// const mapStateToProps = (state) => ({
-//     animal: state.getAnimal.data,
-//     nama: state.profile.data.nama,
-//     clinics: state.clinicSearch.listClinicSearch,
-// });
+const mapStateToProps = (state) => ({});
 
-// const mapDispatchToProps = (dispatch) => ({
-//     search: (query) => dispatch({ type: "GET_CLINIC", payload: query }),
-//     getProfile: () => dispatch({ type: "GET_PROFILE" }),
-//     logout: () => dispatch(logoutAction()),
-// });
+const mapDispatchToProps = (dispatch) => ({});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(NavBarLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBarLogin);

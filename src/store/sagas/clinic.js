@@ -7,7 +7,7 @@ function* getClinic() {
   try {
     const headers = yield getHeaders();
     const resClinic = yield apiGetClinicAllRoute(headers);
-    console.log(resClinic.data.result, "TAMPILKAN KLINIK")
+    // console.log(resClinic.data.result, "TAMPILKAN KLINIK")
     yield put({ type: GET_CLINIC_SUCCESS, payload: resClinic.data.result }); // dilempar ke reducers
   } catch (e) {
     yield put({ type: GET_CLINIC_FAILED }); // dilempar ke reducer
@@ -16,7 +16,7 @@ function* getClinic() {
 }
 
 function* clinicSaga() {
-  console.info("authsaga()");
+  // console.info("authsaga()");
   yield takeLatest(REQUEST_GET_CLINIC, getClinic); // bikin request get clinic
 }
 export default clinicSaga;

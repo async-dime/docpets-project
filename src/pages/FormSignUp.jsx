@@ -75,10 +75,10 @@ const FormSignUp = (props) => {
                 .then((res) => {
                     alert(res.data.message);
                     localStorage.setItem("token", res.data.result.token);
-                    localStorage.setItem("nama", res.data.result.user.nama);
+                    // localStorage.setItem("nama", res.data.result.user.nama);
                     localStorage.setItem("id", res.data.result.user.id);
-                    localStorage.setItem("foto", res.data.result.user.foto);
-                    localStorage.setItem("email", res.data.result.user.email);
+                    // localStorage.setItem("foto", res.data.result.user.foto);
+                    // localStorage.setItem("email", res.data.result.user.email);
                     window.location.href = "/login";
                 })
                 .catch((err) => {

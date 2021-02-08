@@ -22,7 +22,7 @@ const getClinicDetail = (state = initialState, action) => {
             }
         }
         case GET_CLINIC_DETAIL_SUCCESS: {
-            console.log('reducer get CLINIC_DETAIL success')
+            // console.log('reducer get CLINIC_DETAIL success')
             return{
                 ...state,
                 isLoading: false,

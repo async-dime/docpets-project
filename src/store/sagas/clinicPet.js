@@ -28,7 +28,7 @@ function* getClinicPet(action) {
 }
 
 function* clinicPetSaga() {
-  console.info("authsaga()");
+  // console.info("authsaga()");
   yield takeLatest("GET_CLINIC_PET", getClinicPet);
 }
 export default clinicPetSaga;

@@ -1,1 +1,1 @@
-export const baseUrl = 'https://Doctorpets.tk:3002/'
+export const baseUrl = 'https://doctorpets.tk:3002/'

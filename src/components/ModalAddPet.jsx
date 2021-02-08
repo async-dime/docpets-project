@@ -26,7 +26,6 @@ const ModalAddPet = (props) => {
     }
 
     const [species, setSpecies] = useState("");
-
     const handlePetSpecies = (e) => {
         setSpecies(e.target.value);
     };
@@ -49,9 +48,11 @@ const ModalAddPet = (props) => {
     const handleSubmit = (e) => {
         let test = () =>
             name === ""
-                ? alert("masukkan nama hewan peliharaan")
+                ? alert("please add your pet's name")
                 : species === ""
-                ? alert("masukkan jenis hewan peliharaan")
+                ? alert("please add your pet's species")
+                : petGender === ""
+                ? alert("please add your pet's species")
                 : "";
         test();
         const bodyData = {
@@ -82,7 +83,7 @@ const ModalAddPet = (props) => {
     };
 
     const modalAddPetStyle = {
-        maxWidth: "88vw",
+        width: "200px",
     };
 
     const modalAddPetStyleH1 = {
@@ -113,6 +114,7 @@ const ModalAddPet = (props) => {
         position: "relative",
         marginTop: "0.5rem 0",
         border: "0px",
+        width: "200px"
     };
 
     return (
@@ -120,7 +122,7 @@ const ModalAddPet = (props) => {
             <div style={modalAddPetStyle}>
                 <Button style={buttonAddPet} onClick={showModal}>
                     <i style={plusStyle}>{plus}</i>{" "}
-                    <h4 style={modalAddPetStyleH4}>Tambahkan Hewan</h4>
+                    <h4 style={modalAddPetStyleH4}>Add Pet</h4>
                 </Button>
                 <Modal
                     show={isOpen}
@@ -128,9 +130,9 @@ const ModalAddPet = (props) => {
                     className="modal-pet"
                     centered
                 >
-                    <Modal.Header className="border-0" closeButton>
-                        <h1 style={modalAddPetStyleH1}>
-                            Informasi Hewan Peliharaan
+                    <Modal.Header className="border-0" className="mx-auto" closeButton>
+                        <h1 style={modalAddPetStyleH1} >
+                            Pet Information
                         </h1>
                     </Modal.Header>
                     <Modal.Body className="add-pet-form">
@@ -139,13 +141,13 @@ const ModalAddPet = (props) => {
                                 className="border-0 my-2"
                                 htmlFor="namaHewan"
                             >
-                                Nama Hewan Peliharaan Kamu
+                                Pet Name
                             </label>
                             <br />
                             <input
                                 className="border-0 my-2"
                                 type="text"
-                                placeholder="Nama Hewan Peliharaan"
+                                placeholder="Your pet's name"
                                 onChange={(e) => handlerName(e, "value")}
                             />
                             <br />
@@ -153,7 +155,7 @@ const ModalAddPet = (props) => {
                                 className="border-0 my-2"
                                 htmlFor="PilihHewan"
                             >
-                                Pilih Hewan Peliharaan Kamu
+                                Pet Species
                             </label>
                             <br />
                             <select
@@ -161,15 +163,15 @@ const ModalAddPet = (props) => {
                                 name="pets"
                                 onChange={(e) => handlePetSpecies(e, "value")}
                             >
-                                <option value="">Pilih Hewan Peliharaan</option>
-                                <option value="anjing">Anjing</option>
-                                <option value="kucing">Kucing</option>
-                                <option value="kelinci">Kelinci</option>
+                                <option value="">Your Pet's Species</option>
+                                <option value="anjing">Dog</option>
+                                <option value="kucing">Cat</option>
+                                <option value="kelinci">Rabbit</option>
                                 <option value="hamster">Hamster</option>
                             </select>{" "}
                             <br />
                             <label className="border-0 my-2" htmlFor="gender">
-                                Jenis Hewan Peliharaan Kamu
+                            Pet Gender
                             </label>
                             <br />
                             <select
@@ -179,10 +181,10 @@ const ModalAddPet = (props) => {
                                 onChange={(e) => handlePetGender(e, "value")}
                             >
                                 <option className="border-0" value="Choose">
-                                    Jenis Kelamin Peliharaan
+                                Your Pet's Gender
                                 </option>
-                                <option value="male">Jantan</option>
-                                <option value="female">Betina</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
                             </select>{" "}
                             <br />
                         </form>
@@ -192,7 +194,7 @@ const ModalAddPet = (props) => {
                             onClick={handleSubmit}
                             className="add-pet-button btn-block"
                         >
-                            Tambahkan
+                            Add
                         </button>
                     </Modal.Footer>
                 </Modal>

@@ -68,9 +68,15 @@ const DoctorCard = (props) => {
                         <p className="text-doctor-center">{props.nama}</p>
                     </Row>
                     <Row>
+                        <p className="text-doctor-down" style={{color: "#445e6b"}}>{props.experience} years experience</p>
+                    </Row>
+                    <Row>
+                        <p className="text-doctor-down" style={{color: "#445e6b"}}>{props.time.split(",")[0]} until {props.time.split(",")[1]}</p>
+                    </Row>
+                    <Row>
                         <i
                             style={
-                                props.status === "online"
+                                props.status === "active"
                                     ? { color: "#0F0" }
                                     : { color: "#F00" }
                             }
@@ -79,7 +85,7 @@ const DoctorCard = (props) => {
                         </i>
                         <p
                             style={
-                                props.status === "online"
+                                props.status === "active"
                                     ? { color: "#0F0" }
                                     : { color: "#F00" }
                             }

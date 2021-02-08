@@ -1,10 +1,12 @@
 import axios from 'axios'
 import {baseUrl} from './index'
 
-export function apiGetProfile(headers) {
+export async function apiGetProfile(headers) {
+    let id = await localStorage.getItem("id");
+
     return axios ({
         method: 'GET',
-        url: baseUrl + '/user/getProfile',
+        url: "https://doctorpets.tk:3002/user/getProfile",
         headers,
     });
 }

@@ -45,8 +45,8 @@ function Home() {
     return (
         <>
             <div className="bg-footer text-light" expand="lg">
-                <Container className="Container pt-5 pb-5">
-                <Col className="col-sm-7">
+                <Container className="Container py-5 mb-2">
+                    <Col className="col-sm-7">
                         <div className="Tulisan my-3">
                             <h1
                                 data-aos="fade-right"
@@ -98,7 +98,7 @@ function Home() {
                             data-aos-easing="ease-in-quad"
                         />
                     </Col>
-                <Col className="col-sm-2"></Col>
+                    <Col className="col-sm-2"></Col>
                 </Container>
             </div>
             <br />
@@ -116,87 +116,67 @@ function Home() {
                             OUR SERVICE{" "}
                         </h1>
                         <br />
-                        <div className="my-2">
-                            <Row>
-                                <Col className="col-sm-4">
-                                    <Row>
+                        <Container fluid className="my-2">
+                            <Row className="align-items-center justify-content-around">
+                                <Col className="col-sm-3">
+                                    <Row
+                                        data-aos="fade-down-right"
+                                        data-aos-delay="100"
+                                        data-aos-duration="4000"
+                                        data-aos-easing="ease-in-out-cubic"
+                                    >
                                         <img
                                             className="mx-auto my-auto"
-                                            data-aos="fade-down-right"
-                                            data-aos-delay="100"
-                                            data-aos-duration="4000"
-                                            data-aos-easing="ease-in-out-cubic"
                                             src={Klinik}
                                         />
                                     </Row>
-                                </Col>
-                                <Col className="col-sm-4">
-                                    <Row>
-                                        <img
-                                            className="mx-auto my-auto"
-                                            data-aos="fade-down"
-                                            data-aos-delay="100"
-                                            data-aos-duration="4000"
-                                            data-aos-easing="ease-in-out-cubic"
-                                            src={Konsul}
-                                        />
-                                    </Row>
-                                </Col>
-                                <Col className="col-sm-4">
-                                    <Row>
-                                        <img
-                                            className="mx-auto my-auto"
-                                            data-aos="fade-down-left"
-                                            data-aos-delay="100"
-                                            data-aos-duration="4000"
-                                            data-aos-easing="ease-in-out-cubic"
-                                            src={Dokter}
-                                        />
-                                    </Row>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col
-                                    className="col-sm-4"
-                                    data-aos="fade-down-right"
-                                    data-aos-delay="100"
-                                    data-aos-duration="4000"
-                                    data-aos-easing="ease-in-out-cubic"
-                                >
-                                    <Row>
+                                    <Row
+                                        data-aos="fade-down-right"
+                                        data-aos-delay="100"
+                                        data-aos-duration="4000"
+                                        data-aos-easing="ease-in-out-cubic"
+                                        className="mt-2"
+                                    >
                                         <h3
                                             className="mx-auto my-2"
                                             style={textH3}
                                         >
                                             Klinik/ Rumah Sakit
                                         </h3>
-                                    </Row>
-                                    <Row>
                                         <p
                                             className="mx-auto my-2"
                                             style={textStyle}
                                         >
-                                            choose the clinic or hospital
+                                            Choose the clinic or hospital
                                             closest to you
                                         </p>
                                     </Row>
                                 </Col>
-                                <Col
-                                    className="col-sm-4"
-                                    data-aos="fade-down"
-                                    data-aos-delay="100"
-                                    data-aos-duration="4000"
-                                    data-aos-easing="ease-in-out-cubic"
-                                >
-                                    <Row>
+                                <Col className="col-sm-3">
+                                    <Row
+                                        data-aos="fade-down"
+                                        data-aos-delay="100"
+                                        data-aos-duration="4000"
+                                        data-aos-easing="ease-in-out-cubic"
+                                    >
+                                        <img
+                                            className="mx-auto my-auto"
+                                            src={Konsul}
+                                        />
+                                    </Row>
+                                    <Row
+                                        data-aos="fade-down"
+                                        data-aos-delay="100"
+                                        data-aos-duration="4000"
+                                        data-aos-easing="ease-in-out-cubic"
+                                        className="mt-2"
+                                    >
                                         <h3
                                             className="mx-auto my-2"
                                             style={textH3}
                                         >
                                             Consultation Date
                                         </h3>
-                                    </Row>
-                                    <Row>
                                         <p
                                             className="mx-auto my-2"
                                             style={textStyle}
@@ -206,22 +186,31 @@ function Home() {
                                         </p>
                                     </Row>
                                 </Col>
-                                <Col
-                                    className="col-sm-4"
-                                    data-aos="fade-down-left"
-                                    data-aos-delay="100"
-                                    data-aos-duration="4000"
-                                    data-aos-easing="ease-in-out-cubic"
-                                >
-                                    <Row>
+                                <Col className="col-sm-3">
+                                    <Row
+                                        data-aos="fade-down-left"
+                                        data-aos-delay="100"
+                                        data-aos-duration="4000"
+                                        data-aos-easing="ease-in-out-cubic"
+                                    >
+                                        <img
+                                            className="mx-auto my-auto"
+                                            src={Dokter}
+                                        />
+                                    </Row>
+                                    <Row
+                                        data-aos="fade-down-left"
+                                        data-aos-delay="100"
+                                        data-aos-duration="4000"
+                                        data-aos-easing="ease-in-out-cubic"
+                                        className="mt-2"
+                                    >
                                         <h3
                                             className="mx-auto my-2"
                                             style={textH3}
                                         >
                                             Meet the veterinarian
                                         </h3>
-                                    </Row>
-                                    <Row>
                                         <p
                                             className="mx-auto my-2"
                                             style={textStyle}
@@ -232,7 +221,7 @@ function Home() {
                                     </Row>
                                 </Col>
                             </Row>
-                        </div>
+                        </Container>
                     </div>
                 </Row>
             </div>
@@ -265,9 +254,15 @@ function Home() {
                                 data-aos-duration="1000"
                                 data-aos-easing="ease-in-out-cubic"
                             >
-                    We are the elites of the elites. We provide the best possible platfrom so that our user could 
-                    find the most benefit from using our services. We also make sure that the clinics and veterinarians
-                    are officially registered and licensed. Try our service now! Get a discount for first time users!</p>
+                                Nobody likes sitting in a veterinarian’s office,
+                                so we don’t make you wait. We provide this
+                                platform so that you could search and book an
+                                appointment with the most experienced pet
+                                clinics and veterinarians to take care of your
+                                pet without needing you to leave your comfort
+                                zone. We welcome feedback to improve our
+                                service.
+                            </p>
                         </div>
                     </div>
 
@@ -280,13 +275,11 @@ function Home() {
                     >
                         <h1 className="Milihklinik">Choose Clinic</h1>
                         <p className="Choose">
-                            {`
-                        Please choose your desired clinics. For further search, 
-                        please click on the "Find Clinics" in the header section.
-                        You can filter the search bar based on the clinics' name,
-                        location, and even the type of pets accepted. On the side,
-                        you can find more about the few chosen clinics.Just click 
-                        "find more" to find out more about those clinics.`}
+                            You can choose your clinic according to your
+                            preferences. Filter the clinics based on the
+                            location and name of the clinic. Then click "book
+                            now" to find out more about the clinics of your
+                            choice.
                         </p>
                     </div>
 
@@ -309,6 +302,7 @@ function Home() {
                                         <Link to={`/detailrs/${clinic.id}`}>
                                             <Button
                                                 className="btn border-0 w-100 pr-3 pl-3 ml-2"
+                                                onClick={localStorage.setItem("clinicId", clinic.id)}
                                                 style={{
                                                     backgroundColor: "#fde84d",
                                                     color: "#445E6B",

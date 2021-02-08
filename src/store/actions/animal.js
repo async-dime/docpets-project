@@ -8,6 +8,6 @@ export const deleteAnimal = (data) =>{
     return {type: DELETE_ANIMAL, data}
 }
 
-export const getAnimal = () => {
-    return {type: GET_ANIMAL}
+export const getAnimal = (payload) => {
+    return {type: GET_ANIMAL, payload}
 }

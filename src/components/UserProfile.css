@@ -9,19 +9,19 @@
 .Picture{
     position: relative;
     width: 10vh;
-    right: -9vw;
+    left: 9vw;
     top: 2vh;
 }
 
 .Count{
     position: relative;
-    right: -2vw;
-    top: 5vh;
+    left: 50%;
+    top: 30%;
 }
 .Hewan{
     position: relative;
-    right: 20vw;
-    top: 4vh;
+    left: 50%;
+    top: 1.6rem;
 }
 .Paw{
     position: relative;
@@ -49,9 +49,9 @@
 }
 .Logout{
     position: relative;
-    width: 25vw;
-    right: -5.5vw;
-    top: 31.5vh;
+    width: 23%;
+    left: 4rem;
+    top: 9rem;
 }
 .Uploadfoto{
     position: relative;
@@ -95,4 +95,8 @@
     right: -43.3vw;
     top: -25vh;
     width: 10vw;
+}
+.Formemail{
+    position: relative;
+    width: 95%;
 }

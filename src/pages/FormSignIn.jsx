@@ -42,10 +42,7 @@ const FormSignIn = (props) => {
                 .then((res) => {
                     console.log(res.data);
                     localStorage.setItem("token", res.data.result.token);
-                    localStorage.setItem("nama", res.data.result.user.nama);
                     localStorage.setItem("id", res.data.result.user.id);
-                    localStorage.setItem("email", res.data.result.user.email);
-                    localStorage.setItem("foto", res.data.result.user.foto);
                     alert(res.data.message);
                     window.location.href = "/";
                 })

@@ -11,16 +11,17 @@ import {
 // initial state = nilai awal data profile yang ada di store
 const initialState = {
   isLoading: false,
-  data: 
-    {
-      email: "",
-      foto: "",
-      nama: "",
-      role: "",
-      gender: "",
-      telepon: "",
-      numPet: NaN,
-    },
+  // data: 
+  //   {
+  //     email: "",
+  //     foto: "",
+  //     nama: "",
+  //     role: "",
+  //     gender: "",
+  //     telepon: "",
+  //     numPet: NaN,
+  //   },
+  data: {},
 };
 
 const profile = (state = initialState, action) => {

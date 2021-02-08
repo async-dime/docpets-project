@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { getClinicDetail } from "../store/actions/clinicDetail";
 import axios from "axios";
 
 //styling
@@ -31,65 +32,22 @@ const DetailBooking = (props) => {
 
     //param
     let { id } = useParams();
-    console.log(id);
+    // console.log(id);
 
-    let tanggal = localStorage.getItem("waktu")
-    let doctor = localStorage.getItem("doctor")
+    let tanggal = localStorage.getItem("waktu");
+    let doctor = localStorage.getItem("doctor");
 
+    //useEffect
+    const dispatch = useDispatch();
     useEffect(() => {
-        axios
-            .get(`https://doctorpets.tk:3002/klinik/getKlinikById/${id}`)
-            .then((res) => {
-                console.log(res.data.result[0]);
-                setClinic(res.data.result[0]);
-                // setDoctor(res.data.result[0].dokter);
-                setLoad(false);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setLoad(true);
-            });
+        async function dispatchDetailClinic() {
+            await dispatch(getClinicDetail());
+        }
+        dispatchDetailClinic();
     }, []);
+    let detailClinic = useSelector((state) => state.getClinicDetail.data);
 
     //dummy datas
-    let dummyDoc = [
-        {
-            nama: "Dr. Alex, SP. Kucing",
-            status: "offline",
-            title: "Dokter Kucing",
-            checked: "true",
-        },
-        {
-            nama: "Dr. Alizah, SP. Hamster",
-            status: "online",
-            title: "Dokter Hamster",
-            checked: "true",
-        },
-        {
-            nama: "Dr. Alex, SP. Kelinci",
-            status: "offline",
-            title: "Dokter Kelinci",
-            checked: "true",
-        },
-        {
-            nama: "Dr. Alizah, SP. Anjing",
-            status: "online",
-            title: "Dokter Anjing",
-            checked: "false",
-        },
-        {
-            nama: "Dr. Alex, SP. Kelinci",
-            status: "offline",
-            title: "Dokter Kelinci",
-            checked: "true",
-        },
-        {
-            nama: "Dr. Alizah, SP. Anjing",
-            status: "online",
-            title: "Dokter Anjing",
-            checked: "false",
-        },
-    ];
     let dummyPet = [
         {
             nama: "pampam",
@@ -151,10 +109,6 @@ const DetailBooking = (props) => {
         border: "0px solid",
     };
 
-    // let str = dummy.fasilitas;
-    // let temp = new Array();
-    // temp = str.split(",");
-
     return (
         <div className="detailrs-container">
             <Row>
@@ -174,14 +128,13 @@ const DetailBooking = (props) => {
             </Row>
             <hr />
             <Row>
-                <h3 style={detailrsH3}>{clinic.nama}</h3>
-                {/* <h3 style={detailrsH3}>{dummy.nama}</h3> */}
+                <h3 style={detailrsH3}>{detailClinic.nama}</h3>
             </Row>
             <br />
             <Row>
                 <Col>
                     <img
-                        src={clinic.foto}
+                        src={detailClinic.foto}
                         style={detailrsImage}
                         alt="photo of clinic"
                         data-aos="fade-right"
@@ -189,34 +142,30 @@ const DetailBooking = (props) => {
                         data-aos-duration="2000"
                         data-aos-easing="ease-out"
                     />
-                    {/* <img src={dummy.foto} style={detailrsImage} alt="" /> */}
                 </Col>
                 <Col>
                     <Row>
-                        <h2 style={detailrsH2}>Informasi Kunjungan</h2>
+                        <h2 style={detailrsH2}>Appointment Information</h2>
                     </Row>
                     <br />
                     <Row>
-                        <h3 style={detailrsH3}>Hari & Waktu Kunjungan</h3>
+                        <h3 style={detailrsH3}>Appointment Date & Time</h3>
                     </Row>
                     <Row>
-                        <h4 style={detailrsH4}>
-                            {tanggal}
-                        </h4>
+                        <h4 style={detailrsH4}>{tanggal}</h4>
                     </Row>
                     <br />
 
                     <Row>
-                        <h3 style={detailrsH3}>Dokter</h3>
+                        <h3 style={detailrsH3}>Doctor</h3>
                     </Row>
                     <Row>
                         <h4 style={detailrsH4}>{doctor}</h4>
-                        {/* <h4 style={detailrsH4}>{dummyDoc[0].nama}</h4> */}
                     </Row>
                     <br />
 
                     <Row>
-                        <h3 style={detailrsH3}>Hewan Peliharaan</h3>
+                        <h3 style={detailrsH3}>Pet(s)</h3>
                     </Row>
                     <Row>
                         <h4 style={detailrsH4}>
@@ -244,8 +193,6 @@ const DetailBooking = (props) => {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-    // signUpDatas: (data) => dispatch(registerAction(data)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailBooking);
