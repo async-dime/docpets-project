@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./ChatApp.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
 
 import firebase from "firebase/app"; //firebase SDK
 import "firebase/firestore"; //firestore for database
@@ -25,13 +27,15 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
+
+
 function ChatApp() {
     //checking user logging or not using useAuthState hooks
     const [user] = useAuthState(auth); //=>it will return user object with user ID, email address, etc
 
     return (
         <div className="chatContainer" style={{ backgroundColor: "#fff" }}>
-            <div className="chatApp">
+            <div className="chatApp my-5">
                 <header className="chatHeader">
                     <SignOut />
                 </header>
@@ -88,6 +92,7 @@ function SignOut() {
                 data-aos-delay="100"
                 data-aos-duration="2000"
                 data-aos-easing="ease-out"
+                className="w-100"
                 style={buttonStyle}
                 onClick={() => auth.signOut()}
             >
@@ -110,6 +115,14 @@ function ChatRoom() {
     const [messages] = useCollectionData(query, { idField: "id" }); //  ==> return an array of object and each object is message in the database
 
     const [formValue, setFormValue] = useState("");
+
+    //icon
+    const sent = (
+        <FontAwesomeIcon
+            icon={faPaw}
+            style={{ color: "#fde84d" }}
+        />
+    );
 
     const sendMessage = async (e) => {
         //normally when form submit it will refresh the page
@@ -149,7 +162,7 @@ function ChatRoom() {
                     value={formValue}
                     onChange={(e) => setFormValue(e.target.value)}
                 />
-                <button disabled={!formValue} type="submit"></button>
+                <button disabled={!formValue} type="submit"><i>{sent}</i></button>
             </form>
         </>
     );
@@ -179,7 +192,6 @@ function ChatMessage(props) {
                         padding: "10px 20px",
                         borderRadius: "25px",
                         position: "relative",
-                        color: "#fff",
                         textAlign: "center",
                     }}
                 >

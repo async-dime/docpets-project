@@ -6,7 +6,6 @@
         margin: 0 auto;
         .chatHeader {
             background-color: #fff;
-            // height: 10vh;
             min-height: 50px;
             color: white;
             position: relative;
@@ -114,14 +113,14 @@ li {
 }
 
 .sent p {
-    color: black;
+    color: #fff;
     background: #445e6b;
     align-self: flex-end;
     font-weight: 700;
 }
 .received p {
     background: #fde84d;
-    color: black;
+    color: #445e6b;
     font-weight: 700;
 }
 
