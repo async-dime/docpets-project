@@ -100,7 +100,7 @@ const NavBarLogin = (props) => {
                         {token ? (
                             <NavDropdown
                                 title={<>{pic} <span className="mx-2 my-0" style={{fontWeight: "700", color: "#fde84d"}}>Hi, {userProfile.nama}</span></>}
-                                className="navbar-text nav-dropdown"
+                                className=" nav-dropdown"
                                 id="basic-nav-dropdown"
                             >
                                 <NavDropdown.Item className="navItem">
@@ -160,7 +160,6 @@ const NavBarLogin = (props) => {
     );
 };
 
-// export default NavBarLogin;
 
 const mapStateToProps = (state) => ({});
 
