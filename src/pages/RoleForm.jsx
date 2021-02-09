@@ -104,9 +104,9 @@ const SignUpForm = () => {
                     data-aos-easing="ease-out"
                 >
                     <div className="role-form">
-                        <h2 className="role-text">Pilih Role Kamu</h2>
+                        <h2 className="role-text">Choose Your Role</h2>
                         <h6 className="role-text">
-                            Daftarkan Dirimu Untuk Menggunakan Aplikasi Ini
+                            Sign Up To Use Our Application
                         </h6>
                         <Row
                             className="justify-content-around align-items-center"
@@ -154,7 +154,7 @@ const SignUpForm = () => {
                                 type="submit"
                                 className="btn btn-block-role w-100"
                             >
-                                Selanjutnya
+                                Next
                             </Button>
                         </Link>
 

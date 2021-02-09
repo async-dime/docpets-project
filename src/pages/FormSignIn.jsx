@@ -140,9 +140,8 @@ const FormSignIn = (props) => {
                     <div className="signin-form">
                         <h2 className="signin-text">Welcome Back</h2>
                         <h6 className="signin-text">
-                            Login Untuk Memulai Journey Kamu
+                            Login To Begin The Journey
                         </h6>
-                        {/* <Form onSubmit={onSubmit}> */}
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <Form.Group>
                                 <InputGroup size="sm">
@@ -252,13 +251,3 @@ const FormSignIn = (props) => {
 };
 
 export default FormSignIn;
-
-// const mapStateToProps = (state) => ({
-//     isLoading: state.auth.isLoading,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//     signInDatas: (data) => dispatch(loginAction(data)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(FormSignIn);
