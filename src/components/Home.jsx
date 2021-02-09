@@ -5,7 +5,7 @@ import { Container, Row, Col, Carousel, Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import Loadscreen from "../pages/Loadscreen";
-import Kucing from "./assets/img/kucing.svg";
+import Kucing from "./assets/img/kucing.png";
 import Anjing from "./assets/img/duduk.png";
 import Dokter from "./assets/img/dokter.svg";
 import Klinik from "./assets/img/klinik.svg";
