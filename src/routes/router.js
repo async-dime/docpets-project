@@ -10,7 +10,6 @@ import Home from "../pages/Home";
 import RoleForm from "../pages/RoleForm";
 import FormSignUp from "../pages/FormSignUp";
 import FormSignIn from "../pages/FormSignIn";
-import ChatApp from "../components/Chat/ChatApp";
 import Chat from "../pages/Chat";
 import Profile from "../pages/UserProfile";
 import DetailRS from "../pages/DetailRS";
@@ -53,9 +52,6 @@ export const Routes = () => {
                 </Route>
                 <Route path="/listrs" exact>
                     <ListRS />
-                </Route>
-                <Route path="/test" exact>
-                    <TestPage />
                 </Route>
                 <Route path="/clinicprofile" exact>
                     <Clinic />

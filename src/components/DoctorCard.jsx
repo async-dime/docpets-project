@@ -7,19 +7,15 @@ import { faCheckCircle, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import "./DoctorCard.scss";
 
 const DoctorCard = (props) => {
-    //hooks
-    const [doctor, setDoctor] = useState("")
+    const [active, setActive] = useState(false);
 
     //handler
     const onClickDoctor = (e) => {
-        setDoctor(e.target.value);
-        console.log(doctor)
-        localStorage.setItem("doctor", props.nama)
+        localStorage.setItem("doctor", props.nama);
     };
 
     //custom styling
     const buttonBoxStyle = {
-        height: "50px",
         width: "300px",
         border: "0px",
     };
@@ -49,8 +45,10 @@ const DoctorCard = (props) => {
     return (
         <Button
             value={props.nama}
+            id={props.id}
             onClick={(e) => {
                 onClickDoctor(e, "value");
+                setActive(!active);
             }}
             variant="light"
             className="doctor-card-container"
@@ -58,7 +56,7 @@ const DoctorCard = (props) => {
         >
             <Row>
                 <Col className="col-sm-4">
-                    <img src={props.ava} className="doctor-image"></img>
+                    <img src={props.ava} className="doctor-image mr-3"></img>
                 </Col>
                 <Col className="col-sm-7">
                     <Row>
@@ -68,10 +66,21 @@ const DoctorCard = (props) => {
                         <p className="text-doctor-center">{props.nama}</p>
                     </Row>
                     <Row>
-                        <p className="text-doctor-down" style={{color: "#445e6b"}}>{props.experience} years experience</p>
+                        <p
+                            className="text-doctor-down"
+                            style={{ color: "#445e6b" }}
+                        >
+                            {props.experience} years experience
+                        </p>
                     </Row>
                     <Row>
-                        <p className="text-doctor-down" style={{color: "#445e6b"}}>{props.time.split(",")[0]} until {props.time.split(",")[1]}</p>
+                        <p
+                            className="text-doctor-down"
+                            style={{ color: "#445e6b" }}
+                        >
+                            {props.time.split(",")[0]} until{" "}
+                            {props.time.split(",")[1]}
+                        </p>
                     </Row>
                     <Row>
                         <i
@@ -95,9 +104,11 @@ const DoctorCard = (props) => {
                         </p>
                     </Row>
                 </Col>
-                <Col className="col-sm-1">
-                    <i>{checkIcon}</i>
-                </Col>
+                {active && (
+                    <Col className="col-sm-1">
+                        <i>{checkIcon}</i>
+                    </Col>
+                )}
             </Row>
         </Button>
     );

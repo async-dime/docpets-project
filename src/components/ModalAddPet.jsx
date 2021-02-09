@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-
-import "./ModalAddPet.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+
+import { Button, Modal } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import "./ModalAddPet.css";
+
 
 const ModalAddPet = (props) => {
     const plus = <FontAwesomeIcon icon={faPlusCircle} />;
@@ -19,11 +19,6 @@ const ModalAddPet = (props) => {
     const hideModal = () => {
         setIsOpen(false);
     };
-
-    const [pet, setPet] = useState({});
-    const handlePet = (e) => {
-        setPet(e.target.value)
-    }
 
     const [species, setSpecies] = useState("");
     const handlePetSpecies = (e) => {
@@ -71,10 +66,9 @@ const ModalAddPet = (props) => {
             data: JSON.stringify(bodyData),
         })
             .then(() => {
-                history.push(`/detailbooking/${localStorage.getItem("clinicId")}`);
-                // props.addNewPet();
+                history.push(`/detailrs/${localStorage.getItem("clinicId")}`);
                 toggle();
-                console.info(bodyData);
+                window.location.reload();
             })
             .catch((err) => {
                 console.info(err.message);
@@ -114,7 +108,7 @@ const ModalAddPet = (props) => {
         position: "relative",
         marginTop: "0.5rem 0",
         border: "0px",
-        width: "200px"
+        width: "200px",
     };
 
     return (
@@ -130,10 +124,12 @@ const ModalAddPet = (props) => {
                     className="modal-pet"
                     centered
                 >
-                    <Modal.Header className="border-0" className="mx-auto" closeButton>
-                        <h1 style={modalAddPetStyleH1} >
-                            Pet Information
-                        </h1>
+                    <Modal.Header
+                        className="border-0"
+                        className="mx-auto"
+                        closeButton
+                    >
+                        <h1 style={modalAddPetStyleH1}>Pet Information</h1>
                     </Modal.Header>
                     <Modal.Body className="add-pet-form">
                         <form onSubmit={(e) => handleSubmit(e)}>
@@ -171,7 +167,7 @@ const ModalAddPet = (props) => {
                             </select>{" "}
                             <br />
                             <label className="border-0 my-2" htmlFor="gender">
-                            Pet Gender
+                                Pet Gender
                             </label>
                             <br />
                             <select
@@ -181,7 +177,7 @@ const ModalAddPet = (props) => {
                                 onChange={(e) => handlePetGender(e, "value")}
                             >
                                 <option className="border-0" value="Choose">
-                                Your Pet's Gender
+                                    Your Pet's Gender
                                 </option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>

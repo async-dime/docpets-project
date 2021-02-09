@@ -3,9 +3,8 @@ import { Row, Col, Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getClinicDetail } from "../store/actions/clinicDetail";
-import { getClinicDoctor } from "../store/actions/clinicDoctor";
 import { getAnimal } from "../store/actions/animal";
-import { getUserProfile } from "../store/actions/user";
+import Axios from "axios";
 
 //component
 import ChooseDate from "./ChooseDate";
@@ -16,11 +15,8 @@ import Loadscreen from "../pages/Loadscreen";
 
 //styling, icon, & image
 import "./DetailRSContent.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import Lokasi from "./assets/img/lokasi.png";
-import ava1 from "../components/assets/img/doc1.png";
-import ava2 from "../components/assets/img/doc2.jpg";
+import ava from "../components/assets/img/doc1.png";
 import dog from "./assets/img/emojiDog.svg";
 import cat from "./assets/img/emojiCat.svg";
 import hamster from "./assets/img/emojiHamster.svg";
@@ -34,42 +30,41 @@ const DetailrsContent = (props) => {
 
     //hooks
     const [loading, setLoading] = useState("true");
-    const [pet, setPet] = useState({});
     const [doctor, setDoctor] = useState([]);
-    const [load, setLoad] = useState(true);
     const [error, setError] = useState(" ");
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
 
-    //handler
-    const handlerClickBook = () => {
-        console.log("click");
-    };
-    const handleClickDay = (e) => {
-        setDay(e.target.value);
-    };
-    const handleClickWaktu = (e) => {
-        setWaktu(e.target.value);
-    };
-
     const dispatch = useDispatch();
 
+    const detailClinic = useSelector((state) => state.getClinicDetail);
+    const userProfile = useSelector((state) => state.user);
+    const userPet = useSelector((state) => state.getAnimal);
     useEffect(() => {
+        Axios(
+            `https://doctorpets.tk:3002/klinik/getAllDokterInKlinik/${localStorage.getItem("clinicId")}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Access-Control-Allow-Origin": "*",
+                },
+            }
+        )
+            .then((rez) => {
+                setDoctor(rez.data.result)
+            })
+            .catch((err) => {
+                console.info(err.message);
+                return err.message !== "" ? alert(err.message) : "";
+            });
+            
         dispatch(getClinicDetail());
-        dispatch(getClinicDoctor());
         dispatch(getAnimal());
         setTimeout(() => setLoading("false"), 1500);
     }, []);
 
-    const detailClinic = useSelector((state) => state.getClinicDetail);
-    const doctorClinic = useSelector((state) => state.getClinicDoctor);
-    const userProfile = useSelector((state) => state.user);
-    const userPet = useSelector((state) => state.getAnimal);
-    const states = useSelector((state) => state);
-
-    console.log("doctorClinic", doctorClinic);
-    console.log("userPet", userPet);
-    console.log(states);
 
     //custom styling
     const detailrsH1 = {
@@ -120,13 +115,6 @@ const DetailrsContent = (props) => {
         border: "0px solid",
     };
 
-    //icon
-    const yuhu = (
-        <FontAwesomeIcon
-            icon={faBookmark}
-            style={{ color: "#fde84d", marginRight: "0.5rem" }}
-        />
-    );
 
     return (
         <>
@@ -141,7 +129,7 @@ const DetailrsContent = (props) => {
                             <Link to={`/detailbooking/${id}`}>
                                 <Button
                                     style={buttonBookNow}
-                                    onClick={handlerClickBook}
+                                    onClick={localStorage.setItem("id", detailClinic.data.id)}
                                 >
                                     Book Now
                                 </Button>
@@ -213,18 +201,7 @@ const DetailrsContent = (props) => {
                         <Col>
                             <h3 style={detailrsH3}>Facility</h3>
                             <div>
-                                <p>
-                                    {detailClinic.data.fasilitas}
-                                    {/* {detailClinic.data.fasilitas
-                                    .split(",")
-                                    .map((yey, idx) => {
-                                        return (
-                                            <Row key={idx}>
-                                                <i>{yuhu}</i> <p>{yey}</p>
-                                            </Row>
-                                        );
-                                    })} */}
-                                </p>
+                                <p>{detailClinic.data.fasilitas}</p>
                             </div>
                         </Col>
                     </Row>
@@ -233,28 +210,23 @@ const DetailrsContent = (props) => {
                         <h3 style={detailrsH3}>Choose Doctor</h3>
                     </Row>
                     <Row>
-                        {/* {
-                            doctorClinic?.map((doctor) => {
-                                return (
-                                <div key={doctor.id}>
-
+                        {doctor?.map((dokter, item) => {
+                            return (
+                                <div key={item} className="my-3">
                                     <DoctorCard
-                                    // key={idx}
-                                    ava={yuhu}
-                                    title={doctor.User.email}
-                                    nama={doctor.User.nama}
-                                    status={doctor.User.status}
-                                    experience={doctor.User.pengalaman}
-                                    time={doctor.User.waktuKerja}
-                                    className="mx-2"
-                                />
+                                        ava={ava}
+                                        id={dokter.id}
+                                        title={dokter.User.email}
+                                        nama={`${dokter.User.nama}, SP. Pet`}
+                                        status={dokter.User.status}
+                                        experience={dokter.User.pengalaman}
+                                        time={dokter.User.waktuKerja}
+                                        className="mx-2"
+                                    />
                                 </div>
-                                );
-                            })
-                        } */}
+                            );
+                        })}
                     </Row>
-                    <br />
-                    <br />
                     <br />
                     <Row>
                         <h3 style={detailrsH3}>Put Your Pet's Information</h3>
@@ -291,8 +263,7 @@ const DetailrsContent = (props) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({});
 

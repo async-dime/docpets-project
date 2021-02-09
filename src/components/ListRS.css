@@ -75,3 +75,7 @@
     position: relative;
     left: 12%;
 }
+.SearchButton{
+    position: relative;
+    width: 30% !important;
+}

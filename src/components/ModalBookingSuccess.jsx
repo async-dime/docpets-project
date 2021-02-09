@@ -14,7 +14,6 @@ const ModalBookingSuccess = (props) => {
     function closeModal(e) {
         e.stopPropagation();
         props.closeModal();
-        history.push(`/detailpayment/`);
     }
     const check = <FontAwesomeIcon icon={faCheckCircle} />;
 

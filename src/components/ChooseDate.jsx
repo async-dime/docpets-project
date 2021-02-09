@@ -21,7 +21,7 @@ function ChooseDate() {
         fontSize: "15px",
         fontWeight: "700",
     };
-    const ChooseDateButton = ({ value, onClick, onChange }) => (
+    const ChooseDateButton = ({ value, onClick }) => (
         <div>
             <Button
                 style={buttonBoxStyle}
@@ -34,13 +34,6 @@ function ChooseDate() {
                     console.log(value);
                     console.log(waktu);
                 }}
-                // onChange={(e) => {
-                //     onChange(e, "value");
-                //     setWaktu(value);
-                //     localStorage.setItem("waktu", waktu);
-                //     console.log(value);
-                //     console.log(waktu);
-                // }}
             >
                 Choose Date
             </Button>

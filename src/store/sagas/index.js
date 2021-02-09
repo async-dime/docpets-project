@@ -7,7 +7,7 @@ import clinicCariSaga from './clinicCari'
 import clinicCitySaga from './clinicCity'
 import clinicPetSaga from './clinicPet'
 import clinicDetailSaga from './clinic_detail'
-// import clinicDoctorSaga from './clinicDoctor'
+import clinicDoctorSaga from './clinicDoctorSaga'
 import profileSaga from './profile'
 import userSagas from './userSagas'
 
@@ -23,6 +23,6 @@ export default function* rootSaga() {
         clinicPetSaga(),
         profileSaga(),
         userSagas(),
-        // clinicDoctorSaga()
+        clinicDoctorSaga()
     ])
 }

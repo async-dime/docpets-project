@@ -4,7 +4,7 @@ import paw from "../components/assets/img/giphy.gif"
 
 function Loadscreen() {
     return (
-        <div>
+        <div style={{display: "block", textAlign: "center"}}>
             <img src={paw}></img>
         </div>
     )

@@ -5,7 +5,7 @@ import {
 } from "./sagas/userSagas";
 import {
     getClinicDoctor
-} from "./sagas/clinicDoctor2";
+} from "./sagas/clinicDoctorSaga";
 export default function* rootSagas() {
     //kata mas geris ini root saga profile
     

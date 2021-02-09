@@ -5,7 +5,6 @@ import { Form, Button, Card, Row, Col, Container } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import "./ListRS.css";
 import Lokasi from "./assets/img/lokasi.png";
-import ClinicCard from "./ClinicCard";
 
 function Listrs(props) {
     const [klinik, setKlinik] = useState([]);
@@ -13,77 +12,45 @@ function Listrs(props) {
     const klinikSearchList = useSelector(
         (state) => state.clinicSearch.listClinicSearch
     );
+    const [showList, setShowList] = useState([])
+    const [search, setSearch] = useState('')
     const listRs = useSelector((state) => state.clinic);
     useEffect(() => {
         dispatch(getClinic());
     }, []); //masukin api klinik
 
-    // useEffect(() => {
-    //     props.search("");
-    //     setKlinik(klinikSearchList);
-    // }, []);
-
-    // useEffect(() => {
-    //     props.clinics;
-    // }, [props.clinics]);
-
     let { id } = useParams();
 
-    // useEffect(() => {
-    //     console.log("ini list rs lo", listRs);
-    // }, [listRs]);
-
-    // searchSpace=(event)=>{
-    //     let keyword = event.target.value;
-    //     this.setState({searc:keyword})
-    // }
-
+    useEffect(()=>{
+        if(search == ''){
+          setShowList(listRs.listClinic)
+        } else{
+          setShowList(listRs.listClinic.filter(rumahSakit => {
+            return rumahSakit.nama.toLowerCase().includes(search.toLowerCase())
+          }))
+        }
+      }, [search])
+ 
     return (
         <>
             <Row className="my-2 mx-3 justify-content-center">
-                <div>
-                    <div className="searchButton">
-                        <form className="form-inline my-0 my-lg-0">
+                <div className="searchButton">
+                        <form className="form-inline my-0 my-lg-0 SearchButton">
                             <input
-                                className="form-control mr-sm-1 searching"
+                                className="form-control mr-sm-1 searching col-lg-500"
                                 type="text"
                                 placeholder="Search clinic"
+                                value={search}
+                                onChange={(event) => setSearch(event.target.value)} // memberikan nilai dalam search box
                             />
                         </form>
-                    </div>
                 </div>
-                <Form className="mr-2">
-                    <Form.Group>
-                        <Form.Control
-                            name="gender"
-                            onChange={(e) => setKlinik(e.target.value)}
-                            as="select"
-                        >
-                            <option>Lokasi</option>
-                            <option value="jakarta">Jakarta</option>
-                            <option value="bandung">Bandung</option>
-                            <option value="jogja">Jogja</option>
-                            <option value="surabaya">Surabaya</option>
-                        </Form.Control>
-                    </Form.Group>
-                </Form>
-                <Button
-                    variant="warning"
-                    className="mr-2"
-                    style={{
-                        backgroundColor: "#fde84d",
-                        color: "#445E6B",
-                        fontWeight: "700",
-                        height: "40px",
-                    }}
-                >
-                    Search Clinic
-                </Button>
+                
             </Row>
             <div>
                 {/* ini hard code list rs */}
                 <Row className="Row">
-                    {listRs.listClinic.map((clinic) => (
+                    {showList.map((clinic) => (
                         <div className="m-3">
                             <Card
                                 style={{ width: "20rem", height: "40rem" }}
@@ -137,4 +104,4 @@ function Listrs(props) {
     );
 }
 
-export default Listrs;
+export default Listrs

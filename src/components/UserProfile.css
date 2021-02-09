@@ -1,18 +1,24 @@
 .CardInfo{
     position: relative;
-    width: 50vh;
-    height: 20vh;
-    display: flex;
-    right: -10vh;
-    margin-top: 5vh;
+    width: 27.5%;
+    left: 5%;
+    margin-top: 3%;
 }
 .Picture{
     position: relative;
-    width: 10vh;
-    left: 9vw;
+    width: 40%;
+    left: 30%;
     top: 2vh;
 }
-
+.Nama{
+    position: relative;
+    top: 1rem;
+    left:3.5rem;
+}
+.Role{
+    position: relative;
+    left:7rem;
+}
 .Count{
     position: relative;
     left: 50%;
@@ -49,28 +55,35 @@
 }
 .Logout{
     position: relative;
-    width: 23%;
+    width: 25.2%;
     left: 4rem;
-    top: 9rem;
+    top: 0.5rem;
+}
+.Detail{
+    position: relative;
+    left: 35%;
+    width: 65%;
+    border: 5px solid black;
+    bottom: 25rem;
 }
 .Uploadfoto{
     position: relative;
-    width: 65vw;
-    right: -60vh;
-    top: -29.5vh;
+    width: 65%;
+    left: 35%;
+    bottom: 26.5rem;
     text-align: left;
 }
 .Upload{
     position: relative;
-    width: 65vw;
-    right: -60vh;
-    top: -29vh;
+    width: 64%;
+    left: 35%;
+    bottom: 27.5rem;
 }
 .Basicinformation{
     position: relative;
-    width: 65vw;
-    right: -60vh;
-    top: -28vh;
+    width: 64%;
+    left: 35%;
+    bottom: 27rem;
     text-align: left;
 }
 .Username{
@@ -79,21 +92,25 @@
     right: -1.5vw;
     text-align: left;
 }
+.Formemail::-webkit-input-placeholder{
+    color: black;
+}
 .Gender{
     position: relative;
     right: -1.5vw;
+    
 }
 .Contact{
     position: relative;
-    width: 65vw;
-    right: -60vh;
-    top: -27vh;
+    width: 64%;
+    left: 35%;
+    bottom: 26rem;
     text-align: left;
 }
 .Simpan{
     position: relative;
-    right: -43.3vw;
-    top: -25vh;
+    left:89%;
+    bottom: 25rem;
     width: 10vw;
 }
 .Formemail{

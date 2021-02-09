@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector, connect } from "react-redux";
+import { getClinicDoctor } from "../store/actions/clinicDoctor";
 import { getClinicDetail } from "../store/actions/clinicDetail";
-import axios from "axios";
+import { getAnimal } from "../store/actions/animal";
 
 //styling
 import { Row, Col, Button } from "react-bootstrap";
 
 //component
 import ModalBookingSuccess from "./ModalBookingSuccess";
+import Loadscreen from "../pages/Loadscreen";
 
 const DetailBooking = (props) => {
     //state
+    const [loading, setLoading] = useState("true");
     const [modals, setModals] = useState(false);
     const toggleModals = () => setModals(!modals);
     const [clinic, setClinic] = useState({});
     const [facilities, setFacilities] = useState("");
-    // const [doctor, setDoctor] = useState("");
-    const [load, setLoad] = useState(true);
-    const [error, setError] = useState(" ");
     const [day, setDay] = useState("");
     const [waktu, setWaktu] = useState();
 
@@ -32,7 +32,6 @@ const DetailBooking = (props) => {
 
     //param
     let { id } = useParams();
-    // console.log(id);
 
     let tanggal = localStorage.getItem("waktu");
     let doctor = localStorage.getItem("doctor");
@@ -40,26 +39,12 @@ const DetailBooking = (props) => {
     //useEffect
     const dispatch = useDispatch();
     useEffect(() => {
-        async function dispatchDetailClinic() {
-            await dispatch(getClinicDetail());
-        }
-        dispatchDetailClinic();
+        dispatch(getClinicDetail());
+        dispatch(getAnimal());
+        setTimeout(() => setLoading("false"), 1500);
     }, []);
-    let detailClinic = useSelector((state) => state.getClinicDetail.data);
-
-    //dummy datas
-    let dummyPet = [
-        {
-            nama: "pampam",
-            jenis: "anjing",
-            gender: "male",
-        },
-        {
-            nama: "ronin",
-            jenis: "kucing",
-            gender: "female",
-        },
-    ];
+    const detailClinic = useSelector((state) => state.getClinicDetail.data);
+    const userPet = useSelector((state) => state.getAnimal);
 
     //custom styling
     const detailrsH1 = {
@@ -110,84 +95,109 @@ const DetailBooking = (props) => {
     };
 
     return (
-        <div className="detailrs-container">
-            <Row>
-                <Col>
-                    <h1 style={detailrsH1}>Resume Booking</h1>
-                </Col>
-                <Col md="auto"></Col>
-                <Col xs lg="2">
-                    <Button onClick={toggleModals} style={buttonSuccessBook}>
-                        Done
-                    </Button>
-                    <ModalBookingSuccess
-                        displayModal={modals}
-                        closeModal={toggleModals}
-                    />
-                </Col>
-            </Row>
-            <hr />
-            <Row>
-                <h3 style={detailrsH3}>{detailClinic.nama}</h3>
-            </Row>
-            <br />
-            <Row>
-                <Col>
-                    <img
-                        src={detailClinic.foto}
-                        style={detailrsImage}
-                        alt="photo of clinic"
-                        data-aos="fade-right"
-                        data-aos-delay="100"
-                        data-aos-duration="2000"
-                        data-aos-easing="ease-out"
-                    />
-                </Col>
-                <Col>
+        <>
+            {loading === "false" ? (
+                <div className="detailrs-container">
                     <Row>
-                        <h2 style={detailrsH2}>Appointment Information</h2>
+                        <Col>
+                            <h1 style={detailrsH1}>Resume Booking</h1>
+                        </Col>
+                        <Col md="auto"></Col>
+                        <Col xs lg="2">
+                            <Button
+                                onClick={toggleModals}
+                                style={buttonSuccessBook}
+                            >
+                                Done
+                            </Button>
+                            <ModalBookingSuccess
+                                displayModal={modals}
+                                closeModal={toggleModals}
+                            />
+                        </Col>
+                    </Row>
+                    <hr />
+                    <Row>
+                        <h3 style={detailrsH3}>{detailClinic.nama}</h3>
                     </Row>
                     <br />
                     <Row>
-                        <h3 style={detailrsH3}>Appointment Date & Time</h3>
-                    </Row>
-                    <Row>
-                        <h4 style={detailrsH4}>{tanggal}</h4>
-                    </Row>
-                    <br />
+                        <Col>
+                            <img
+                                src={detailClinic.foto}
+                                style={detailrsImage}
+                                alt="photo of clinic"
+                                data-aos="fade-right"
+                                data-aos-delay="100"
+                                data-aos-duration="2000"
+                                data-aos-easing="ease-out"
+                            />
+                        </Col>
+                        <Col>
+                            <Row>
+                                <h2 style={detailrsH2}>
+                                    Appointment Information
+                                </h2>
+                            </Row>
+                            <br />
+                            <Row>
+                                <h3 style={detailrsH3}>
+                                    Appointment Date & Time
+                                </h3>
+                            </Row>
+                            <Row>
+                                <h4 style={detailrsH4}>{tanggal}</h4>
+                            </Row>
+                            <br />
 
-                    <Row>
-                        <h3 style={detailrsH3}>Doctor</h3>
-                    </Row>
-                    <Row>
-                        <h4 style={detailrsH4}>{doctor}</h4>
-                    </Row>
-                    <br />
+                            <Row>
+                                <h3 style={detailrsH3}>Doctor</h3>
+                            </Row>
+                            <Row>
+                                <h4 style={detailrsH4}>{doctor}</h4>
+                            </Row>
+                            <br />
 
-                    <Row>
-                        <h3 style={detailrsH3}>Pet(s)</h3>
-                    </Row>
-                    <Row>
-                        <h4 style={detailrsH4}>
-                            <ol>
-                                {dummyPet.map((pet, idx) => {
-                                    return (
-                                        <li key={idx}>
-                                            <h4 style={detailrsH4}>
-                                                {pet.nama}, {pet.jenis},{" "}
-                                                {pet.gender}
-                                            </h4>
-                                        </li>
-                                    );
-                                })}
-                            </ol>
-                        </h4>
+                            <Row>
+                                <h3 style={detailrsH3}>Pet(s)</h3>
+                            </Row>
+                            <Row>
+                                <h4 style={detailrsH4}>
+                                    <ol>
+                                        {userPet.data.result?.map(
+                                            (pet, idx) => {
+                                                return (
+                                                    <li key={idx}>
+                                                        <h4 style={detailrsH4}>
+                                                            {pet.nama},{" "}
+                                                            {pet.jenis ===
+                                                            "anjing"
+                                                                ? "dog"
+                                                                : pet.jenis ===
+                                                                  "kucing"
+                                                                ? "cat"
+                                                                : pet.jenis ===
+                                                                  "kelinci"
+                                                                ? "rabbit"
+                                                                : "hamster"}
+                                                            , {pet.gender}
+                                                        </h4>
+                                                    </li>
+                                                );
+                                            }
+                                        )}
+                                    </ol>
+                                </h4>
+                            </Row>
+                            <br />
+                        </Col>
                     </Row>
                     <br />
-                </Col>
-            </Row>
-            <br />
-        </div>
+                </div>
+            ) : (
+                <Loadscreen />
+            )}
+        </>
     );
 };
 
